@@ -20,23 +20,6 @@ bool MainMenuScene::init()
 	{
 		return false;
 	}
-	const Size visibleSize = Director::getInstance()->getVisibleSize();
-	const Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	//MenuItemFont::setFontSize(80);
-	//MenuItemFont::setFontName("Marker Felt");
-
-	//m_MenuItems.pushBack(MenuItemFont::create("PLAY!", CC_CALLBACK_1(MainMenuScene::menuBattleCallback, this)));
-	//m_MenuItems.pushBack(MenuItemFont::create("Exit", CC_CALLBACK_1(MainMenuScene::menuBackCallback, this)));
-
-	//for (auto item : m_MenuItems)
-	//	item->setColor(Color3B(255, 255, 255));
-
-	//auto menu = Menu::createWithArray(m_MenuItems);
-	//menu->setAnchorPoint(Vec2(0.5f, 0.5f));
-	//menu->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	//menu->alignItemsVerticallyWithPadding(20);
-	//this->addChild(menu);
 
 	auto MainMenuLayer = CSLoader::createNode("MainMenu/MainMenu.csb");
 	this->addChild(MainMenuLayer);
@@ -46,13 +29,23 @@ bool MainMenuScene::init()
 			menuBattleCallback();
 	});
 
-	auto fireButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Quit"));
-	fireButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
-		if (ui::Widget::TouchEventType::ENDED == type || ui::Widget::TouchEventType::CANCELED == type)
+	m_ShipyardButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Shipyard"));
+	m_ShipyardButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
+		if (ui::Widget::TouchEventType::ENDED == type)
 			menuBackCallback();
 	});
 
+	m_SettingsButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Settings"));
+	m_SettingsButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
+		if (ui::Widget::TouchEventType::ENDED == type)
+			menuBackCallback();
+	});
 
+	auto fireButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Quit"));
+	fireButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
+		if (ui::Widget::TouchEventType::ENDED == type)
+			menuBackCallback();
+	});
 
 	return true;
 }
