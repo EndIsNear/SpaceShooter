@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scenes">
+      <UniqueIdentifier>{e6acf698-0754-47d0-bac5-2258facb4dfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Physics">
+      <UniqueIdentifier>{f631087c-ce2f-496d-810e-5965c77af8fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BattleLayers">
+      <UniqueIdentifier>{07dbdff5-0546-4008-89f3-f359cabc4c6b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\BattleScene.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Physics\BodyBase.cpp">
+      <Filter>src\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BattleLayers\MainLayer.cpp">
+      <Filter>src\BattleLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BattleLayers\Joystick.cpp">
+      <Filter>src\BattleLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BattleManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BattleLayers\HUDLayer.cpp">
+      <Filter>src\BattleLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Physics\BulletBase.cpp">
+      <Filter>src\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Physics\ShipBase.cpp">
+      <Filter>src\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Spawner.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Ship.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene.h">
+      <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\BattleScene.h">
+      <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Physics\BodyBase.h">
+      <Filter>src\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleLayers\MainLayer.h">
+      <Filter>src\BattleLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleLayers\Joystick.h">
+      <Filter>src\BattleLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleLayers\HUDLayer.h">
+      <Filter>src\BattleLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Physics\BulletBase.h">
+      <Filter>src\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Physics\ShipBase.h">
+      <Filter>src\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Spawner.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Ship.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
