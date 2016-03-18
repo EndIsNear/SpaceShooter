@@ -33,6 +33,7 @@ bool BattleScene::init()
 	this->scheduleUpdate();
 
 	auto bm = BattleManager::Instance();
+	bm->initialize();
 	bm->SetParent(m_MainLayer);
 	bm->setPlayerDirCallback(std::bind(&Joystick::getVelocity, reinterpret_cast<Joystick*>(m_Joystick)));
 	bm->setPlayerButtonCallback(std::bind(&HUDLayer::getPlayerPressButtons, reinterpret_cast<HUDLayer*>(m_HUDLayer)));
@@ -49,7 +50,7 @@ void BattleScene::update(float dt)
 	{
 		this->unscheduleUpdate();
 		auto newScene = MainMenuScene::createScene();
-		BattleManager::ReleaseInstance();
+		BattleManager::Instance()->free();
 		Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
 		return;
 	}

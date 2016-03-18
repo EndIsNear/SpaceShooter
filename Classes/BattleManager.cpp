@@ -30,8 +30,10 @@ void BattleManager::free()
 	delete m_PlayerShip;
 	for (auto& bullet : m_PlayerBullets)
 		delete bullet;
+	m_PlayerBullets.resize(0);
 	for (auto& enemy : m_Enemies)
 		delete enemy;
+	m_Enemies.resize(0);
 }
 
 void BattleManager::SetParent(cocos2d::Layer * parent)
@@ -48,6 +50,7 @@ void BattleManager::setNewParrent()
 		bullet->SetParent(m_ParentLayer, 0);
 	for (auto& enemy : m_Enemies)
 		enemy->SetParent(m_ParentLayer, 0);
+
 }
 
 void BattleManager::update()

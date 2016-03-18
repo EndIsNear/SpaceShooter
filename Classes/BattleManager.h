@@ -59,8 +59,8 @@ public:
 	void setPlayerButtonCallback(std::function<unsigned()> _f) { m_PlayerButtonsCB = _f; }
 	void setPlayerLifeDispCallback(std::function<void(float)> _f) { m_DisplayPlayerLifeCB = _f; }
 private:
-	BattleManager() { initialize(); }
-	~BattleManager() { free(); }
+	BattleManager() {}
+	~BattleManager() {}
 
 	void setNewParrent();
 	void fireBullet();
