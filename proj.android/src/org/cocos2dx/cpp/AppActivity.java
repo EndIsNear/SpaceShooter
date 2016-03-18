@@ -76,6 +76,14 @@ public class AppActivity extends Cocos2dxActivity{
                 | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                 | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 	    }
+        else {
+            glSurfaceView.setSystemUiVisibility(
+                Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_FULLSCREEN); // hide status bar
+        }
     }
 
     static
