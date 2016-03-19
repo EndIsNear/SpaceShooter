@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-const cocos2d::Vec2 offset(200.f, 200.f);
+const cocos2d::Vec2 offset(250.f, 250.f);
 const float defradius = 125.f;
 
 class Joystick : public cocos2d::Layer
