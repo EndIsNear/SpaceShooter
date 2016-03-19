@@ -3,7 +3,7 @@
 
 #include <cocos2d.h>
 #include <vector>
-#include "Ship.h"
+#include "LogicalShip.h"
 #include "Physics\ShipBase.h"
 #include "Physics\BulletBase.h"
 
@@ -27,7 +27,7 @@ struct Spawner
 		float time;
 	};
 	std::vector<cocos2d::Vec2> m_SpawningPts;//spawning pts
-	std::vector<Ship> m_ShipTypes;
+	std::vector<LogicalShip> m_ShipTypes;
 	std::vector<AI> m_AITypes;
 	std::vector<SpawnElement> m_SpawnElements;
 	bool getElementForTime(const float time, SpawnElement& res);
