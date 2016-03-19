@@ -55,6 +55,6 @@ void BattleScene::update(float dt)
 		return;
 	}
 
-	BattleManager::Instance()->update();
+	BattleManager::Instance()->update(dt);
 	static_cast<BattleMainLayer*>(m_MainLayer)->updateCamera();
 }

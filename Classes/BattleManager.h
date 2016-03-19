@@ -51,7 +51,7 @@ public:
 	void free();
 
 	void SetParent(cocos2d::Layer * parent);
-	void update();
+	void update(const float dt);
 	bool isPlayerAlive() { return m_PlayerAlive; }
 	BodyBase * ptrShip() { return m_PlayerShip; }
 
@@ -89,7 +89,11 @@ private:
 	std::function<unsigned()> m_PlayerButtonsCB; ///< result is bitfield for pressed buttons
 	std::function<void(float)> m_DisplayPlayerLifeCB;
 
-	float test;
+	//tests
+	float testLife;
+	float shootDelay;
+	//tests
+
 	cocos2d::Layer * m_ParentLayer;
 	//should be deleted from this class on restart
 	Spawner * m_Spawner;

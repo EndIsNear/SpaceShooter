@@ -28,7 +28,8 @@ void BattleManager::initialize()
 	///////////////////////////
 	//test
 	rng.seed(std::random_device()());
-	test = 100.f;
+	testLife = 100.f;
+	shootDelay = 0.f;
 	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 10.f, "enemies/Enemy5.png");
 	enemy->Update();
 	m_Enemies.push_back(Enemy{ shit, enemy });
@@ -44,6 +45,13 @@ void BattleManager::initialize()
 	enemy = new ShipBase(Vec2(2780, 1620), Vec2(0, 0), 10.f, "enemies/Enemy1.png");
 	enemy->Update();
 	m_Enemies.push_back(Enemy{ shit, enemy });
+	enemy = new ShipBase(Vec2(1920, 1620), Vec2(0, 0), 10.f, "enemies/Enemy2.png");
+	enemy->Update();
+	m_Enemies.push_back(Enemy{ shit, enemy });
+	enemy = new ShipBase(Vec2(2780, 1080), Vec2(0, 0), 10.f, "enemies/Enemy5.png");
+	enemy->Update();
+	m_Enemies.push_back(Enemy{ shit, enemy });
+
 	///////////////////////////
 }
 
@@ -64,7 +72,6 @@ void BattleManager::free()
 void BattleManager::SetParent(cocos2d::Layer * parent)
 {
 	m_ParentLayer = parent;
-
 	setNewParrent();
 }
 
@@ -78,8 +85,9 @@ void BattleManager::setNewParrent()
 
 }
 
-void BattleManager::update()
+void BattleManager::update(const float dt)
 {
+	shootDelay -= dt;
 	if (!m_instance)
 		return;
 
@@ -91,8 +99,7 @@ void BattleManager::update()
 	checkForHitPlayer();
 
 	//test only
-	m_DisplayPlayerLifeCB(test);
-	test -= 0.05f;
+	m_DisplayPlayerLifeCB(testLife);
 }
 
 void BattleManager::updatePlayer()
@@ -142,12 +149,20 @@ void BattleManager::updateBullets(std::vector<BulletBase*>& bulletArray)
 
 void BattleManager::checkForHitPlayer()
 {
-	for(auto& bullet : m_EnemyBullets)
+	for (auto it = m_EnemyBullets.begin(); it != m_EnemyBullets.end();)
 	{
-		if (bullet->Collision(*m_PlayerShip))
+		if ((*it)->Collision(*m_PlayerShip))
 		{
-			m_PlayerAlive = 0;
+			testLife -= 20;
+			if (testLife < 0.1f)
+				m_PlayerAlive = 0;
+
+			//delete the bullet
+			delete *it;
+			it = m_EnemyBullets.erase(it);
 		}
+		else
+			it++;
 	}
 }
 
@@ -171,6 +186,12 @@ void BattleManager::checkForHitEnemy()
 
 void BattleManager::fireBullet(bool isPlayerBullet, ShipBase * shooter)
 {
+	if (isPlayerBullet)
+	{
+		if (shootDelay > 0.f)
+			return;
+		shootDelay = 0.5f;
+	}
 	const char * spriteNames[2] = {"EnemyBullet.png", "bullet.png"};
 	BulletBase * bullet = new BulletBase(shooter->GetPosition(), shooter->GetDirection().getNormalized(), 25.f, spriteNames[isPlayerBullet]);
 	bullet->SetVelocity(25.f);
