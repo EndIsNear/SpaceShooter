@@ -46,7 +46,7 @@ bool BattleScene::init()
 void BattleScene::update(float dt)
 {
 	//check for quit
-	if (reinterpret_cast<HUDLayer*>(m_HUDLayer)->isSettingsPressed())
+	if (reinterpret_cast<HUDLayer*>(m_HUDLayer)->isSettingsPressed() || !BattleManager::Instance()->isPlayerAlive())
 	{
 		this->unscheduleUpdate();
 		auto newScene = MainMenuScene::createScene();

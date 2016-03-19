@@ -10,8 +10,8 @@
 const float timeBetweenShootings = 0.5f;
 
 
-struct InitialBattleStats
-{
+//struct InitialBattleStats
+//{
 	//player ship weapon
 	//ligic ship
 	//sprite name
@@ -23,7 +23,7 @@ struct InitialBattleStats
 	//vector<ai> aiType
 
 	//struct spPnt, enemyType, aiType, timeFromBeg
-};
+//};
 
 class BattleManager
 {
@@ -52,6 +52,7 @@ public:
 
 	void SetParent(cocos2d::Layer * parent);
 	void update();
+	bool isPlayerAlive() { return m_PlayerAlive; }
 	BodyBase * ptrShip() { return m_PlayerShip; }
 
 
@@ -59,28 +60,45 @@ public:
 	void setPlayerButtonCallback(std::function<unsigned()> _f) { m_PlayerButtonsCB = _f; }
 	void setPlayerLifeDispCallback(std::function<void(float)> _f) { m_DisplayPlayerLifeCB = _f; }
 private:
+	//private structures
+	struct Enemy {
+		AI ai;
+		//logic part
+		ShipBase * ship;
+	};
+
+
 	BattleManager() {}
 	~BattleManager() {}
 
 	void setNewParrent();
-	void fireBullet();
+	void fireBullet(bool isPlayerBullet, ShipBase * shooter);
 	void startExplosion(ShipBase * ship);
 
-	void checkForKilledEnemy();
+
+	//updates all of this should be called every frame
+	void updatePlayer();
+	void updateEnemies();
+	void updatePlayerBullets();
+	void updateEnemyBullets();
+	void updateBullets(std::vector<BulletBase*>& bulletArray);
+	void checkForHitPlayer();
+	void checkForHitEnemy();
 
 	std::function<cocos2d::Vec2()> m_PlayerDirCB;
 	std::function<unsigned()> m_PlayerButtonsCB; ///< result is bitfield for pressed buttons
-	std::function<void(float)> m_DisplayPlayerLifeCB; ///< result is bitfield for pressed buttons
+	std::function<void(float)> m_DisplayPlayerLifeCB;
 
 	float test;
 	cocos2d::Layer * m_ParentLayer;
+	//should be deleted from this class on restart
+	Spawner * m_Spawner;
+	bool m_PlayerAlive;
 
 	ShipBase * m_PlayerShip;
 	std::vector<BulletBase*> m_PlayerBullets;
-	std::vector<ShipBase*> m_Enemies;
-
-	//should be deleted from this class on restart
-	Spawner * m_Spawner;
+	std::vector<Enemy> m_Enemies;
+	std::vector<BulletBase*> m_EnemyBullets;
 };
 
 #endif // __BATTLE_MANAGER_H__
