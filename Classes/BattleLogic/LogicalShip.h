@@ -5,14 +5,15 @@
 class LogicalShip
 {
 public:
-	LogicalShip(float hp, float shield, float shieldPerSec, float dmg);
+	LogicalShip(float hp, float shield, float shieldPerSec, float healthPerSec, LogicalWeapon * wep);
 
-	void update(const float dt);
-	void onHit(LogicalWeapon * atacker);
+	void Update(const float dt);
+	void OnHit(LogicalWeapon * atacker);
 
-	bool isAlive() { return m_CrnHP > 0.f; }
-	float getLifeInPer() { return m_CrnHP / m_MaxHP; };
-	float getShieldInPer() { return m_CrnShield / m_MaxShield; };
+	bool IsAlive() { return m_CrnHP > 0.f; }
+	float GetLifeInPer() { return (m_CrnHP / m_MaxHP) * 100.f; }
+	float GetShieldInPer() { return (m_CrnShield / m_MaxShield) * 100.f; }
+	LogicalWeapon * GetWeapon() { return m_Weapon; }
 private:
 	float m_MaxHP;
 	float m_CrnHP;
@@ -21,7 +22,7 @@ private:
 	float m_CrnShield;
 	float m_ShieldPerSec;
 
-	LogicalWeapon m_Weapon;
+	LogicalWeapon * m_Weapon;
 };
 
 #endif // __LOGICAL_SHIP_H__

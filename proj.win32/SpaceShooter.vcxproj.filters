@@ -19,6 +19,9 @@
     <Filter Include="src\BattleLayers">
       <UniqueIdentifier>{07dbdff5-0546-4008-89f3-f359cabc4c6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\BattleLogic">
+      <UniqueIdentifier>{eddde4b8-2b4a-4590-9bb7-4b059f7475de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,11 +57,14 @@
     <ClCompile Include="..\Classes\Physics\ShipBase.cpp">
       <Filter>src\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Spawner.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\BattleLogic\Spawner.cpp">
+      <Filter>src\BattleLogic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Ship.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\BattleLogic\LogicalShip.cpp">
+      <Filter>src\BattleLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BattleLogic\LogicalWeapon.cpp">
+      <Filter>src\BattleLogic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,11 +104,14 @@
     <ClInclude Include="..\Classes\Physics\ShipBase.h">
       <Filter>src\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Spawner.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\BattleLogic\Spawner.h">
+      <Filter>src\BattleLogic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Ship.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\BattleLogic\LogicalShip.h">
+      <Filter>src\BattleLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleLogic\LogicalWeapon.h">
+      <Filter>src\BattleLogic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
