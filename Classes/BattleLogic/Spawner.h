@@ -14,7 +14,7 @@ struct AIMove
 	float newVelocity;
 };
 
-typedef std::function<AIMove(ShipBase *, std::vector<BulletBase*>, ShipBase *)> AI;
+typedef std::function<AIMove(ShipBase *, ShipBase *)> AI;
 
 struct Spawner
 {

@@ -8,7 +8,7 @@ BattleManager * BattleManager::m_instance = nullptr;
 ///////////////////////////
 //test
 std::mt19937 rng;
-AIMove shit(ShipBase * enemy, std::vector<BulletBase*> b, ShipBase * self)
+AIMove shit(ShipBase * enemy, ShipBase * self)
 {
 	std::uniform_real_distribution<> v(0, 5);
 	AIMove res;
@@ -24,7 +24,7 @@ void BattleManager::initialize()
 	///////////////////////////
 	//test
 	m_Player.phShip = new ShipBase(Vec2(1920, 1080), Vec2(1, 0), 10.f, "fighter.png");
-	m_Player.lShip = new LogicalShip(1000, 500, 33, 0, new LogicalWeapon(200.f, 0.5f));
+	m_Player.lShip = new LogicalShip(1000, 500, 33, 0, new LogicalWeapon(200.f, 0.33f));
 	m_Player.phShip->Update();
 
 	rng.seed(std::random_device()());
@@ -66,18 +66,19 @@ void BattleManager::free()
 	delete m_Player.phShip;
 	delete m_Player.lShip;
 	for (auto& bullet : m_PlayerBullets)
-		delete bullet;
+		delete bullet.phBullet;
 	m_PlayerBullets.resize(0);
 
 	//free enemy
 	for (auto& enemy : m_Enemies)
 	{
 		delete enemy.phShip;
+		delete enemy.lShip->GetWeapon();
 		delete enemy.lShip;
 	}
 	m_Enemies.resize(0);
 	for (auto& bullet : m_EnemyBullets)
-		delete bullet;
+		delete bullet.phBullet;
 	m_EnemyBullets.resize(0);
 }
 
@@ -91,10 +92,11 @@ void BattleManager::setNewParrent()
 {
 	m_Player.phShip->SetParent(m_ParentLayer, 0);
 	for (auto& bullet : m_PlayerBullets)
-		bullet->SetParent(m_ParentLayer, 0);
+		bullet.phBullet->SetParent(m_ParentLayer, 0);
 	for (auto& enemy : m_Enemies)
 		enemy.phShip->SetParent(m_ParentLayer, 0);
-
+	for (auto& bullet : m_EnemyBullets)
+		bullet.phBullet->SetParent(m_ParentLayer, 0);
 }
 
 void BattleManager::Update(const float dt)
@@ -131,7 +133,7 @@ void BattleManager::updateEnemies(const float dt)
 {
 	for (auto& enemy : m_Enemies)
 	{
-		AIMove move = enemy.ai(m_Player.phShip, m_PlayerBullets, enemy.phShip);
+		AIMove move = enemy.ai(m_Player.phShip, enemy.phShip);
 		enemy.phShip->SetDirection(move.newDir);
 		enemy.phShip->SetVelocity(move.newVelocity);
 		if (move.fire)
@@ -151,13 +153,13 @@ void BattleManager::updateEnemyBullets(const float dt)
 	updateBullets(m_EnemyBullets, dt);
 }
 
-void BattleManager::updateBullets(std::vector<BulletBase*>& bulletArray, const float dt)
+void BattleManager::updateBullets(std::vector<Bullet>& bulletArray, const float dt)
 {
 	for (auto it = bulletArray.begin(); it != bulletArray.end();)
 	{
-		if (!(*it)->Update())
+		if (!it->phBullet->Update())
 		{
-			delete *it;
+			delete it->phBullet;
 			it = bulletArray.erase(it);
 		}
 		else
@@ -169,10 +171,13 @@ void BattleManager::checkForHitPlayer()
 {
 	for (auto it = m_EnemyBullets.begin(); it != m_EnemyBullets.end();)
 	{
-		if ((*it)->Collision(*(m_Player.phShip)))
+		if (it->phBullet->Collision(*(m_Player.phShip)))
 		{
+			//apply dmg
+			m_Player.lShip->OnHit(it->lWeapon);
+
 			//delete the bullet
-			delete *it;
+			delete it->phBullet;
 			it = m_EnemyBullets.erase(it);
 		}
 		else
@@ -182,19 +187,36 @@ void BattleManager::checkForHitPlayer()
 
 void BattleManager::checkForHitEnemy()
 {
-	for (auto& bullet : m_PlayerBullets)
+	bool collision;
+	for (auto itBullet = m_PlayerBullets.begin(); itBullet != m_PlayerBullets.end();)
 	{
-		for (auto it = m_Enemies.begin(); it != m_Enemies.end();)
+		collision = false;
+		for (auto itEnemy = m_Enemies.begin(); itEnemy != m_Enemies.end();)
 		{
-			if (bullet->Collision(*(it->phShip)))
+			if (itBullet->phBullet->Collision(*(itEnemy->phShip)))
 			{
-				auto forDel = *it;
-				it = m_Enemies.erase(it);
-				startExplosion(forDel.phShip);
+				collision = true;
+				//apply dmg
+				itEnemy->lShip->OnHit(itBullet->lWeapon);
+
+				//delete the bullet
+				delete itBullet->phBullet;
+				itBullet = m_PlayerBullets.erase(itBullet);
+
+				//if enemy dies explosion and delete it
+				if (!itEnemy->lShip->IsAlive()) {
+					//TODO: lShip and weapon leaks
+					auto forDel = *itEnemy;
+					itEnemy = m_Enemies.erase(itEnemy);
+					startExplosion(forDel.phShip);
+				}
+				break;
 			}
 			else
-				++it;
+				++itEnemy;
 		}
+		if(!collision) 
+			++itBullet;
 	}
 }
 
@@ -208,8 +230,8 @@ void BattleManager::fireBullet(bool isPlayerBullet, Player * shooter)
 	BulletBase * bullet = new BulletBase(shooter->phShip->GetPosition(), shooter->phShip->GetDirection().getNormalized(), 25.f, spriteNames[isPlayerBullet]);
 	bullet->SetVelocity(25.f);
 	auto& bulletArray = isPlayerBullet ? m_PlayerBullets : m_EnemyBullets;
-	bulletArray.push_back(bullet);
-	bulletArray.back()->SetParent(m_ParentLayer, 0);
+	bulletArray.push_back(Bullet{ bullet, shooter->lShip->GetWeapon() });
+	bulletArray.back().phBullet->SetParent(m_ParentLayer, 0);
 }
 
 void BattleManager::startExplosion(ShipBase * ship)

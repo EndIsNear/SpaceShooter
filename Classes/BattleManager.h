@@ -77,8 +77,8 @@ private:
 
 	struct Bullet
 	{
-		LogicalWeapon * lWeapon; ///< ptr that contains the shooter, used to calc dmg
 		BulletBase * phBullet;
+		LogicalWeapon * lWeapon; ///< ptr that contains the shooter, used to calc dmg
 	};
 
 	BattleManager() {}
@@ -94,7 +94,7 @@ private:
 	void updateEnemies(const float dt);
 	void updatePlayerBullets(const float dt);
 	void updateEnemyBullets(const float dt);
-	void updateBullets(std::vector<BulletBase*>& bulletArray, const float dt);
+	void updateBullets(std::vector<Bullet>& bulletArray, const float dt);
 	void checkForHitPlayer();
 	void checkForHitEnemy();
 
@@ -108,9 +108,9 @@ private:
 	Spawner * m_Spawner;
 
 	Player m_Player;
-	std::vector<BulletBase*> m_PlayerBullets;
+	std::vector<Bullet> m_PlayerBullets;
 	std::vector<Enemy> m_Enemies;
-	std::vector<BulletBase*> m_EnemyBullets;
+	std::vector<Bullet> m_EnemyBullets;
 };
 
 #endif // __BATTLE_MANAGER_H__
