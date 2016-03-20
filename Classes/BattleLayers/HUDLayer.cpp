@@ -17,6 +17,7 @@ bool HUDLayer::init()
 	auto LifeBarLayer = CSLoader::createNode("HUD/HUD.csb");
 	this->addChild(LifeBarLayer, 1);
 	m_LifeBar = static_cast<ui::LoadingBar*>(LifeBarLayer->getChildByName("HealthBar"));
+	m_ShieldBar = static_cast<ui::LoadingBar*>(LifeBarLayer->getChildByName("ShieldBar"));
 	m_SettingsButton = static_cast<ui::Button*>(LifeBarLayer->getChildByName("SettingsButton"));
 	m_SettingsButton->setPressedActionEnabled(true);
 	m_SettingsButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
@@ -44,6 +45,11 @@ bool HUDLayer::init()
 void HUDLayer::setPlayerLife(float perc)
 {
 	m_LifeBar->setPercent(perc);
+}
+
+void HUDLayer::setPlayerShield(float perc)
+{
+	m_ShieldBar->setPercent(perc);
 }
 
 void HUDLayer::setFirePressed(cocos2d::Ref* pSender)

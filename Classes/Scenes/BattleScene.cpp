@@ -38,6 +38,7 @@ bool BattleScene::init()
 	bm->setPlayerDirCallback(std::bind(&Joystick::getVelocity, reinterpret_cast<Joystick*>(m_Joystick)));
 	bm->setPlayerButtonCallback(std::bind(&HUDLayer::getPlayerPressButtons, reinterpret_cast<HUDLayer*>(m_HUDLayer)));
 	bm->setPlayerLifeDispCallback(std::bind(&HUDLayer::setPlayerLife, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
+	bm->setPlayerShieldDispCallback(std::bind(&HUDLayer::setPlayerShield, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
 	static_cast<BattleMainLayer*>(m_MainLayer)->setPlayerCenter(&(bm->ptrShip()->GetPositionRef()));
 	
 	return true;
@@ -46,7 +47,7 @@ bool BattleScene::init()
 void BattleScene::update(float dt)
 {
 	//check for quit
-	if (reinterpret_cast<HUDLayer*>(m_HUDLayer)->isSettingsPressed() || !BattleManager::Instance()->isPlayerAlive())
+	if (reinterpret_cast<HUDLayer*>(m_HUDLayer)->isSettingsPressed() || !BattleManager::Instance()->IsPlayerAlive())
 	{
 		this->unscheduleUpdate();
 		auto newScene = MainMenuScene::createScene();
@@ -55,6 +56,6 @@ void BattleScene::update(float dt)
 		return;
 	}
 
-	BattleManager::Instance()->update(dt);
+	BattleManager::Instance()->Update(dt);
 	static_cast<BattleMainLayer*>(m_MainLayer)->updateCamera();
 }

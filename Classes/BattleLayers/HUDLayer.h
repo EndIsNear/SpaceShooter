@@ -9,6 +9,7 @@ const unsigned FireButtonPressed = 1;
 class HUDLayer : public cocos2d::Layer
 {
 	cocos2d::ui::LoadingBar * m_LifeBar;
+	cocos2d::ui::LoadingBar * m_ShieldBar;
 	cocos2d::ui::Button * m_SettingsButton;
 	unsigned m_PressedButtons;
 	bool m_SettingsPressed;
@@ -18,6 +19,7 @@ public:
 	CREATE_FUNC(HUDLayer);
 
 	void setPlayerLife(float perc);
+	void setPlayerShield(float perc);
 	unsigned getPlayerPressButtons() { return m_PressedButtons; }
 	bool isSettingsPressed();
 
