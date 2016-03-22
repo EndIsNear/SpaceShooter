@@ -66,6 +66,12 @@
     <ClCompile Include="..\Classes\BattleLogic\LogicalWeapon.cpp">
       <Filter>src\BattleLogic</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PopupMenu.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BattleLayers\SettingsLayer.cpp">
+      <Filter>src\BattleLayers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -112,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BattleLogic\LogicalWeapon.h">
       <Filter>src\BattleLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PopupMenu.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleLayers\SettingsLayer.h">
+      <Filter>src\BattleLayers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

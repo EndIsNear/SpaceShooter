@@ -14,6 +14,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/BattleLayers/Joystick.cpp \
                    ../../Classes/BattleLayers/MainLayer.cpp \
                    ../../Classes/BattleLayers/HUDLayer.cpp \
+                   ../../Classes/BattleLayers/SettingsLayer.cpp \
                    ../../Classes/BattleLogic/LogicalShip.cpp \
                    ../../Classes/BattleLogic/LogicalWeapon.cpp \
                    ../../Classes/BattleLogic/Spawner.cpp \
@@ -23,6 +24,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Scenes/BattleScene.cpp \
                    ../../Classes/Scenes/MainMenuScene.cpp \
                    ../../Classes/BattleManager.cpp \
+                   ../../Classes/PopupMenu.cpp \
                    ../../Classes/AppDelegate.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes

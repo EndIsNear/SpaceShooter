@@ -148,6 +148,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\BattleLayers\HUDLayer.cpp" />
     <ClCompile Include="..\Classes\BattleLayers\Joystick.cpp" />
     <ClCompile Include="..\Classes\BattleLayers\MainLayer.cpp" />
+    <ClCompile Include="..\Classes\BattleLayers\SettingsLayer.cpp" />
     <ClCompile Include="..\Classes\BattleLogic\LogicalShip.cpp" />
     <ClCompile Include="..\Classes\BattleLogic\LogicalWeapon.cpp" />
     <ClCompile Include="..\Classes\BattleLogic\Spawner.cpp" />
@@ -155,6 +156,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Physics\BodyBase.cpp" />
     <ClCompile Include="..\Classes\Physics\BulletBase.cpp" />
     <ClCompile Include="..\Classes\Physics\ShipBase.cpp" />
+    <ClCompile Include="..\Classes\PopupMenu.cpp" />
     <ClCompile Include="..\Classes\Scenes\BattleScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -164,6 +166,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BattleLayers\HUDLayer.h" />
     <ClInclude Include="..\Classes\BattleLayers\Joystick.h" />
     <ClInclude Include="..\Classes\BattleLayers\MainLayer.h" />
+    <ClInclude Include="..\Classes\BattleLayers\SettingsLayer.h" />
     <ClInclude Include="..\Classes\BattleLogic\LogicalShip.h" />
     <ClInclude Include="..\Classes\BattleLogic\LogicalWeapon.h" />
     <ClInclude Include="..\Classes\BattleLogic\Spawner.h" />
@@ -171,6 +174,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Physics\BodyBase.h" />
     <ClInclude Include="..\Classes\Physics\BulletBase.h" />
     <ClInclude Include="..\Classes\Physics\ShipBase.h" />
+    <ClInclude Include="..\Classes\PopupMenu.h" />
     <ClInclude Include="..\Classes\Scenes\BattleScene.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene.h" />
     <ClInclude Include="..\Classes\Utils.h" />

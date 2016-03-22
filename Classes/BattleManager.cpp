@@ -30,31 +30,31 @@ void BattleManager::initialize()
 	rng.seed(std::random_device()());
 	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 10.f, "enemies/Enemy5.png");
 	enemy->Update();
-	LogicalShip * lEnemy = new LogicalShip(1000, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
+	LogicalShip * lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
 	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
 	enemy = new ShipBase(Vec2(960, 1080), Vec2(0, 0), 10.f, "enemies/Enemy4.png");
 	enemy->Update();
-	lEnemy = new LogicalShip(1000, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
+	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
 	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
 	enemy = new ShipBase(Vec2(960, 1620), Vec2(0, 0), 10.f, "enemies/Enemy3.png");
 	enemy->Update();
-	lEnemy = new LogicalShip(1000, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
+	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
 	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
 	enemy = new ShipBase(Vec2(960, 540), Vec2(0, 0), 10.f, "enemies/Enemy6.png");
 	enemy->Update();
-	lEnemy = new LogicalShip(1000, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
+	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
 	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
 	enemy = new ShipBase(Vec2(2780, 1620), Vec2(0, 0), 10.f, "enemies/Enemy1.png");
 	enemy->Update();
-	lEnemy = new LogicalShip(1000, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
+	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
 	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
 	enemy = new ShipBase(Vec2(1920, 1620), Vec2(0, 0), 10.f, "enemies/Enemy2.png");
 	enemy->Update();
-	lEnemy = new LogicalShip(1000, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
+	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
 	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
 	enemy = new ShipBase(Vec2(2780, 1080), Vec2(0, 0), 10.f, "enemies/Enemy5.png");
 	enemy->Update();
-	lEnemy = new LogicalShip(1000, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
+	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
 	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
 
 	///////////////////////////

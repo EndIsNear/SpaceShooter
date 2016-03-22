@@ -2,6 +2,7 @@
 #include "BattleLayers\Joystick.h"
 #include "BattleLayers\MainLayer.h"
 #include "BattleLayers\HUDLayer.h"
+#include "BattleLayers\SettingsLayer.h"
 #include "Scenes/MainMenuScene.h"
 #include "BattleManager.h"
 USING_NS_CC;
@@ -28,9 +29,14 @@ bool BattleScene::init()
 	m_HUDLayer = HUDLayer::create();
 	this->addChild(m_HUDLayer, 10);
 
+	m_SettingsLayer = SettingsLayer::create();
+	this->addChild(m_SettingsLayer, 20);
+	m_SettingsLayer->setVisible(false);
+
 	m_MainLayer = BattleMainLayer::create();
 	this->addChild(m_MainLayer, 0);
 	this->scheduleUpdate();
+
 
 	auto bm = BattleManager::Instance();
 	bm->initialize();
@@ -46,8 +52,8 @@ bool BattleScene::init()
 
 void BattleScene::update(float dt)
 {
-	//check for quit
-	if (reinterpret_cast<HUDLayer*>(m_HUDLayer)->isSettingsPressed() || !BattleManager::Instance()->IsPlayerAlive())
+	//on death
+	if(!BattleManager::Instance()->IsPlayerAlive())
 	{
 		this->unscheduleUpdate();
 		auto newScene = MainMenuScene::createScene();
@@ -56,6 +62,19 @@ void BattleScene::update(float dt)
 		return;
 	}
 
+	//on settings pressed
+	if (reinterpret_cast<HUDLayer*>(m_HUDLayer)->isSettingsPressed())
+	{
+		this->unscheduleUpdate();
+		m_SettingsLayer->setVisible(true);
+	}
+
 	BattleManager::Instance()->Update(dt);
 	static_cast<BattleMainLayer*>(m_MainLayer)->updateCamera();
+}
+
+void BattleScene::resumeGame()
+{
+	this->scheduleUpdate();
+	m_SettingsLayer->setVisible(false);
 }
