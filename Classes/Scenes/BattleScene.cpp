@@ -67,6 +67,7 @@ void BattleScene::update(float dt)
 	{
 		this->unscheduleUpdate();
 		m_SettingsLayer->setVisible(true);
+		reinterpret_cast<Joystick*>(m_Joystick)->resetJoystick();
 	}
 
 	BattleManager::Instance()->Update(dt);

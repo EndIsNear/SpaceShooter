@@ -21,7 +21,7 @@ bool HUDLayer::init()
 	m_SettingsButton = static_cast<ui::Button*>(LifeBarLayer->getChildByName("SettingsButton"));
 	m_SettingsButton->setPressedActionEnabled(true);
 	m_SettingsButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
-		if (ui::Widget::TouchEventType::BEGAN == type)
+		if (ui::Widget::TouchEventType::ENDED == type)
 			m_SettingsPressed = 1;
 	});
 

@@ -12,6 +12,7 @@ public:
 	Joystick() { m_Pressed = false; m_Radius = defradius; enableTouches(); }
 	virtual bool init();
 	cocos2d::Vec2 getVelocity() { return m_Velocity; }
+	void resetJoystick();
 	CREATE_FUNC(Joystick);
 
 	virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event);
@@ -29,7 +30,6 @@ private:
 
 	bool pointInJoystick(const cocos2d::Vec2& point);
 	void updateVelocity();
-	void resetJoystick();
 
 	void enableTouches();
 };
