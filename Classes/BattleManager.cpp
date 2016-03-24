@@ -99,6 +99,12 @@ void BattleManager::setNewParrent()
 		bullet.phBullet->SetParent(m_ParentLayer, 0);
 }
 
+bool BattleManager::IsThereEnemies()
+{
+	//tmp for now, with spawner have to be updated
+	return m_Enemies.size();
+}
+
 void BattleManager::Update(const float dt)
 {
 	if (!m_instance)

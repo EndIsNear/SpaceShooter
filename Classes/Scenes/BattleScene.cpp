@@ -3,6 +3,7 @@
 #include "BattleLayers\MainLayer.h"
 #include "BattleLayers\HUDLayer.h"
 #include "BattleLayers\SettingsLayer.h"
+#include "BattleLayers\EndGameStats.h"
 #include "Scenes/MainMenuScene.h"
 #include "BattleManager.h"
 USING_NS_CC;
@@ -33,10 +34,13 @@ bool BattleScene::init()
 	this->addChild(m_SettingsLayer, 20);
 	m_SettingsLayer->setVisible(false);
 
+	m_endStats = EndGameStats::create();
+	this->addChild(m_endStats, 20);
+	m_endStats->setVisible(false);
+
 	m_MainLayer = BattleMainLayer::create();
 	this->addChild(m_MainLayer, 0);
 	this->scheduleUpdate();
-
 
 	auto bm = BattleManager::Instance();
 	bm->initialize();
@@ -52,13 +56,15 @@ bool BattleScene::init()
 
 void BattleScene::update(float dt)
 {
+	auto bm = BattleManager::Instance();
 	//on death
-	if(!BattleManager::Instance()->IsPlayerAlive())
+	if(!bm->IsPlayerAlive() || !bm->IsThereEnemies())
 	{
 		this->unscheduleUpdate();
-		auto newScene = MainMenuScene::createScene();
-		BattleManager::Instance()->free();
-		Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
+		//auto newScene = MainMenuScene::createScene();
+		//BattleManager::Instance()->free();
+		//Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
+		m_endStats->setVisible(true);
 		return;
 	}
 
@@ -71,7 +77,7 @@ void BattleScene::update(float dt)
 		reinterpret_cast<HUDLayer*>(m_HUDLayer)->resetButtons();
 	}
 
-	BattleManager::Instance()->Update(dt);
+	bm->Update(dt);
 	static_cast<BattleMainLayer*>(m_MainLayer)->updateCamera();
 }
 

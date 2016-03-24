@@ -53,6 +53,7 @@ public:
 	void SetParent(cocos2d::Layer * parent);
 	void Update(const float dt);
 	bool IsPlayerAlive() { return m_Player.lShip->IsAlive(); }
+	bool IsThereEnemies();
 	BodyBase * ptrShip() { return m_Player.phShip; }
 
 

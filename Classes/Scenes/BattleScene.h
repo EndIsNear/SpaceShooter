@@ -8,6 +8,7 @@ class BattleScene : public cocos2d::Layer
 	cocos2d::Layer * m_MainLayer;
 	cocos2d::Layer * m_HUDLayer;
 	cocos2d::Layer * m_SettingsLayer;
+	cocos2d::Layer * m_endStats;
 public:
 	CREATE_FUNC(BattleScene);
 	static cocos2d::Scene* createScene();
