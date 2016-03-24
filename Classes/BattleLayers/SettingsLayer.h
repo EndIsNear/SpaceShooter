@@ -10,8 +10,9 @@ class SettingsLayer : public PopupBase
 public:
 	virtual bool init() override;
 
-	void onQuit();
 	void onResume();
+	void onRestart();
+	void onQuit();
 	CREATE_FUNC(SettingsLayer);
 };
 

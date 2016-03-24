@@ -45,12 +45,8 @@ bool BattleScene::init()
 	auto bm = BattleManager::Instance();
 	bm->initialize();
 	bm->SetParent(m_MainLayer);
-	bm->setPlayerDirCallback(std::bind(&Joystick::getVelocity, reinterpret_cast<Joystick*>(m_Joystick)));
-	bm->setPlayerButtonCallback(std::bind(&HUDLayer::getPlayerPressButtons, reinterpret_cast<HUDLayer*>(m_HUDLayer)));
-	bm->setPlayerLifeDispCallback(std::bind(&HUDLayer::setPlayerLife, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
-	bm->setPlayerShieldDispCallback(std::bind(&HUDLayer::setPlayerShield, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
-	static_cast<BattleMainLayer*>(m_MainLayer)->setPlayerCenter(&(bm->ptrShip()->GetPositionRef()));
-	
+	setBattleManagerCallbacks();
+
 	return true;
 }
 
@@ -81,8 +77,27 @@ void BattleScene::update(float dt)
 	static_cast<BattleMainLayer*>(m_MainLayer)->updateCamera();
 }
 
+void BattleScene::restartGame()
+{
+	auto bm = BattleManager::Instance();
+	bm->free();
+	bm->initialize();
+	bm->SetParent(m_MainLayer);
+	setBattleManagerCallbacks();
+}
+
 void BattleScene::resumeGame()
 {
 	this->scheduleUpdate();
 	m_SettingsLayer->setVisible(false);
+}
+
+void BattleScene::setBattleManagerCallbacks()
+{
+	auto bm = BattleManager::Instance();
+	bm->setPlayerDirCallback(std::bind(&Joystick::getVelocity, reinterpret_cast<Joystick*>(m_Joystick)));
+	bm->setPlayerButtonCallback(std::bind(&HUDLayer::getPlayerPressButtons, reinterpret_cast<HUDLayer*>(m_HUDLayer)));
+	bm->setPlayerLifeDispCallback(std::bind(&HUDLayer::setPlayerLife, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
+	bm->setPlayerShieldDispCallback(std::bind(&HUDLayer::setPlayerShield, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
+	static_cast<BattleMainLayer*>(m_MainLayer)->setPlayerCenter(&(bm->ptrShip()->GetPositionRef()));
 }

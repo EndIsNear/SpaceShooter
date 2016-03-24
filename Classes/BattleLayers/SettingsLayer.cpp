@@ -22,6 +22,12 @@ bool SettingsLayer::init()
 			this->onResume();
 	});
 
+	auto restartButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Restart"));
+	restartButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
+		if (ui::Widget::TouchEventType::ENDED == type)
+			this->onRestart();
+	});
+
 	auto quitButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Exit"));
 	quitButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
 		if (ui::Widget::TouchEventType::ENDED == type)
@@ -36,6 +42,13 @@ void SettingsLayer::onQuit()
 	auto newScene = MainMenuScene::createScene();
 	BattleManager::Instance()->free();
 	Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
+}
+
+void SettingsLayer::onRestart()
+{
+	auto parent = this->getParent();
+	reinterpret_cast<BattleScene*>(parent)->restartGame();
+	reinterpret_cast<BattleScene*>(parent)->resumeGame();
 }
 
 void SettingsLayer::onResume()

@@ -9,11 +9,14 @@ class BattleScene : public cocos2d::Layer
 	cocos2d::Layer * m_HUDLayer;
 	cocos2d::Layer * m_SettingsLayer;
 	cocos2d::Layer * m_endStats;
+
+	void setBattleManagerCallbacks();
 public:
 	CREATE_FUNC(BattleScene);
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 
+	void restartGame();
 	void resumeGame();
 	void update(float dt);
 };
