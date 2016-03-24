@@ -15,6 +15,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/BattleLayers/MainLayer.cpp \
                    ../../Classes/BattleLayers/HUDLayer.cpp \
                    ../../Classes/BattleLayers/SettingsLayer.cpp \
+                   ../../Classes/BattleLayers/EndGameStats.cpp \
                    ../../Classes/BattleLogic/LogicalShip.cpp \
                    ../../Classes/BattleLogic/LogicalWeapon.cpp \
                    ../../Classes/BattleLogic/Spawner.cpp \
