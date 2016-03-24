@@ -18,6 +18,8 @@ public:
 	virtual bool init();
 	CREATE_FUNC(HUDLayer);
 
+	void resetButtons();
+
 	void setPlayerLife(float perc);
 	void setPlayerShield(float perc);
 	unsigned getPlayerPressButtons() { return m_PressedButtons; }

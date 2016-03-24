@@ -42,6 +42,11 @@ bool HUDLayer::init()
 	return true;
 }
 
+void HUDLayer::resetButtons()
+{
+	m_PressedButtons = 0;
+}
+
 void HUDLayer::setPlayerLife(float perc)
 {
 	m_LifeBar->setPercent(perc);
