@@ -53,13 +53,12 @@ bool BattleScene::init()
 void BattleScene::update(float dt)
 {
 	auto bm = BattleManager::Instance();
+	bm->Update(dt);
+
 	//on death
 	if(!bm->IsPlayerAlive() || !bm->IsThereEnemies())
 	{
 		this->unscheduleUpdate();
-		//auto newScene = MainMenuScene::createScene();
-		//BattleManager::Instance()->free();
-		//Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
 		m_endStats->setVisible(true);
 		return;
 	}
@@ -73,7 +72,6 @@ void BattleScene::update(float dt)
 		reinterpret_cast<HUDLayer*>(m_HUDLayer)->resetButtons();
 	}
 
-	bm->Update(dt);
 	static_cast<BattleMainLayer*>(m_MainLayer)->updateCamera();
 }
 

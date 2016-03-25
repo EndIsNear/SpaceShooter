@@ -8,24 +8,6 @@
 #include "BattleLogic\Spawner.h"
 #include "AI\AIBase.h"
 
-const float timeBetweenShootings = 0.5f;
-
-
-//struct InitialBattleStats
-//{
-	//player ship weapon
-	//ligic ship
-	//sprite name
-	//pos
-
-	//spawner
-	//vector<pos> spawning pts
-	//vector<ship> enemtyType
-	//vector<ai> aiType
-
-	//struct spPnt, enemyType, aiType, timeFromBeg
-//};
-
 class BattleManager
 {
 	static BattleManager * m_instance;

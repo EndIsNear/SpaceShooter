@@ -135,13 +135,12 @@ void BattleManager::Update(const float dt)
 	if (!m_instance)
 		return;
 
-	updatePlayer(dt);
 	updateEnemies(dt);
 	updatePlayerBullets(dt);
 	updateEnemyBullets(dt);
 	checkForHitEnemy();
 	checkForHitPlayer();
-
+	updatePlayer(dt);
 }
 
 void BattleManager::updatePlayer(const float dt)
@@ -253,36 +252,6 @@ void BattleManager::checkForHitEnemy()
 		if (!collision)
 			++i;
 	}
-
-	//for (auto itBullet = m_PlayerBullets.begin(); itBullet != m_PlayerBullets.end();)
-	//{
-	//	collision = false;
-	//	for (auto itEnemy = m_Enemies.begin(); itEnemy != m_Enemies.end();)
-	//	{
-	//		if (itBullet->phBullet->Collision(*(itEnemy->phShip)))
-	//		{
-	//			collision = true;
-	//			//apply dmg
-	//			itEnemy->lShip->OnHit(itBullet->lWeapon);
-
-	//			//delete the bullet
-	//			delete itBullet->phBullet;
-	//			itBullet = m_PlayerBullets.erase(itBullet);
-
-	//			if (!itEnemy->lShip->IsAlive()) {
-	//				//TODO: lShip and weapon leaks
-	//				auto forDel = *itEnemy;
-	//				itEnemy = m_Enemies.erase(itEnemy);
-	//				startExplosion(forDel.phShip);
-	//			}
-	//			break;
-	//		}
-	//		else
-	//			++itEnemy;
-	//	}
-	//	if(!collision) 
-	//		++itBullet;
-	//}
 }
 
 void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx)
