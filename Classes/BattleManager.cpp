@@ -4,69 +4,106 @@ USING_NS_CC;
 
 BattleManager * BattleManager::m_instance = nullptr;
 
-
-
 void BattleManager::initialize()
 {
 	///////////////////////////
 	//test
-	m_Player.phShip = new ShipBase(Vec2(1920, 1080), Vec2(1, 0), 10.f, "fighter.png");
-	m_Player.lShip = new LogicalShip(1000, 500, 33, 0, new LogicalWeapon(200.f, 0.18f));
-	m_Player.phShip->Update();
-
+	m_Allies.phShips.push_back(new ShipBase(Vec2(1920, 1080), Vec2(1, 0), 10.f, "fighter.png"));
+	m_Allies.lShips.push_back(new LogicalShip(1000, 500, 33, 0, new LogicalWeapon(200.f, 0.18f)));
+	m_Allies.ais.push_back(nullptr);
+	m_Allies.phShips[m_PlayerIndex]->Update();
 			
 	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 10.f, "enemies/Enemy5.png");
 	enemy->Update();
 	LogicalShip * lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
+	AIBase * aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	m_Enemies.phShips.push_back(enemy);
+	m_Enemies.lShips.push_back(lEnemy);
+	m_Enemies.ais.push_back(aiEnemy);
+
 	enemy = new ShipBase(Vec2(960, 1080), Vec2(0, 0), 10.f, "enemies/Enemy4.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
+	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	m_Enemies.phShips.push_back(enemy);
+	m_Enemies.lShips.push_back(lEnemy);
+	m_Enemies.ais.push_back(aiEnemy);
 	enemy = new ShipBase(Vec2(960, 1620), Vec2(0, 0), 10.f, "enemies/Enemy3.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
+	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	m_Enemies.phShips.push_back(enemy);
+	m_Enemies.lShips.push_back(lEnemy);
+	m_Enemies.ais.push_back(aiEnemy);
 	enemy = new ShipBase(Vec2(960, 540), Vec2(0, 0), 10.f, "enemies/Enemy6.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
+	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	m_Enemies.phShips.push_back(enemy);
+	m_Enemies.lShips.push_back(lEnemy);
+	m_Enemies.ais.push_back(aiEnemy);
 	enemy = new ShipBase(Vec2(2780, 1620), Vec2(0, 0), 10.f, "enemies/Enemy1.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
+	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	m_Enemies.phShips.push_back(enemy);
+	m_Enemies.lShips.push_back(lEnemy);
+	m_Enemies.ais.push_back(aiEnemy);
 	enemy = new ShipBase(Vec2(1920, 1620), Vec2(0, 0), 10.f, "enemies/Enemy2.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
+	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	m_Enemies.phShips.push_back(enemy);
+	m_Enemies.lShips.push_back(lEnemy);
+	m_Enemies.ais.push_back(aiEnemy);
 	enemy = new ShipBase(Vec2(2780, 1080), Vec2(0, 0), 10.f, "enemies/Enemy5.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	m_Enemies.push_back(Enemy(shit, Player{ lEnemy, enemy }));
+	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	m_Enemies.phShips.push_back(enemy);
+	m_Enemies.lShips.push_back(lEnemy);
+	m_Enemies.ais.push_back(aiEnemy);
 
 	///////////////////////////
 }
 
 void BattleManager::free()
 {
-	//free player
-	delete m_Player.phShip;
-	delete m_Player.lShip;
-	for (auto& bullet : m_PlayerBullets)
-		delete bullet.phBullet;
-	m_PlayerBullets.resize(0);
-
-	//free enemy
-	for (auto& enemy : m_Enemies)
+	////free player
+	for (size_t i = 0; i < m_Allies.Size(); ++i)
 	{
-		delete enemy.phShip;
-		delete enemy.lShip->GetWeapon();
-		delete enemy.lShip;
+		delete m_Allies.phShips[i];
+		delete m_Allies.lShips[i];
+		delete m_Allies.ais[i];
 	}
-	m_Enemies.resize(0);
-	for (auto& bullet : m_EnemyBullets)
-		delete bullet.phBullet;
-	m_EnemyBullets.resize(0);
+	m_Allies.phShips.resize(0);
+	m_Allies.lShips.resize(0);
+	m_Allies.ais.resize(0);
+
+
+	for (size_t i = 0; i < m_PlayerBullets.Size(); ++i)
+		delete m_PlayerBullets.bullets[i];
+	m_PlayerBullets.bullets.resize(0);
+	m_PlayerBullets.weapons.resize(0);
+
+	////free enemy
+	for (size_t i = 0; i < m_Enemies.Size(); ++i)
+	{
+		delete m_Enemies.phShips[i];
+		delete m_Enemies.lShips[i];
+		delete m_Enemies.ais[i];
+	}
+	m_Enemies.phShips.resize(0);
+	m_Enemies.lShips.resize(0);
+	m_Enemies.ais.resize(0);
+
+
+	for (size_t i = 0; i < m_EnemyBullets.Size(); ++i)
+	{
+		delete m_EnemyBullets.bullets[i];
+	}
+	m_EnemyBullets.bullets.resize(0);
+	m_EnemyBullets.weapons.resize(0);
 }
 
 void BattleManager::SetParent(cocos2d::Layer * parent)
@@ -77,19 +114,20 @@ void BattleManager::SetParent(cocos2d::Layer * parent)
 
 void BattleManager::setNewParrent()
 {
-	m_Player.phShip->SetParent(m_ParentLayer, 0);
-	for (auto& bullet : m_PlayerBullets)
-		bullet.phBullet->SetParent(m_ParentLayer, 0);
-	for (auto& enemy : m_Enemies)
-		enemy.phShip->SetParent(m_ParentLayer, 0);
-	for (auto& bullet : m_EnemyBullets)
-		bullet.phBullet->SetParent(m_ParentLayer, 0);
+	for (size_t i = 0; i < m_Allies.Size(); ++i)
+		m_Allies.phShips[i]->SetParent(m_ParentLayer, 0);
+	for (size_t i = 0; i < m_PlayerBullets.Size(); ++i)
+		m_PlayerBullets.bullets[i]->SetParent(m_ParentLayer, 0);
+	for (size_t i = 0; i < m_Enemies.Size(); ++i)
+		m_Enemies.phShips[i]->SetParent(m_ParentLayer, 0);
+	for (size_t i = 0; i < m_EnemyBullets.Size(); ++i)
+		m_EnemyBullets.bullets[i]->SetParent(m_ParentLayer, 0);
 }
 
 bool BattleManager::IsThereEnemies()
 {
 	//tmp for now, with spawner have to be updated
-	return m_Enemies.size();
+	return m_Enemies.phShips.size();
 }
 
 void BattleManager::Update(const float dt)
@@ -109,30 +147,30 @@ void BattleManager::Update(const float dt)
 void BattleManager::updatePlayer(const float dt)
 {
 	//physical part
-	m_Player.phShip->SetDirection(m_PlayerDirCB());
-	m_Player.phShip->Update();
+	m_Allies.phShips[m_PlayerIndex]->SetDirection(m_PlayerDirCB());
+	m_Allies.phShips[m_PlayerIndex]->Update();
 
 	//logical part
-	m_Player.lShip->Update(dt);
-	m_DisplayPlayerLifeCB(m_Player.lShip->GetLifeInPer());
-	m_DisplayPlayerShieldCB(m_Player.lShip->GetShieldInPer());
+	m_Allies.lShips[m_PlayerIndex]->Update(dt);
+	m_DisplayPlayerLifeCB(m_Allies.lShips[m_PlayerIndex]->GetLifeInPer());
+	m_DisplayPlayerShieldCB(m_Allies.lShips[m_PlayerIndex]->GetShieldInPer());
 
 	//input callbacks
 	if ((m_PlayerButtonsCB() & 1) == 1)
-		fireBullet(true, &m_Player);
+		fireBullet(true, m_PlayerIndex);
 }
 
 void BattleManager::updateEnemies(const float dt)
 {
-	for (auto& enemy : m_Enemies)
+	for (size_t i = 0; i < m_Enemies.Size(); ++i)
 	{
-		AIMove move = enemy.ai(m_Player.phShip, enemy.phShip);
-		enemy.phShip->SetDirection(move.newDir);
-		enemy.phShip->SetVelocity(move.newVelocity);
-		if (move.fire)
-			fireBullet(false, &enemy);
-		enemy.phShip->Update();
-		enemy.lShip->Update(dt);
+		AIMove move = m_Enemies.ais[i]->GetMove(m_Allies.phShips, m_PlayerBullets.bullets, m_Enemies.phShips);
+		m_Enemies.phShips[i]->SetDirection(move.newDir);
+		m_Enemies.phShips[i]->SetVelocity(move.newVelocity);
+		if (move.fire == AIMove::FireType::NormalAttack)
+			fireBullet(false, i);
+		m_Enemies.phShips[i]->Update();
+		m_Enemies.lShips[i]->Update(dt);
 	}
 }
 
@@ -146,85 +184,121 @@ void BattleManager::updateEnemyBullets(const float dt)
 	updateBullets(m_EnemyBullets, dt);
 }
 
-void BattleManager::updateBullets(std::vector<Bullet>& bulletArray, const float dt)
+void BattleManager::updateBullets(Bullets& bulletArray, const float dt)
 {
-	for (auto it = bulletArray.begin(); it != bulletArray.end();)
+	for (size_t i = 0 ; i < bulletArray.Size(); )
 	{
-		if (!it->phBullet->Update())
+		if (!bulletArray.bullets[i]->Update())
 		{
-			delete it->phBullet;
-			it = bulletArray.erase(it);
+			delete bulletArray.bullets[i];
+			bulletArray.Erase(i);
 		}
 		else
-			++it;
+			++i;
 	}
 }
 
 void BattleManager::checkForHitPlayer()
 {
-	for (auto it = m_EnemyBullets.begin(); it != m_EnemyBullets.end();)
+	for (size_t i = 0; i < m_EnemyBullets.Size(); ++i)
 	{
-		if (it->phBullet->Collision(*(m_Player.phShip)))
+		for (size_t j = 0; j < m_Allies.Size(); ++j)
 		{
-			//apply dmg
-			m_Player.lShip->OnHit(it->lWeapon);
+			if (m_EnemyBullets.bullets[i]->Collision(*(m_Allies.phShips[j])))
+			{
+				//apply dmg
+				m_Allies.lShips[j]->OnHit(m_EnemyBullets.weapons[i]);
 
-			//delete the bullet
-			delete it->phBullet;
-			it = m_EnemyBullets.erase(it);
+				//delete the bullet
+				delete m_EnemyBullets.bullets[i];
+				m_EnemyBullets.Erase(i);
+
+				//when there is more than one ally do something...
+			}
 		}
-		else
-			it++;
 	}
 }
 
 void BattleManager::checkForHitEnemy()
 {
 	bool collision;
-	for (auto itBullet = m_PlayerBullets.begin(); itBullet != m_PlayerBullets.end();)
+
+	for (size_t i = 0; i < m_PlayerBullets.Size();)
 	{
 		collision = false;
-		for (auto itEnemy = m_Enemies.begin(); itEnemy != m_Enemies.end();)
+		for (size_t j = 0; j < m_Enemies.Size();)
 		{
-			if (itBullet->phBullet->Collision(*(itEnemy->phShip)))
+			if (m_PlayerBullets.bullets[i]->Collision(*(m_Enemies.phShips[j])))
 			{
 				collision = true;
 				//apply dmg
-				itEnemy->lShip->OnHit(itBullet->lWeapon);
+				m_Enemies.lShips[j]->OnHit(m_PlayerBullets.weapons[i]);
 
 				//delete the bullet
-				delete itBullet->phBullet;
-				itBullet = m_PlayerBullets.erase(itBullet);
+				delete m_PlayerBullets.bullets[i];
+				m_PlayerBullets.Erase(i);
 
 				//if enemy dies explosion and delete it
-				if (!itEnemy->lShip->IsAlive()) {
+				if (!m_Enemies.lShips[j]->IsAlive()) {
 					//TODO: lShip and weapon leaks
-					auto forDel = *itEnemy;
-					itEnemy = m_Enemies.erase(itEnemy);
-					startExplosion(forDel.phShip);
+					auto forDel = m_Enemies.phShips[j];
+					m_Enemies.Erase(j);
+					startExplosion(forDel);
 				}
 				break;
 			}
 			else
-				++itEnemy;
+				++j;
 		}
-		if(!collision) 
-			++itBullet;
+		if (!collision)
+			++i;
 	}
+
+	//for (auto itBullet = m_PlayerBullets.begin(); itBullet != m_PlayerBullets.end();)
+	//{
+	//	collision = false;
+	//	for (auto itEnemy = m_Enemies.begin(); itEnemy != m_Enemies.end();)
+	//	{
+	//		if (itBullet->phBullet->Collision(*(itEnemy->phShip)))
+	//		{
+	//			collision = true;
+	//			//apply dmg
+	//			itEnemy->lShip->OnHit(itBullet->lWeapon);
+
+	//			//delete the bullet
+	//			delete itBullet->phBullet;
+	//			itBullet = m_PlayerBullets.erase(itBullet);
+
+	//			if (!itEnemy->lShip->IsAlive()) {
+	//				//TODO: lShip and weapon leaks
+	//				auto forDel = *itEnemy;
+	//				itEnemy = m_Enemies.erase(itEnemy);
+	//				startExplosion(forDel.phShip);
+	//			}
+	//			break;
+	//		}
+	//		else
+	//			++itEnemy;
+	//	}
+	//	if(!collision) 
+	//		++itBullet;
+	//}
 }
 
-void BattleManager::fireBullet(bool isPlayerBullet, Player * shooter)
+void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx)
 {
-	if (!shooter->lShip->GetWeapon()->CanShoot())
+	const Ships& crn = isPlayerBullet ? m_Allies : m_Enemies;
+	if (!crn.lShips[shooterIdx]->GetWeapon()->CanShoot())
 		return;
 
-	shooter->lShip->GetWeapon()->Shoot();
+	crn.lShips[shooterIdx]->GetWeapon()->Shoot();
 	const char * spriteNames[2] = {"EnemyBullet.png", "bullet.png"};
-	BulletBase * bullet = new BulletBase(shooter->phShip->GetPosition(), shooter->phShip->GetDirection().getNormalized(), 25.f, spriteNames[isPlayerBullet]);
-	bullet->SetVelocity(isPlayerBullet ? 25.f : 10.f);
+	BulletBase * bullet = new BulletBase(crn.phShips[shooterIdx]->GetPosition(), crn.phShips[shooterIdx]->GetDirection().getNormalized(), 25.f, spriteNames[isPlayerBullet]);
 	auto& bulletArray = isPlayerBullet ? m_PlayerBullets : m_EnemyBullets;
-	bulletArray.push_back(Bullet{ bullet, shooter->lShip->GetWeapon() });
-	bulletArray.back().phBullet->SetParent(m_ParentLayer, 0);
+	bulletArray.bullets.push_back(bullet);
+	bulletArray.weapons.push_back(crn.lShips[shooterIdx]->GetWeapon());
+	
+	bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
 }
 
 void BattleManager::startExplosion(ShipBase * ship)

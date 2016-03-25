@@ -1,7 +1,7 @@
 #include "AIBase.h"
 
 
-AIMove AIBase::NextMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends)
+AIMove AIBase::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends)
 {
 	std::uniform_real_distribution<> v(0, 5);
 	AIMove res;

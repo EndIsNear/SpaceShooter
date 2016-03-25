@@ -6,6 +6,7 @@
 #include "Physics\ShipBase.h"
 #include "Physics\BulletBase.h"
 #include "BattleLogic\Spawner.h"
+#include "AI\AIBase.h"
 
 const float timeBetweenShootings = 0.5f;
 
@@ -52,9 +53,9 @@ public:
 
 	void SetParent(cocos2d::Layer * parent);
 	void Update(const float dt);
-	bool IsPlayerAlive() { return m_Player.lShip->IsAlive(); }
+	bool IsPlayerAlive() { return m_Allies.lShips[0]->IsAlive(); }
 	bool IsThereEnemies();
-	BodyBase * ptrShip() { return m_Player.phShip; }
+	BodyBase * ptrShip() { return m_Allies.phShips[0]; }
 
 
 	void setPlayerDirCallback(std::function<cocos2d::Vec2()> _f) { m_PlayerDirCB = _f; }
@@ -62,31 +63,63 @@ public:
 	void setPlayerLifeDispCallback(std::function<void(float)> _f) { m_DisplayPlayerLifeCB = _f; }
 	void setPlayerShieldDispCallback(std::function<void(float)> _f) { m_DisplayPlayerShieldCB = _f; }
 private:
+	const size_t m_PlayerIndex = 0;
 	//private structures
-	struct Player
+	struct Ships
 	{
-		LogicalShip * lShip;///< logical part of ship
-		ShipBase * phShip;///< physical part of ship
+		inline size_t Size() const
+		{
+			assert(phShips.size() == lShips.size());
+			assert(lShips.size() == ais.size());
+			return phShips.size();
+		}
+
+		inline void Erase(size_t idx)
+		{
+			const size_t size = Size();
+			if (idx > size)
+				return;
+			phShips[idx] = phShips[size - 1];
+			lShips[idx] = lShips[size - 1];
+			ais[idx] = ais[size - 1];
+			phShips.pop_back();
+			lShips.pop_back();
+			ais.pop_back();
+		}
+
+		//player on idx 0 always for allies
+		std::vector<ShipBase*> phShips;///< physical part of ship
+		std::vector<LogicalShip*> lShips;///< logical part of ship
+		std::vector<AIBase*> ais;
 	};
 
-	struct Enemy : public Player
+	struct Bullets
 	{
-		Enemy() {}
-		Enemy(AI _ai, Player _p) : Player(_p), ai(_ai) {}
-		AI ai;
-	};
+		inline size_t Size() const
+		{
+			assert(bullets.size() == weapons.size());
+			return bullets.size();
+		}
 
-	struct Bullet
-	{
-		BulletBase * phBullet;
-		LogicalWeapon * lWeapon; ///< ptr that contains the shooter, used to calc dmg
+		inline void Erase(size_t idx)
+		{
+			const size_t size = Size();
+			if (idx > size)
+				return;
+			bullets[idx] = bullets[size - 1];
+			weapons[idx] = weapons[size - 1];
+			bullets.pop_back();
+			weapons.pop_back();
+		}
+		std::vector<BulletBase*> bullets;
+		std::vector<LogicalWeapon*> weapons; ///< ptr that contains the shooter, used to calc dmg
 	};
 
 	BattleManager() {}
 	~BattleManager() {}
 
 	void setNewParrent();
-	void fireBullet(bool isPlayerBullet, Player * shooter);
+	void fireBullet(bool isPlayerBullet, size_t shooterIdx);
 	void startExplosion(ShipBase * ship);
 
 
@@ -95,7 +128,7 @@ private:
 	void updateEnemies(const float dt);
 	void updatePlayerBullets(const float dt);
 	void updateEnemyBullets(const float dt);
-	void updateBullets(std::vector<Bullet>& bulletArray, const float dt);
+	void updateBullets(Bullets& bulletArray, const float dt);
 	void checkForHitPlayer();
 	void checkForHitEnemy();
 
@@ -108,10 +141,10 @@ private:
 	//should be deleted from this class on restart
 	Spawner * m_Spawner;
 
-	Player m_Player;
-	std::vector<Bullet> m_PlayerBullets;
-	std::vector<Enemy> m_Enemies;
-	std::vector<Bullet> m_EnemyBullets;
+	Ships m_Allies;
+	Ships m_Enemies;
+	Bullets m_PlayerBullets;
+	Bullets m_EnemyBullets;
 };
 
 #endif // __BATTLE_MANAGER_H__
