@@ -1,5 +1,4 @@
 #include "BattleManager.h"
-#include <random>
 
 USING_NS_CC;
 

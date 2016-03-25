@@ -5,6 +5,8 @@
 #include "Physics\ShipBase.h"
 #include "Physics\BulletBase.h"
 #include "BattleLogic\LogicalWeapon.h"
+#include <random>
+
 
 struct AIMove
 {
@@ -19,12 +21,14 @@ struct AIMove
 	float newVelocity;
 };
 
+
 class AIBase
 {
 public:
 	AIBase(const BodyBase& me, const LogicalWeapon& weapon) : mr_Me(me), mr_Weapon(weapon) { rng.seed(std::random_device()()); }
 	AIMove NextMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends);
 private:
+	std::mt19937 rng;
 	const BodyBase& mr_Me;
 	const LogicalWeapon& mr_Weapon;
 };
