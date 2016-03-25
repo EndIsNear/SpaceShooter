@@ -15,30 +15,33 @@ void BattleManager::initialize()
 			
 	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 10.f, "enemies/Enemy5.png");
 	enemy->Update();
-	LogicalShip * lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	AIBase * aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	LogicalShip * lEnemy = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f));
+	AIPointToPoint * aiEnemyp = new AIPointToPoint(*enemy, *(lEnemy->GetWeapon()));
+	aiEnemyp->AddPoint(cocos2d::Vec2(200, 200));
+	aiEnemyp->AddPoint(cocos2d::Vec2(2200, 1200));
 	m_Enemies.phShips.push_back(enemy);
 	m_Enemies.lShips.push_back(lEnemy);
-	m_Enemies.ais.push_back(aiEnemy);
-
+	m_Enemies.ais.push_back(aiEnemyp);
+	
+	AIBase *aiEnemy;
 	enemy = new ShipBase(Vec2(960, 1080), Vec2(0, 0), 10.f, "enemies/Enemy4.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	aiEnemy = new AICoward(*enemy, *(lEnemy->GetWeapon()), 250, 400);
 	m_Enemies.phShips.push_back(enemy);
 	m_Enemies.lShips.push_back(lEnemy);
 	m_Enemies.ais.push_back(aiEnemy);
 	enemy = new ShipBase(Vec2(960, 1620), Vec2(0, 0), 10.f, "enemies/Enemy3.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	aiEnemy = new AICoward(*enemy, *(lEnemy->GetWeapon()), 250, 400);
 	m_Enemies.phShips.push_back(enemy);
 	m_Enemies.lShips.push_back(lEnemy);
 	m_Enemies.ais.push_back(aiEnemy);
 	enemy = new ShipBase(Vec2(960, 540), Vec2(0, 0), 10.f, "enemies/Enemy6.png");
 	enemy->Update();
 	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
-	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
+	aiEnemy = new AICoward(*enemy, *(lEnemy->GetWeapon()), 250, 400);
 	m_Enemies.phShips.push_back(enemy);
 	m_Enemies.lShips.push_back(lEnemy);
 	m_Enemies.ais.push_back(aiEnemy);
@@ -63,7 +66,7 @@ void BattleManager::initialize()
 	m_Enemies.phShips.push_back(enemy);
 	m_Enemies.lShips.push_back(lEnemy);
 	m_Enemies.ais.push_back(aiEnemy);
-
+	
 	///////////////////////////
 }
 
