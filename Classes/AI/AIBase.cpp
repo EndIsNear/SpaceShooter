@@ -1,7 +1,7 @@
 #include "AIBase.h"
 
 
-AIMove AIBase::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends)
+AIMove AIBase::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt)
 {
 	std::uniform_real_distribution<> v(0, 5);
 	AIMove res;
@@ -13,7 +13,7 @@ AIMove AIBase::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& 
 
 
 //virtual override
-AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends)
+AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt)
 {
 	assert(m_Pattern.size());
 	std::uniform_real_distribution<> v(0, 1);
@@ -41,7 +41,7 @@ AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<Bullet
 
 
 //virtual  override
-AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends)
+AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt)
 {
 	float dist = mr_Me.GetPosition().getDistance(enemy[0]->GetPosition());
 	AIMove res;

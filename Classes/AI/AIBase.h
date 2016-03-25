@@ -27,7 +27,7 @@ class AIBase
 {
 public:
 	AIBase(const BodyBase& me, const LogicalWeapon& weapon) : mr_Me(me), mr_Weapon(weapon) { rng.seed(std::random_device()()); }
-	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends);
+	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt);
 
 protected:
 	cocos2d::Vec2 NormalizePtBySize(const cocos2d::Vec2 &pt) const { return cocos2d::Vec2(pt.x / m_AreaSize.width, pt.y / m_AreaSize.height); }
@@ -44,7 +44,7 @@ class AIPointToPoint : public AIBase
 public:
 	AIPointToPoint(const BodyBase& me, const LogicalWeapon& weapon) :m_NextPtIdx(0) , AIBase(me, weapon) {}
 	void AddPoint(cocos2d::Vec2 &rPt) { m_Pattern.push_back(rPt);}
-	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends) override;
+	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt) override;
 
 private:
 	//contain only norm pt
@@ -61,7 +61,7 @@ public:
 		, m_MinDist(minDist)
 		, m_MaxDist(maxDist)
 		{}
-	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends) override;
+	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt) override;
 private:
 	float m_MinDist;
 	float m_MaxDist;

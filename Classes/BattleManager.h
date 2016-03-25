@@ -11,7 +11,8 @@
 class BattleManager
 {
 	static BattleManager * m_instance;
-	BattleManager(const BattleManager&) = delete;
+	BattleManager() {}
+	~BattleManager() {}	BattleManager(const BattleManager&) = delete;
 	BattleManager& operator= (const BattleManager&) = delete;
 public:
 	static BattleManager * Instance()
@@ -97,8 +98,6 @@ private:
 		std::vector<LogicalWeapon*> weapons; ///< ptr that contains the shooter, used to calc dmg
 	};
 
-	BattleManager() {}
-	~BattleManager() {}
 
 	void setNewParrent();
 	void fireBullet(bool isPlayerBullet, size_t shooterIdx);

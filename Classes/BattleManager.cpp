@@ -166,7 +166,7 @@ void BattleManager::updateEnemies(const float dt)
 {
 	for (size_t i = 0; i < m_Enemies.Size(); ++i)
 	{
-		AIMove move = m_Enemies.ais[i]->GetMove(m_Allies.phShips, m_PlayerBullets.bullets, m_Enemies.phShips);
+		AIMove move = m_Enemies.ais[i]->GetMove(m_Allies.phShips, m_PlayerBullets.bullets, m_Enemies.phShips, dt);
 		m_Enemies.phShips[i]->SetDirection(move.newDir);
 		m_Enemies.phShips[i]->SetVelocity(move.newVelocity);
 		if (move.fire == AIMove::FireType::NormalAttack)
