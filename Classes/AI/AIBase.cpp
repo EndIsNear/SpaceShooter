@@ -1,7 +1,6 @@
 #include "AIBase.h"
 
 
-std::mt19937 rng;
 AIMove AIBase::NextMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends)
 {
 	std::uniform_real_distribution<> v(0, 5);
