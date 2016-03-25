@@ -26,9 +26,9 @@ public:
 	void SetVelocity(const float _v) { m_Velocity = _v; }
 
 	cocos2d::Vec2& GetPositionRef() { return m_Position; }
-	cocos2d::Vec2 GetPosition() { return m_Position; }
-	cocos2d::Vec2 GetDirection() { return m_Direction; }
-	cocos2d::Sprite * GetSprite() { return m_Sprite; }
+	cocos2d::Vec2 GetPosition() const { return m_Position; }
+	cocos2d::Vec2 GetDirection() const { return m_Direction; }
+	cocos2d::Sprite * GetSprite() const { return m_Sprite; }
 	float GetVelocity() { return m_Velocity; }
 
 

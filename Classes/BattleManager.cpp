@@ -5,29 +5,17 @@ USING_NS_CC;
 
 BattleManager * BattleManager::m_instance = nullptr;
 
-///////////////////////////
-//test
-std::mt19937 rng;
-AIMove shit(ShipBase * enemy, ShipBase * self)
-{
-	std::uniform_real_distribution<> v(0, 5);
-	AIMove res;
-	res.newVelocity = v(rng);
-	res.newDir = (enemy->GetPosition() - self->GetPosition()).getNormalized();
-	res.fire = v(rng) > 4.8f;
-	return res;
-}
-///////////////////////////
+
 
 void BattleManager::initialize()
 {
 	///////////////////////////
 	//test
 	m_Player.phShip = new ShipBase(Vec2(1920, 1080), Vec2(1, 0), 10.f, "fighter.png");
-	m_Player.lShip = new LogicalShip(1000, 500, 33, 0, new LogicalWeapon(200.f, 0.33f));
+	m_Player.lShip = new LogicalShip(1000, 500, 33, 0, new LogicalWeapon(200.f, 0.18f));
 	m_Player.phShip->Update();
 
-	rng.seed(std::random_device()());
+			
 	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 10.f, "enemies/Enemy5.png");
 	enemy->Update();
 	LogicalShip * lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f));
@@ -234,7 +222,7 @@ void BattleManager::fireBullet(bool isPlayerBullet, Player * shooter)
 	shooter->lShip->GetWeapon()->Shoot();
 	const char * spriteNames[2] = {"EnemyBullet.png", "bullet.png"};
 	BulletBase * bullet = new BulletBase(shooter->phShip->GetPosition(), shooter->phShip->GetDirection().getNormalized(), 25.f, spriteNames[isPlayerBullet]);
-	bullet->SetVelocity(25.f);
+	bullet->SetVelocity(isPlayerBullet ? 25.f : 10.f);
 	auto& bulletArray = isPlayerBullet ? m_PlayerBullets : m_EnemyBullets;
 	bulletArray.push_back(Bullet{ bullet, shooter->lShip->GetWeapon() });
 	bulletArray.back().phBullet->SetParent(m_ParentLayer, 0);

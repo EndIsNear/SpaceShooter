@@ -22,6 +22,9 @@
     <Filter Include="src\BattleLogic">
       <UniqueIdentifier>{eddde4b8-2b4a-4590-9bb7-4b059f7475de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\AI">
+      <UniqueIdentifier>{cdd30d7a-53de-439b-9620-d8eff269b439}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\BattleLayers\EndGameStats.cpp">
       <Filter>src\BattleLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AI\AIBase.cpp">
+      <Filter>src\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BattleLayers\EndGameStats.h">
       <Filter>src\BattleLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AI\AIBase.h">
+      <Filter>src\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,12 +7,8 @@
 #include "Physics\ShipBase.h"
 #include "Physics\BulletBase.h"
 
-struct AIMove
-{
-	int fire;
-	cocos2d::Vec2 newDir;
-	float newVelocity;
-};
+
+
 
 typedef std::function<AIMove(ShipBase *, ShipBase *)> AI;
 
