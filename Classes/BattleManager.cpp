@@ -13,22 +13,13 @@ void BattleManager::initialize()
 	m_Allies.ais.push_back(nullptr);
 	m_Allies.phShips[m_PlayerIndex]->Update(0.f);
 			
-<<<<<<< HEAD
 	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(1, 0), 10.f, "enemies/Enemy5.png");
-	enemy->Update();
-	LogicalShip * lEnemy = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f));
+	enemy->Update(0.f);
+	LogicalShip * lEnemy = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	//AIPointToPoint * aiEnemyp = new AIPointToPoint(*enemy, *(lEnemy->GetWeapon()));
 	AIBase *aiEnemyp = new AICoward(*enemy, *(lEnemy->GetWeapon()), 600, 800);
 	//aiEnemyp->AddPoint(cocos2d::Vec2(200, 200));
 	//aiEnemyp->AddPoint(cocos2d::Vec2(2200, 1200));
-=======
-	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 400.f, "enemies/Enemy5.png");
-	enemy->Update(0.f);
-	LogicalShip * lEnemy = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	AIPointToPoint * aiEnemyp = new AIPointToPoint(*enemy, *(lEnemy->GetWeapon()));
-	aiEnemyp->AddPoint(cocos2d::Vec2(200, 200));
-	aiEnemyp->AddPoint(cocos2d::Vec2(2200, 1200));
->>>>>>> master
 	m_Enemies.phShips.push_back(enemy);
 	m_Enemies.lShips.push_back(lEnemy);
 	m_Enemies.ais.push_back(aiEnemyp);

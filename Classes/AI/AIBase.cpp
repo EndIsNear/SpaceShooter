@@ -21,7 +21,6 @@ AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<Bullet
 	if (mr_Weapon.CanShoot() )
 	{
 		// shoot
-<<<<<<< HEAD
 		res.newVelocity = 1.5;
 		const float angle = mr_Me.GetDirection().getAngle((enemy[0]->GetPosition() - mr_Me.GetPosition()));
 		//std::string debugString;
@@ -37,19 +36,10 @@ AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<Bullet
 			res.newDir = Animation(angle, dt).getNormalized();
 			res.fire = AIMove::None;
 		}
-=======
-		res.newVelocity = 0.f;
-		res.newDir = (enemy[0]->GetPosition() - mr_Me.GetPosition()).getNormalized();
-		res.fire = AIMove::NormalAttack;
->>>>>>> master
 	}
 	else 
 	{
-<<<<<<< HEAD
 		res.newVelocity = 5.f;
-=======
-		res.newVelocity = 0.5f;
->>>>>>> master
 		res.newDir = (m_Pattern[m_NextPtIdx] - mr_Me.GetPosition()).getNormalized();
 		res.fire = AIMove::None;
 	}
@@ -73,14 +63,9 @@ AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>
 {
 	float dist = mr_Me.GetPosition().getDistance(enemy[0]->GetPosition());
 	AIMove res;
-<<<<<<< HEAD
 	res.newDir = cocos2d::Vec2(1., 0.);
 	float angle = 0.;
-	for (int i = 0; i < enemyBullets.size(); i++)
-=======
-	res.newVelocity = 0.5f;
-	if (dist < m_MinDist)	
->>>>>>> master
+	for (unsigned i = 0; i < enemyBullets.size(); i++)
 	{
 		cocos2d::Vec2 dir = mr_Me.GetPosition() - enemyBullets[i]->GetPosition();
 		if (fabs(dir.getAngle(enemyBullets[i]->GetDirection())) < 0.351f)
@@ -98,9 +83,8 @@ AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>
 	}
 	else if (dist < m_MinDist )	
 	{
-<<<<<<< HEAD
 		// too close
-		m_Timer = m_Timer < 0.0001f ? m_Timer = 0.2 /*start new move*/: m_Timer/*keep runing*/;
+		m_Timer = m_Timer < 0.0001f ? 0.2f /*start new move*/: m_Timer/*keep runing*/;
 		angle = mr_Me.GetDirection().getAngle((mr_Me.GetPosition() - enemy[0]->GetPosition()));
 		res.fire = AIMove::None;
 	} 
@@ -108,11 +92,6 @@ AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>
 	{	
 		// too far
 		angle = mr_Me.GetDirection().getAngle(enemy[0]->GetPosition() - mr_Me.GetPosition());
-=======
-		res.newDir = (enemy[0]->GetPosition() - mr_Me.GetPosition()).getNormalized();
-		res.fire = AIMove::NormalAttack;
-		res.newVelocity = 0.5f;
->>>>>>> master
 	}
 	res.newVelocity = 5.f;
 	res.newDir = Animation(angle, dt).getNormalized();

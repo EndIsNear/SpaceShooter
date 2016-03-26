@@ -30,10 +30,7 @@ public:
 	cocos2d::Vec2 GetDirection() const { return m_Direction; }
 	cocos2d::Sprite * GetSprite() const { return m_Sprite; }
 	float GetVelocity() const { return m_Velocity; }
-<<<<<<< HEAD
-=======
 	float GetMaxVelocity() const { return m_MaxVelocity; }
->>>>>>> master
 
 
 protected:
