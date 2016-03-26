@@ -36,9 +36,9 @@ public:
 
 	void SetParent(cocos2d::Layer * parent);
 	void Update(const float dt);
-	bool IsPlayerAlive() { return m_Allies.lShips[0]->IsAlive(); }
-	bool IsThereEnemies();
-	BodyBase * ptrShip() { return m_Allies.phShips[0]; }
+	bool IsPlayerAlive() const { return m_Allies.lShips[0]->IsAlive(); }
+	bool IsThereEnemies() const;
+	const BodyBase * ptrShip() const { return m_Allies.phShips[0]; }
 
 
 	void setPlayerDirCallback(std::function<cocos2d::Vec2()> _f) { m_PlayerDirCB = _f; }

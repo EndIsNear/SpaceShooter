@@ -127,10 +127,10 @@ void BattleManager::setNewParrent()
 		m_EnemyBullets.bullets[i]->SetParent(m_ParentLayer, 0);
 }
 
-bool BattleManager::IsThereEnemies()
+bool BattleManager::IsThereEnemies() const
 {
 	//tmp for now, with spawner have to be updated
-	return m_Enemies.phShips.size();
+	return !!(m_Enemies.phShips.size());
 }
 
 void BattleManager::Update(const float dt)

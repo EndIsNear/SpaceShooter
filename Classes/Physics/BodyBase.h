@@ -15,8 +15,8 @@ public:
 
 	
 
-	bool Collision(const BodyBase& r);
-	bool Collision(const cocos2d::Rect& r);
+	bool Collision(const BodyBase& r) const;
+	bool Collision(const cocos2d::Rect& r) const;
 
 	//hmmm maybe add tag too
 	void SetParent(cocos2d::Node * parent, int zOrder);
@@ -25,11 +25,11 @@ public:
 	void SetDirection(const cocos2d::Vec2& _d);
 	void SetVelocity(const float _v) { m_Velocity = _v; }
 
-	cocos2d::Vec2& GetPositionRef() { return m_Position; }
+	const cocos2d::Vec2* GetPositionRef() const { return &m_Position; }
 	cocos2d::Vec2 GetPosition() const { return m_Position; }
 	cocos2d::Vec2 GetDirection() const { return m_Direction; }
 	cocos2d::Sprite * GetSprite() const { return m_Sprite; }
-	float GetVelocity() { return m_Velocity; }
+	float GetVelocity() const { return m_Velocity; }
 
 
 protected:

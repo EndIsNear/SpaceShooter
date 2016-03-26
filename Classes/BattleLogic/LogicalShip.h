@@ -10,9 +10,11 @@ public:
 	void Update(const float dt);
 	void OnHit(LogicalWeapon * atacker);
 
-	bool IsAlive() { return m_CrnHP > 0.f; }
-	float GetLifeInPer() { return (m_CrnHP / m_MaxHP) * 100.f; }
-	float GetShieldInPer() { return (m_CrnShield / m_MaxShield) * 100.f; }
+	bool IsAlive() const { return m_CrnHP > 0.f; }
+	float GetLifeInPer() const { return (m_CrnHP / m_MaxHP) * 100.f; }
+	float GetShieldInPer() const { return (m_CrnShield / m_MaxShield) * 100.f; }
+
+	const LogicalWeapon * GetWeapon() const { return m_Weapon; }
 	LogicalWeapon * GetWeapon() { return m_Weapon; }
 private:
 	float m_MaxHP;

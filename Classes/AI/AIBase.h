@@ -43,7 +43,7 @@ class AIPointToPoint : public AIBase
 {
 public:
 	AIPointToPoint(const BodyBase& me, const LogicalWeapon& weapon) :m_NextPtIdx(0) , AIBase(me, weapon) {}
-	void AddPoint(cocos2d::Vec2 &rPt) { m_Pattern.push_back(rPt);}
+	void AddPoint(const cocos2d::Vec2 &rPt) { m_Pattern.push_back(rPt);}
 	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt) override;
 
 private:

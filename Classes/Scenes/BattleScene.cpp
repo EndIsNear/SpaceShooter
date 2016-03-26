@@ -97,5 +97,5 @@ void BattleScene::setBattleManagerCallbacks()
 	bm->setPlayerButtonCallback(std::bind(&HUDLayer::getPlayerPressButtons, reinterpret_cast<HUDLayer*>(m_HUDLayer)));
 	bm->setPlayerLifeDispCallback(std::bind(&HUDLayer::setPlayerLife, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
 	bm->setPlayerShieldDispCallback(std::bind(&HUDLayer::setPlayerShield, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
-	static_cast<BattleMainLayer*>(m_MainLayer)->setPlayerCenter(&(bm->ptrShip()->GetPositionRef()));
+	static_cast<BattleMainLayer*>(m_MainLayer)->setPlayerCenter(bm->ptrShip()->GetPositionRef());
 }

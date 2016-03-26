@@ -40,12 +40,12 @@ void BodyBase::UpdateWithRotation(const Vec2& min, const Vec2& max)
 	m_Sprite->setRotation(rot);
 }
 
-bool BodyBase::Collision(const BodyBase& r)
+bool BodyBase::Collision(const BodyBase& r) const
 {
 	return Collision(r.m_Sprite->getBoundingBox());
 }
 
-bool BodyBase::Collision(const cocos2d::Rect& r)
+bool BodyBase::Collision(const cocos2d::Rect& r) const
 {
 	return m_Sprite->getBoundingBox().intersectsRect(r);
 }

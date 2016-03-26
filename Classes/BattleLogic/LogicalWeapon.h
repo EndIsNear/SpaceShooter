@@ -9,7 +9,7 @@ public:
 	void Update(const float dt);
 
 	float GetDamage() const { return m_Dmg; }
-	bool CanShoot() const{ return m_ShootCrnDelay < 0.f; }
+	bool CanShoot() const { return m_ShootCrnDelay < 0.f; }
 	void Shoot() { m_ShootCrnDelay = m_ShootMaxDelay; }
 private:
 	float m_Dmg;
