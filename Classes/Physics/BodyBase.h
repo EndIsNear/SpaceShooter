@@ -29,7 +29,7 @@ public:
 	cocos2d::Vec2 GetPosition() const { return m_Position; }
 	cocos2d::Vec2 GetDirection() const { return m_Direction; }
 	cocos2d::Sprite * GetSprite() const { return m_Sprite; }
-	float GetVelocity() { return m_Velocity; }
+	float GetVelocity() const { return m_Velocity; }
 
 
 protected:
