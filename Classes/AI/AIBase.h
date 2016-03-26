@@ -19,7 +19,7 @@ struct AIMove
 		Skill3 = (1 << 3)
 	}  fire;
 	cocos2d::Vec2 newDir;
-	float newVelocity;
+	float newVelocity;//normalized (0 - 1)
 };
 
 

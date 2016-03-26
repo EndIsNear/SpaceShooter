@@ -11,7 +11,7 @@ class Joystick : public cocos2d::Layer
 public:
 	Joystick() { m_Pressed = false; m_Radius = defradius; enableTouches(); }
 	virtual bool init();
-	cocos2d::Vec2 getVelocity() { return m_Velocity; }
+	cocos2d::Vec2 getVelocity() const { return m_Velocity; }
 	void resetJoystick();
 	CREATE_FUNC(Joystick);
 

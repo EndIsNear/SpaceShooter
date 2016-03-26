@@ -23,16 +23,16 @@ BodyBase::~BodyBase()
 	m_Sprite->removeFromParent();
 }
 
-void BodyBase::UpdateWithoutRotation(const Vec2& min, const Vec2& max)
+void BodyBase::UpdateWithoutRotation(const float dt, const Vec2& min, const Vec2& max)
 {
-	m_Position += m_Direction * m_Velocity;
+	m_Position += m_Direction * m_Velocity * dt;
 	m_Position.clamp(min, max);
 	m_Sprite->setPosition(m_Position);
 }
 
-void BodyBase::UpdateWithRotation(const Vec2& min, const Vec2& max)
+void BodyBase::UpdateWithRotation(const float dt, const Vec2& min, const Vec2& max)
 {
-	m_Position += m_Direction * m_Velocity;
+	m_Position += m_Direction * m_Velocity * dt;
 	m_Position.clamp(min, max);
 	m_Sprite->setPosition(m_Position);
 
@@ -40,12 +40,12 @@ void BodyBase::UpdateWithRotation(const Vec2& min, const Vec2& max)
 	m_Sprite->setRotation(rot);
 }
 
-bool BodyBase::Collision(const BodyBase& r)
+bool BodyBase::Collision(const BodyBase& r) const
 {
 	return Collision(r.m_Sprite->getBoundingBox());
 }
 
-bool BodyBase::Collision(const cocos2d::Rect& r)
+bool BodyBase::Collision(const cocos2d::Rect& r) const
 {
 	return m_Sprite->getBoundingBox().intersectsRect(r);
 }
@@ -68,3 +68,13 @@ void BodyBase::SetDirection(const cocos2d::Vec2& _d)
 		m_Velocity = 0;
 }
 
+void BodyBase::SetVelocity(const float _v)
+{
+	if (_v > 1.f)
+		m_Velocity = m_MaxVelocity;
+	else if (_v < 0.f)
+		m_Velocity = 0.f;
+	else
+		m_Velocity = m_MaxVelocity * _v;
+	return;
+}

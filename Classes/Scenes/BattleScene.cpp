@@ -34,9 +34,9 @@ bool BattleScene::init()
 	this->addChild(m_SettingsLayer, 20);
 	m_SettingsLayer->setVisible(false);
 
-	m_endStats = EndGameStats::create();
-	this->addChild(m_endStats, 20);
-	m_endStats->setVisible(false);
+	m_EndStatsLayer = EndGameStats::create();
+	this->addChild(m_EndStatsLayer, 20);
+	m_EndStatsLayer->setVisible(false);
 
 	m_MainLayer = BattleMainLayer::create();
 	this->addChild(m_MainLayer, 0);
@@ -59,7 +59,7 @@ void BattleScene::update(float dt)
 	if(!bm->IsPlayerAlive() || !bm->IsThereEnemies())
 	{
 		this->unscheduleUpdate();
-		m_endStats->setVisible(true);
+		m_EndStatsLayer->setVisible(true);
 		return;
 	}
 
@@ -68,8 +68,6 @@ void BattleScene::update(float dt)
 	{
 		this->unscheduleUpdate();
 		m_SettingsLayer->setVisible(true);
-		reinterpret_cast<Joystick*>(m_Joystick)->resetJoystick();
-		reinterpret_cast<HUDLayer*>(m_HUDLayer)->resetButtons();
 	}
 
 	static_cast<BattleMainLayer*>(m_MainLayer)->updateCamera();
@@ -87,7 +85,10 @@ void BattleScene::restartGame()
 void BattleScene::resumeGame()
 {
 	this->scheduleUpdate();
+	reinterpret_cast<Joystick*>(m_Joystick)->resetJoystick();
+	reinterpret_cast<HUDLayer*>(m_HUDLayer)->resetButtons();
 	m_SettingsLayer->setVisible(false);
+	m_EndStatsLayer->setVisible(false);
 }
 
 void BattleScene::setBattleManagerCallbacks()
@@ -97,5 +98,5 @@ void BattleScene::setBattleManagerCallbacks()
 	bm->setPlayerButtonCallback(std::bind(&HUDLayer::getPlayerPressButtons, reinterpret_cast<HUDLayer*>(m_HUDLayer)));
 	bm->setPlayerLifeDispCallback(std::bind(&HUDLayer::setPlayerLife, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
 	bm->setPlayerShieldDispCallback(std::bind(&HUDLayer::setPlayerShield, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
-	static_cast<BattleMainLayer*>(m_MainLayer)->setPlayerCenter(&(bm->ptrShip()->GetPositionRef()));
+	static_cast<BattleMainLayer*>(m_MainLayer)->setPlayerCenter(bm->ptrShip()->GetPositionRef());
 }

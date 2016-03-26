@@ -155,6 +155,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\BattleLogic\LogicalWeapon.cpp" />
     <ClCompile Include="..\Classes\BattleLogic\Spawner.cpp" />
     <ClCompile Include="..\Classes\BattleManager.cpp" />
+    <ClCompile Include="..\Classes\GameLogic\GameManager.cpp" />
     <ClCompile Include="..\Classes\Physics\BodyBase.cpp" />
     <ClCompile Include="..\Classes\Physics\BulletBase.cpp" />
     <ClCompile Include="..\Classes\Physics\ShipBase.cpp" />
@@ -175,6 +176,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BattleLogic\LogicalWeapon.h" />
     <ClInclude Include="..\Classes\BattleLogic\Spawner.h" />
     <ClInclude Include="..\Classes\BattleManager.h" />
+    <ClInclude Include="..\Classes\GameLogic\GameManager.h" />
     <ClInclude Include="..\Classes\Physics\BodyBase.h" />
     <ClInclude Include="..\Classes\Physics\BulletBase.h" />
     <ClInclude Include="..\Classes\Physics\ShipBase.h" />

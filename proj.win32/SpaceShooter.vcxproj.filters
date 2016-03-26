@@ -25,6 +25,9 @@
     <Filter Include="src\AI">
       <UniqueIdentifier>{cdd30d7a-53de-439b-9620-d8eff269b439}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameLogic">
+      <UniqueIdentifier>{bee7b471-8814-477d-b1f0-90550e402a58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\AI\AIBase.cpp">
       <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLogic\GameManager.cpp">
+      <Filter>src\GameLogic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AI\AIBase.h">
       <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLogic\GameManager.h">
+      <Filter>src\GameLogic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,26 +15,30 @@ public:
 
 	
 
-	bool Collision(const BodyBase& r);
-	bool Collision(const cocos2d::Rect& r);
+	bool Collision(const BodyBase& r) const;
+	bool Collision(const cocos2d::Rect& r) const;
 
 	//hmmm maybe add tag too
 	void SetParent(cocos2d::Node * parent, int zOrder);
 	
 	void SetPosition(const cocos2d::Vec2& _p) { m_Position = _p; }
 	void SetDirection(const cocos2d::Vec2& _d);
-	void SetVelocity(const float _v) { m_Velocity = _v; }
+	void SetVelocity(const float _v);//_v shoud be normalized (0 - 1)
 
-	cocos2d::Vec2& GetPositionRef() { return m_Position; }
+	const cocos2d::Vec2* GetPositionRef() const { return &m_Position; }
 	cocos2d::Vec2 GetPosition() const { return m_Position; }
 	cocos2d::Vec2 GetDirection() const { return m_Direction; }
 	cocos2d::Sprite * GetSprite() const { return m_Sprite; }
 	float GetVelocity() const { return m_Velocity; }
+<<<<<<< HEAD
+=======
+	float GetMaxVelocity() const { return m_MaxVelocity; }
+>>>>>>> master
 
 
 protected:
-	void UpdateWithoutRotation(const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160));
-	void UpdateWithRotation(const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160));
+	void UpdateWithoutRotation(const float dt, const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160));
+	void UpdateWithRotation(const float dt, const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160));
 
 	cocos2d::Vec2 m_Position;
 	cocos2d::Vec2 m_Direction; ///< Should be with len 0-1

@@ -4,15 +4,17 @@
 class LogicalWeapon
 {
 public:
-	LogicalWeapon(const float dmg, const float delay);
+	LogicalWeapon(const float dmg, const float delay, const float bulletSpeed);
 
 	void Update(const float dt);
 
 	float GetDamage() const { return m_Dmg; }
-	bool CanShoot() const{ return m_ShootCrnDelay < 0.f; }
+	float GetBulletSpeed() const { return m_BulletSpeed; }
+	bool CanShoot() const { return m_ShootCrnDelay < 0.f; }
 	void Shoot() { m_ShootCrnDelay = m_ShootMaxDelay; }
 private:
 	float m_Dmg;
+	float m_BulletSpeed;
 	float m_ShootMaxDelay;
 	float m_ShootCrnDelay;
 };

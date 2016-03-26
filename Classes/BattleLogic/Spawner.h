@@ -4,26 +4,27 @@
 #include <cocos2d.h>
 #include <vector>
 #include "LogicalShip.h"
+#include "AI\AIBase.h"
 #include "Physics\ShipBase.h"
 #include "Physics\BulletBase.h"
 
 struct Spawner
 {
-//	Spawner() : m_crnIdx(0) {}
-//	struct SpawnElement
-//	{
-//		int pnt;
-//		int shipType;
-//		int AIType;
-//		float time;
-//	};
-//	std::vector<cocos2d::Vec2> m_SpawningPts;//spawning pts
-//	std::vector<LogicalShip> m_ShipTypes;
-//	std::vector<AIBase*> m_AITypes;
-//	std::vector<SpawnElement> m_SpawnElements;
-//	bool getElementForTime(const float time, SpawnElement& res);
-//private:
-//	int m_crnIdx;
+	Spawner() : m_crnIdx(0) {}
+	struct SpawnElement
+	{
+		int pnt;
+		int shipType;
+		int AIType;
+		float time;
+	};
+	std::vector<cocos2d::Vec2*> m_SpawningPts;//spawning pts
+	std::vector<LogicalShip*> m_ShipTypes;
+	std::vector<AIBase*> m_AITypes;
+	std::vector<SpawnElement> m_SpawnElements;
+	bool getElementForTime(const float time, SpawnElement& res);
+private:
+	size_t m_crnIdx;
 };
 
 #endif // __SPAWNER_H__

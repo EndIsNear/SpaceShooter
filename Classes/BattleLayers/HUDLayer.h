@@ -22,7 +22,7 @@ public:
 
 	void setPlayerLife(float perc);
 	void setPlayerShield(float perc);
-	unsigned getPlayerPressButtons() { return m_PressedButtons; }
+	unsigned getPlayerPressButtons() const { return m_PressedButtons; }
 	bool isSettingsPressed();
 
 	void setFirePressed(cocos2d::Ref* pSender);
