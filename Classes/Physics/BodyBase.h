@@ -30,11 +30,12 @@ public:
 	cocos2d::Vec2 GetDirection() const { return m_Direction; }
 	cocos2d::Sprite * GetSprite() const { return m_Sprite; }
 	float GetVelocity() const { return m_Velocity; }
+	float GetMaxVelocity() const { return m_MaxVelocity; }
 
 
 protected:
-	void UpdateWithoutRotation(const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160));
-	void UpdateWithRotation(const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160));
+	void UpdateWithoutRotation(const float dt, const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160));
+	void UpdateWithRotation(const float dt, const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160));
 
 	cocos2d::Vec2 m_Position;
 	cocos2d::Vec2 m_Direction; ///< Should be with len 0-1

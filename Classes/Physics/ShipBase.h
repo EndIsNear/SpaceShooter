@@ -18,9 +18,9 @@ public:
 		m_Velocity = 0;
 	}
 
-	void Update(const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160))
+	void Update(const float dt, const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160))
 	{
-		BodyBase::UpdateWithRotation(min, max);
+		BodyBase::UpdateWithRotation(dt, min, max);
 	}
 };
 

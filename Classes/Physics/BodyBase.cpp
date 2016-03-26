@@ -23,16 +23,16 @@ BodyBase::~BodyBase()
 	m_Sprite->removeFromParent();
 }
 
-void BodyBase::UpdateWithoutRotation(const Vec2& min, const Vec2& max)
+void BodyBase::UpdateWithoutRotation(const float dt, const Vec2& min, const Vec2& max)
 {
-	m_Position += m_Direction * m_Velocity;
+	m_Position += m_Direction * m_Velocity * dt;
 	m_Position.clamp(min, max);
 	m_Sprite->setPosition(m_Position);
 }
 
-void BodyBase::UpdateWithRotation(const Vec2& min, const Vec2& max)
+void BodyBase::UpdateWithRotation(const float dt, const Vec2& min, const Vec2& max)
 {
-	m_Position += m_Direction * m_Velocity;
+	m_Position += m_Direction * m_Velocity * dt;
 	m_Position.clamp(min, max);
 	m_Sprite->setPosition(m_Position);
 

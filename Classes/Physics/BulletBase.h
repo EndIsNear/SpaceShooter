@@ -18,9 +18,9 @@ public:
 		m_Velocity = _v;
 	}
 
-	bool Update(const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160))
+	bool Update(const float dt, const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160))
 	{
-		BodyBase::UpdateWithoutRotation(min, max);
+		BodyBase::UpdateWithoutRotation(dt, min, max);
 		if (m_Position.x == min.x || m_Position.x == max.x)
 			return false;
 		if (m_Position.y == min.y || m_Position.y == max.y)

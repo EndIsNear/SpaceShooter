@@ -3,11 +3,11 @@
 
 AIMove AIBase::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt)
 {
-	std::uniform_real_distribution<> v(0, 5);
+	std::uniform_real_distribution<> v(0, 1);
 	AIMove res;
 	res.newVelocity = v(rng);
 	res.newDir = (enemy[0]->GetPosition() - mr_Me.GetPosition()).getNormalized();
-	res.fire = AIMove::FireType( v(rng) > 4.8f);
+	res.fire = AIMove::FireType( v(rng) > 0.9f);
 	return res;
 }
 
@@ -21,13 +21,13 @@ AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<Bullet
 	if (mr_Weapon.CanShoot())
 	{
 		// shoot
-		res.newVelocity = 0.;
+		res.newVelocity = 0.f;
 		res.newDir = (enemy[0]->GetPosition() - mr_Me.GetPosition()).getNormalized();
 		res.fire = AIMove::NormalAttack;
 	}
 	else
 	{
-		res.newVelocity = 5.;
+		res.newVelocity = 0.5f;
 		res.newDir = (m_Pattern[m_NextPtIdx] - mr_Me.GetPosition()).getNormalized();
 		res.fire = AIMove::None;
 	}
@@ -45,7 +45,7 @@ AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>
 {
 	float dist = mr_Me.GetPosition().getDistance(enemy[0]->GetPosition());
 	AIMove res;
-	res.newVelocity = 5.;
+	res.newVelocity = 0.5f;
 	if (dist < m_MinDist)	
 	{
 		res.newDir = (mr_Me.GetPosition() - enemy[0]->GetPosition()).getNormalized();
@@ -60,7 +60,7 @@ AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>
 	{
 		res.newDir = (enemy[0]->GetPosition() - mr_Me.GetPosition()).getNormalized();
 		res.fire = AIMove::NormalAttack;
-		res.newVelocity = 0.;
+		res.newVelocity = 0.5f;
 	}
 
 	return res;
