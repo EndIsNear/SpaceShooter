@@ -11,6 +11,7 @@ public:
 	virtual bool init() override;
 
 	void onContinue();
+	void onRestart();
 	CREATE_FUNC(EndGameStats);
 };
 

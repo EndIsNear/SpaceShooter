@@ -22,6 +22,12 @@ bool EndGameStats::init()
 			this->onContinue();
 	});
 
+	auto restartButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Restart"));
+	restartButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
+		if (ui::Widget::TouchEventType::ENDED == type)
+			this->onRestart();
+	});
+
 	return true;
 }
 
@@ -30,4 +36,11 @@ void EndGameStats::onContinue()
 	auto newScene = MainMenuScene::createScene();
 	BattleManager::Instance()->free();
 	Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
+}
+
+void EndGameStats::onRestart()
+{
+	auto parent = this->getParent();
+	reinterpret_cast<BattleScene*>(parent)->restartGame();
+	reinterpret_cast<BattleScene*>(parent)->resumeGame();
 }
