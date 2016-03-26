@@ -28,8 +28,8 @@ public:
 			delete m_instance;
 		m_instance = nullptr;
 	}
-	//////////////////////////////
-	//////////////////////////////
+
+	//end of singleton part
 	//////////////////////////////
 	void initialize();
 	void free();
