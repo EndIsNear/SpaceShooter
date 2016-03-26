@@ -68,3 +68,13 @@ void BodyBase::SetDirection(const cocos2d::Vec2& _d)
 		m_Velocity = 0;
 }
 
+void BodyBase::SetVelocity(const float _v)
+{
+	if (_v > 1.f)
+		m_Velocity = m_MaxVelocity;
+	else if (_v < 0.f)
+		m_Velocity = 0.f;
+	else
+		m_Velocity = m_MaxVelocity * _v;
+	return;
+}

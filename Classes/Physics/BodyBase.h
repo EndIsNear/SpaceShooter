@@ -23,7 +23,7 @@ public:
 	
 	void SetPosition(const cocos2d::Vec2& _p) { m_Position = _p; }
 	void SetDirection(const cocos2d::Vec2& _d);
-	void SetVelocity(const float _v) { m_Velocity = _v < m_MaxVelocity ? _v : m_MaxVelocity; }
+	void SetVelocity(const float _v);//_v shoud be normalized (0 - 1)
 
 	const cocos2d::Vec2* GetPositionRef() const { return &m_Position; }
 	cocos2d::Vec2 GetPosition() const { return m_Position; }

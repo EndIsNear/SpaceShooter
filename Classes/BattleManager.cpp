@@ -168,7 +168,7 @@ void BattleManager::updateEnemies(const float dt)
 	{
 		AIMove move = m_Enemies.ais[i]->GetMove(m_Allies.phShips, m_PlayerBullets.bullets, m_Enemies.phShips, dt);
 		m_Enemies.phShips[i]->SetDirection(move.newDir);
-		m_Enemies.phShips[i]->SetVelocity(move.newVelocity * m_Enemies.phShips[i]->GetMaxVelocity());
+		m_Enemies.phShips[i]->SetVelocity(move.newVelocity);
 		if (move.fire == AIMove::FireType::NormalAttack)
 			fireBullet(false, i);
 		m_Enemies.phShips[i]->Update(dt);
