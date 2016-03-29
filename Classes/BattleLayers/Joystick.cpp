@@ -49,6 +49,7 @@ void Joystick::resetJoystick()
 {
 	m_Velocity = Vec2::ZERO;
 	m_Thumb->setPosition(m_Center);
+	if(m_Touch) m_Touch->release();
 	m_Touch = nullptr;
 }
 
@@ -94,5 +95,4 @@ void Joystick::enableTouches()
 	listener->onTouchesEnded = CC_CALLBACK_2(Layer::onTouchesEnded, this);
 	listener->onTouchesCancelled = CC_CALLBACK_2(Layer::onTouchesCancelled, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-	_touchListener = listener;
 }
