@@ -8,8 +8,9 @@ class PopupBase : public cocos2d::LayerColor
 {
 public:
 	virtual bool init();
+
 	//override it to disable underling layer events
-	virtual void setVisible(bool val) override;
+	virtual bool onTouch(cocos2d::Touch*, cocos2d::Event*);
 	CREATE_FUNC(PopupBase);
 };
 
