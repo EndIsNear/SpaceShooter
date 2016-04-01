@@ -49,7 +49,6 @@ void Joystick::resetJoystick()
 {
 	m_Velocity = Vec2::ZERO;
 	m_Thumb->setPosition(m_Center);
-	if(m_Touch) m_Touch->release();
 	m_Touch = nullptr;
 }
 
