@@ -1,5 +1,7 @@
 #include "BattleManager.h"
 
+#include "Shaders\Shaders.h"
+
 USING_NS_CC;
 
 BattleManager * BattleManager::m_instance = nullptr;
@@ -12,7 +14,8 @@ void BattleManager::initialize()
 	m_Allies.lShips.push_back(new LogicalShip(1000, 500, 33, 0, new LogicalWeapon(200.f, 0.18f, 800.f)));
 	m_Allies.ais.push_back(nullptr);
 	m_Allies.phShips[m_PlayerIndex]->Update(0.f);
-			
+	m_Allies.phShips[m_PlayerIndex]->GetSprite()->setGLProgram(GetOnHitShader());
+
 	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 400.f, "enemies/Enemy5.png");
 	enemy->Update(0.f);
 	LogicalShip * lEnemy = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
@@ -68,6 +71,7 @@ void BattleManager::initialize()
 	m_Enemies.ais.push_back(aiEnemy);
 	
 	///////////////////////////
+	m_ElapsedTime = 0.0f;
 }
 
 void BattleManager::free()
@@ -144,6 +148,8 @@ void BattleManager::Update(const float dt)
 	checkForHitEnemy();
 	checkForHitPlayer();
 	updatePlayer(dt);
+
+	m_ElapsedTime += dt;
 }
 
 void BattleManager::updatePlayer(const float dt)
@@ -151,6 +157,7 @@ void BattleManager::updatePlayer(const float dt)
 	//physical part
 	m_Allies.phShips[m_PlayerIndex]->SetDirection(m_PlayerDirCB());
 	m_Allies.phShips[m_PlayerIndex]->Update(dt);
+
 
 	//logical part
 	m_Allies.lShips[m_PlayerIndex]->Update(dt);
@@ -160,6 +167,9 @@ void BattleManager::updatePlayer(const float dt)
 	//input callbacks
 	if ((m_PlayerButtonsCB() & 1) == 1)
 		fireBullet(true, m_PlayerIndex);
+
+	//tmp
+	UpdateOnHitShader(m_Allies.phShips[m_PlayerIndex]->GetSprite()->getGLProgram(), m_ElapsedTime);
 }
 
 void BattleManager::updateEnemies(const float dt)

@@ -126,6 +126,7 @@ private:
 	Ships m_Enemies;
 	Bullets m_PlayerBullets;
 	Bullets m_EnemyBullets;
+	float m_ElapsedTime;
 };
 
 #endif // __BATTLE_MANAGER_H__
