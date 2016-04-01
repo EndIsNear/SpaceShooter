@@ -54,6 +54,8 @@ void BattleScene::update(float dt)
 	if(!bm->IsPlayerAlive() || !bm->IsThereEnemies())
 	{
 		this->unscheduleUpdate();
+		if (!bm->IsPlayerAlive()) m_EndStatsLayer->SetStats("Lose!");
+		m_EndStatsLayer->SetTime(bm->GetElapsedTime());
 		m_EndStatsLayer->setVisible(true);
 		return;
 	}

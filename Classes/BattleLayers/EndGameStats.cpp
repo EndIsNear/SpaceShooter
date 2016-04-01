@@ -28,7 +28,35 @@ bool EndGameStats::init()
 			this->onRestart();
 	});
 
+	m_Result = Label::create();
+	m_Result->initWithTTF("Win!", "MainMenu/Xcelsion Italic.ttf", 100);
+	m_Result->setColor(Color3B(54, 202, 38));
+	MainMenuLayer->addChild(m_Result, 0);
+	m_Result->setNormalizedPosition(Vec2(0.5f, 0.5f));
+
+	m_Time = Label::create();
+	m_Time->initWithTTF("Time:", "MainMenu/Xcelsion Italic.ttf", 50);
+	m_Time->setColor(Color3B(54, 202, 38));
+	MainMenuLayer->addChild(m_Time, 0);
+	m_Time->setNormalizedPosition(Vec2(0.5f, 0.35f));
+
+
+
+	//m_Info += "WINs";
 	return true;
+}
+
+void EndGameStats::SetStats(std::string stats)
+{
+	m_Result->setString(stats);
+}
+
+void EndGameStats::SetTime(const float time)
+{
+	const int sec = static_cast<int>(time);
+	char tmp[1024];
+	sprintf(tmp, "Time: %02d:%02d", sec / 60, sec % 60);
+	m_Time->setString(tmp);
 }
 
 void EndGameStats::onContinue()
