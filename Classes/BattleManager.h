@@ -7,6 +7,7 @@
 #include "Physics\BulletBase.h"
 #include "BattleLogic\Spawner.h"
 #include "AI\AIBase.h"
+#include "Utils.h"
 
 class BattleManager
 {
@@ -31,7 +32,7 @@ public:
 
 	//end of singleton part
 	//////////////////////////////
-	void initialize();
+	void initialize(Spawner * spawner);
 	void free();
 
 	void SetParent(cocos2d::Layer * parent);

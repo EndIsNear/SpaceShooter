@@ -6,8 +6,10 @@ USING_NS_CC;
 
 BattleManager * BattleManager::m_instance = nullptr;
 
-void BattleManager::initialize()
+void BattleManager::initialize(Spawner * spawner)
 {
+	m_ElapsedTime = 0.0f;
+	m_Spawner = spawner;
 	///////////////////////////
 	//test
 	m_Allies.phShips.push_back(new ShipBase(Vec2(1920, 1080), Vec2(1, 0), 400.f, "fighter.png"));
@@ -16,62 +18,6 @@ void BattleManager::initialize()
 	m_Allies.phShips[m_PlayerIndex]->Update(0.f);
 	m_Allies.phShips[m_PlayerIndex]->GetSprite()->setGLProgram(GetOnHitShader());
 
-	ShipBase * enemy = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 400.f, "enemies/Enemy5.png");
-	enemy->Update(0.f);
-	LogicalShip * lEnemy = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	AIPointToPoint * aiEnemyp = new AIPointToPoint(*enemy, *(lEnemy->GetWeapon()));
-	aiEnemyp->AddPoint(cocos2d::Vec2(200, 200));
-	aiEnemyp->AddPoint(cocos2d::Vec2(2200, 1200));
-	m_Enemies.phShips.push_back(enemy);
-	m_Enemies.lShips.push_back(lEnemy);
-	m_Enemies.ais.push_back(aiEnemyp);
-	
-	AIBase *aiEnemy;
-	enemy = new ShipBase(Vec2(960, 1080), Vec2(0, 0), 400.f, "enemies/Enemy4.png");
-	enemy->Update(0.f);
-	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	aiEnemy = new AICoward(*enemy, *(lEnemy->GetWeapon()), 250, 400);
-	m_Enemies.phShips.push_back(enemy);
-	m_Enemies.lShips.push_back(lEnemy);
-	m_Enemies.ais.push_back(aiEnemy);
-	enemy = new ShipBase(Vec2(960, 1620), Vec2(0, 0), 400.f, "enemies/Enemy3.png");
-	enemy->Update(0.f);
-	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	aiEnemy = new AICoward(*enemy, *(lEnemy->GetWeapon()), 250, 400);
-	m_Enemies.phShips.push_back(enemy);
-	m_Enemies.lShips.push_back(lEnemy);
-	m_Enemies.ais.push_back(aiEnemy);
-	enemy = new ShipBase(Vec2(960, 540), Vec2(0, 0), 400.f, "enemies/Enemy6.png");
-	enemy->Update(0.f);
-	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	aiEnemy = new AICoward(*enemy, *(lEnemy->GetWeapon()), 250, 400);
-	m_Enemies.phShips.push_back(enemy);
-	m_Enemies.lShips.push_back(lEnemy);
-	m_Enemies.ais.push_back(aiEnemy);
-	enemy = new ShipBase(Vec2(2780, 1620), Vec2(0, 0), 400.f, "enemies/Enemy1.png");
-	enemy->Update(0.f);
-	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
-	m_Enemies.phShips.push_back(enemy);
-	m_Enemies.lShips.push_back(lEnemy);
-	m_Enemies.ais.push_back(aiEnemy);
-	enemy = new ShipBase(Vec2(1920, 1620), Vec2(0, 0), 400.f, "enemies/Enemy2.png");
-	enemy->Update(0.f);
-	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
-	m_Enemies.phShips.push_back(enemy);
-	m_Enemies.lShips.push_back(lEnemy);
-	m_Enemies.ais.push_back(aiEnemy);
-	enemy = new ShipBase(Vec2(2780, 1080), Vec2(0, 0), 400.f, "enemies/Enemy5.png");
-	enemy->Update(0.f);
-	lEnemy = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	aiEnemy = new AIBase(*enemy, *(lEnemy->GetWeapon()));
-	m_Enemies.phShips.push_back(enemy);
-	m_Enemies.lShips.push_back(lEnemy);
-	m_Enemies.ais.push_back(aiEnemy);
-	
-	///////////////////////////
-	m_ElapsedTime = 0.0f;
 }
 
 void BattleManager::free()
@@ -111,6 +57,9 @@ void BattleManager::free()
 	}
 	m_EnemyBullets.bullets.resize(0);
 	m_EnemyBullets.weapons.resize(0);
+
+	//forever tmp
+	delete m_Spawner;
 }
 
 void BattleManager::SetParent(cocos2d::Layer * parent)
@@ -134,7 +83,7 @@ void BattleManager::setNewParrent()
 bool BattleManager::IsThereEnemies() const
 {
 	//tmp for now, with spawner have to be updated
-	return !!(m_Enemies.phShips.size());
+	return !!(m_Enemies.phShips.size()) || m_Spawner->IsThereEnemies();
 }
 
 void BattleManager::Update(const float dt)
@@ -150,6 +99,17 @@ void BattleManager::Update(const float dt)
 	updatePlayer(dt);
 
 	m_ElapsedTime += dt;
+
+
+	//checks spwaner for new enemies
+	Spawner::SpawnElement tmp;
+	if (m_Spawner->GetElementForTime(m_ElapsedTime, tmp))
+	{
+		tmp.phShip->SetParent(m_ParentLayer, 0);
+		m_Enemies.phShips.push_back(tmp.phShip);
+		m_Enemies.lShips.push_back(tmp.lShip);
+		m_Enemies.ais.push_back(tmp.ai);
+	}
 }
 
 void BattleManager::updatePlayer(const float dt)

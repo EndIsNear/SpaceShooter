@@ -38,7 +38,7 @@ bool BattleScene::init()
 	this->scheduleUpdate();
 
 	auto bm = BattleManager::Instance();
-	bm->initialize();
+	bm->initialize(new Spawner());
 	bm->SetParent(m_MainLayer);
 	setBattleManagerCallbacks();
 
@@ -72,7 +72,7 @@ void BattleScene::restartGame()
 {
 	auto bm = BattleManager::Instance();
 	bm->free();
-	bm->initialize();
+	bm->initialize(new Spawner());
 	bm->SetParent(m_MainLayer);
 	setBattleManagerCallbacks();
 }
