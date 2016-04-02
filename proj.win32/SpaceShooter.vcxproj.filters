@@ -10,9 +10,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Scenes">
-      <UniqueIdentifier>{e6acf698-0754-47d0-bac5-2258facb4dfa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Physics">
       <UniqueIdentifier>{f631087c-ce2f-496d-810e-5965c77af8fb}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="src\Shaders">
       <UniqueIdentifier>{114f0305-1b40-4e9f-913d-25ca75adae87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scenes">
+      <UniqueIdentifier>{e6acf698-0754-47d0-bac5-2258facb4dfa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

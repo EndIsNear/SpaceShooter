@@ -7,6 +7,7 @@ const cocos2d::Size areaSize(3840, 2160);
 
 class BattleMainLayer : public cocos2d::Layer
 {
+	cocos2d::Layer * m_Backgroud;
 public:
 	BattleMainLayer() {}
 	virtual bool init();
