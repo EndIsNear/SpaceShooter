@@ -17,7 +17,6 @@ void BattleManager::initialize(Spawner * spawner)
 	m_Allies.ais.push_back(nullptr);
 	m_Allies.phShips[m_PlayerIndex]->Update(0.f);
 	m_Allies.phShips[m_PlayerIndex]->GetSprite()->setGLProgram(GetOnHitShader());
-
 }
 
 void BattleManager::free()

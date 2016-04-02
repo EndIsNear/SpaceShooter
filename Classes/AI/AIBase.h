@@ -31,6 +31,8 @@ public:
 
 protected:
 	cocos2d::Vec2 NormalizePtBySize(const cocos2d::Vec2 &pt) const { return cocos2d::Vec2(pt.x / m_AreaSize.width, pt.y / m_AreaSize.height); }
+	const cocos2d::Vec2 Animation(float angle, double dt) const;
+
 protected:
 	cocos2d::Size m_AreaSize;
 	std::mt19937 rng;
@@ -46,12 +48,14 @@ public:
 	void AddPoint(const cocos2d::Vec2 &rPt) { m_Pattern.push_back(rPt);}
 	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt) override;
 
+protected:
+
+	
 private:
 	//contain only norm pt
 	unsigned m_NextPtIdx;
 	std::vector<cocos2d::Vec2> m_Pattern;
 };
-
 
 class AICoward : public AIBase
 {
@@ -60,11 +64,13 @@ public:
 		AIBase(me, weapon)
 		, m_MinDist(minDist)
 		, m_MaxDist(maxDist)
+		, m_Timer(0.f)
 		{}
 	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt) override;
 private:
 	float m_MinDist;
 	float m_MaxDist;
+	float m_Timer;
 };
 
 
