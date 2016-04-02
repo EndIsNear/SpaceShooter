@@ -1,9 +1,4 @@
 #include "Scenes/BattleScene.h"
-#include "BattleLayers\Joystick.h"
-#include "BattleLayers\MainLayer.h"
-#include "BattleLayers\HUDLayer.h"
-#include "BattleLayers\SettingsLayer.h"
-#include "BattleLayers\EndGameStats.h"
 #include "Scenes/MainMenuScene.h"
 #include "BattleManager.h"
 USING_NS_CC;
@@ -43,7 +38,7 @@ bool BattleScene::init()
 	this->scheduleUpdate();
 
 	auto bm = BattleManager::Instance();
-	bm->initialize();
+	bm->initialize(new Spawner());
 	bm->SetParent(m_MainLayer);
 	setBattleManagerCallbacks();
 
@@ -59,25 +54,27 @@ void BattleScene::update(float dt)
 	if(!bm->IsPlayerAlive() || !bm->IsThereEnemies())
 	{
 		this->unscheduleUpdate();
+		if (!bm->IsPlayerAlive()) m_EndStatsLayer->SetStats("Lose!");
+		m_EndStatsLayer->SetTime(bm->GetElapsedTime());
 		m_EndStatsLayer->setVisible(true);
 		return;
 	}
 
 	//on settings pressed
-	if (reinterpret_cast<HUDLayer*>(m_HUDLayer)->isSettingsPressed())
+	if (m_HUDLayer->isSettingsPressed())
 	{
 		this->unscheduleUpdate();
 		m_SettingsLayer->setVisible(true);
 	}
 
-	static_cast<BattleMainLayer*>(m_MainLayer)->updateCamera();
+	m_MainLayer->updateCamera();
 }
 
 void BattleScene::restartGame()
 {
 	auto bm = BattleManager::Instance();
 	bm->free();
-	bm->initialize();
+	bm->initialize(new Spawner());
 	bm->SetParent(m_MainLayer);
 	setBattleManagerCallbacks();
 }
@@ -85,8 +82,8 @@ void BattleScene::restartGame()
 void BattleScene::resumeGame()
 {
 	this->scheduleUpdate();
-	reinterpret_cast<Joystick*>(m_Joystick)->resetJoystick();
-	reinterpret_cast<HUDLayer*>(m_HUDLayer)->resetButtons();
+	m_Joystick->resetJoystick();
+	m_HUDLayer->resetButtons();
 	m_SettingsLayer->setVisible(false);
 	m_EndStatsLayer->setVisible(false);
 }
@@ -94,9 +91,9 @@ void BattleScene::resumeGame()
 void BattleScene::setBattleManagerCallbacks()
 {
 	auto bm = BattleManager::Instance();
-	bm->setPlayerDirCallback(std::bind(&Joystick::getVelocity, reinterpret_cast<Joystick*>(m_Joystick)));
-	bm->setPlayerButtonCallback(std::bind(&HUDLayer::getPlayerPressButtons, reinterpret_cast<HUDLayer*>(m_HUDLayer)));
-	bm->setPlayerLifeDispCallback(std::bind(&HUDLayer::setPlayerLife, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
-	bm->setPlayerShieldDispCallback(std::bind(&HUDLayer::setPlayerShield, reinterpret_cast<HUDLayer*>(m_HUDLayer), std::placeholders::_1));
-	static_cast<BattleMainLayer*>(m_MainLayer)->setPlayerCenter(bm->ptrShip()->GetPositionRef());
+	bm->setPlayerDirCallback(std::bind(&Joystick::getVelocity, m_Joystick));
+	bm->setPlayerButtonCallback(std::bind(&HUDLayer::getPlayerPressButtons, m_HUDLayer));
+	bm->setPlayerLifeDispCallback(std::bind(&HUDLayer::setPlayerLife, m_HUDLayer, std::placeholders::_1));
+	bm->setPlayerShieldDispCallback(std::bind(&HUDLayer::setPlayerShield, m_HUDLayer, std::placeholders::_1));
+	m_MainLayer->setPlayerCenter(bm->ptrShip()->GetPositionRef());
 }

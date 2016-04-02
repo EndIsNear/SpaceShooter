@@ -10,21 +10,27 @@
 
 struct Spawner
 {
-	Spawner() : m_crnIdx(0) {}
+	Spawner() : m_crnIdx(0) { Initialize(); }
+	
 	struct SpawnElement
 	{
-		int pnt;
-		int shipType;
-		int AIType;
-		float time;
+		LogicalShip * lShip;
+		ShipBase * phShip;
+		AIBase * ai;
 	};
-	std::vector<cocos2d::Vec2*> m_SpawningPts;//spawning pts
-	std::vector<LogicalShip*> m_ShipTypes;
-	std::vector<AIBase*> m_AITypes;
-	std::vector<SpawnElement> m_SpawnElements;
-	bool getElementForTime(const float time, SpawnElement& res);
+
+	//std::vector<cocos2d::Vec2*> m_SpawningPts;//spawning pts
+	//std::vector<LogicalShip*> m_ShipTypes;
+	//std::vector<AIBase*> m_AITypes;
+	//std::vector<SpawnElement> m_SpawnElements;
+
+	bool GetElementForTime(const float time, SpawnElement& res);
+	bool IsThereEnemies() { return m_crnIdx < m_SpawnElements.size(); }
 private:
+	void Initialize();
+
 	size_t m_crnIdx;
+	std::vector <std::pair<float, SpawnElement>> m_SpawnElements;
 };
 
 #endif // __SPAWNER_H__

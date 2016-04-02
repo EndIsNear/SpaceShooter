@@ -10,9 +10,15 @@ bool BattleMainLayer::init()
 	}
 	//add backgorund
 	this->setContentSize(areaSize);
-	auto backgr = Sprite::create("background.jpg");
-	backgr->setNormalizedPosition(Vec2(0.50f, 0.50f));
-	this->addChild(backgr, -1);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 2; ++j)
+		{
+			auto backgr = Sprite::create("background.png");
+			backgr->setNormalizedPosition(Vec2(0.25f + 0.5f * i, 0.25f + 0.5f * j));
+			this->addChild(backgr, -1);
+		}
+	}
 
 	this->setPosition(Vec2(0, 0));//from 0,0 to -1920,-1080
 

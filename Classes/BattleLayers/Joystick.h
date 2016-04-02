@@ -9,7 +9,7 @@ const float defradius = 125.f;
 class Joystick : public cocos2d::Layer
 {
 public:
-	Joystick() { m_Pressed = false; m_Radius = defradius; enableTouches(); }
+	Joystick() { m_Touch = nullptr; m_Radius = defradius; enableTouches(); }
 	virtual bool init();
 	cocos2d::Vec2 getVelocity() const { return m_Velocity; }
 	void resetJoystick();
@@ -25,7 +25,6 @@ private:
 	cocos2d::Sprite * m_Thumb;
 	cocos2d::Touch * m_Touch;
 	float m_Radius;
-	bool m_Pressed;
 
 
 	bool pointInJoystick(const cocos2d::Vec2& point);

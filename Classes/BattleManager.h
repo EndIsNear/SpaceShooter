@@ -7,6 +7,7 @@
 #include "Physics\BulletBase.h"
 #include "BattleLogic\Spawner.h"
 #include "AI\AIBase.h"
+#include "Utils.h"
 
 class BattleManager
 {
@@ -31,9 +32,10 @@ public:
 
 	//end of singleton part
 	//////////////////////////////
-	void initialize();
+	void initialize(Spawner * spawner);
 	void free();
 
+	float GetElapsedTime() { return m_ElapsedTime; }
 	void SetParent(cocos2d::Layer * parent);
 	void Update(const float dt);
 	bool IsPlayerAlive() const { return m_Allies.lShips[0]->IsAlive(); }
@@ -126,6 +128,7 @@ private:
 	Ships m_Enemies;
 	Bullets m_PlayerBullets;
 	Bullets m_EnemyBullets;
+	float m_ElapsedTime;
 };
 
 #endif // __BATTLE_MANAGER_H__

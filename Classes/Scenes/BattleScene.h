@@ -2,13 +2,19 @@
 #define __BATTLE_SCENE_H__
 #include "cocos2d.h"
 
+#include "BattleLayers\Joystick.h"
+#include "BattleLayers\MainLayer.h"
+#include "BattleLayers\HUDLayer.h"
+#include "BattleLayers\SettingsLayer.h"
+#include "BattleLayers\EndGameStats.h"
+
 class BattleScene : public cocos2d::Layer
 {
-	cocos2d::Layer * m_Joystick;
-	cocos2d::Layer * m_MainLayer;
-	cocos2d::Layer * m_HUDLayer;
-	cocos2d::Layer * m_SettingsLayer;
-	cocos2d::Layer * m_EndStatsLayer;
+	Joystick        * m_Joystick;
+	BattleMainLayer * m_MainLayer;
+	HUDLayer        * m_HUDLayer;
+	SettingsLayer   * m_SettingsLayer;
+	EndGameStats    * m_EndStatsLayer;
 
 	void setBattleManagerCallbacks();
 public:

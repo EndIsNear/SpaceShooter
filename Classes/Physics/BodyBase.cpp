@@ -7,6 +7,7 @@ BodyBase::BodyBase(const Vec2& _p, const Vec2& _d, const float _v, const std::st
 	m_Sprite(Sprite::create(_sn))
 {
 	const float rot = GetRotation(_d);
+	m_Sprite->retain();
 	m_Sprite->setRotation(rot);
 }
 
@@ -21,6 +22,7 @@ BodyBase::BodyBase(const Vec2& _p, const Vec2& _d, const float _v, const Sprite 
 BodyBase::~BodyBase()
 {
 	m_Sprite->removeFromParent();
+	m_Sprite->release();
 }
 
 void BodyBase::UpdateWithoutRotation(const float dt, const Vec2& min, const Vec2& max)

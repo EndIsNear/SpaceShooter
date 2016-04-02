@@ -49,18 +49,17 @@ void Joystick::resetJoystick()
 {
 	m_Velocity = Vec2::ZERO;
 	m_Thumb->setPosition(m_Center);
-	m_Pressed = false;
+	m_Touch = nullptr;
 }
 
 void Joystick::onTouchesBegan(const std::vector<Touch*>& touches, Event *unused_event)
 {
-	if (m_Pressed)
+	if (m_Touch)
 		return;
 	for (auto& touch : touches)
 	{
 		if (pointInJoystick(touch->getLocation()))
 		{
-			m_Pressed = true;
 			m_Touch = touch;
 			updateVelocity();
 		}
@@ -69,20 +68,20 @@ void Joystick::onTouchesBegan(const std::vector<Touch*>& touches, Event *unused_
 
 void Joystick::onTouchesMoved(const std::vector<Touch*>& touches, Event *unused_event)
 {
-	if(m_Pressed)
+	if(m_Touch)
 		updateVelocity();
 }
 
 void Joystick::onTouchesEnded(const std::vector<Touch*>& touches, Event *unused_event)
 {
-	if (std::find(touches.begin(), touches.end(), m_Touch) != touches.end()) {
+	if (m_Touch && std::find(touches.begin(), touches.end(), m_Touch) != touches.end()) {
 		resetJoystick();
 	}
 }
 
 void Joystick::onTouchesCancelled(const std::vector<Touch*>&touches, Event *unused_event)
 {
-	if (std::find(touches.begin(), touches.end(), m_Touch) != touches.end()) {
+	if (m_Touch && std::find(touches.begin(), touches.end(), m_Touch) != touches.end()) {
 		resetJoystick();
 	}
 }
@@ -95,5 +94,4 @@ void Joystick::enableTouches()
 	listener->onTouchesEnded = CC_CALLBACK_2(Layer::onTouchesEnded, this);
 	listener->onTouchesCancelled = CC_CALLBACK_2(Layer::onTouchesCancelled, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-	_touchListener = listener;
 }

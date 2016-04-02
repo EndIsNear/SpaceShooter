@@ -7,8 +7,12 @@
 
 class EndGameStats : public PopupBase
 {
+	cocos2d::Label * m_Result;
+	cocos2d::Label * m_Time;
 public:
 	virtual bool init() override;
+	void SetStats(std::string stats);
+	void SetTime(const float time);
 
 	void onContinue();
 	void onRestart();

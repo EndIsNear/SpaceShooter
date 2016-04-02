@@ -25,6 +25,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Physics/BulletBase.cpp \
                    ../../Classes/Scenes/BattleScene.cpp \
                    ../../Classes/Scenes/MainMenuScene.cpp \
+                   ../../Classes/Shaders/Shaders.cpp \
                    ../../Classes/BattleManager.cpp \
                    ../../Classes/PopupMenu.cpp \
                    ../../Classes/AppDelegate.cpp
