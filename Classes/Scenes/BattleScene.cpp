@@ -1,6 +1,6 @@
 #include "Scenes/BattleScene.h"
 #include "Scenes/MainMenuScene.h"
-#include "BattleManager.h"
+#include "BattleLogic/BattleManager.h"
 USING_NS_CC;
 
 

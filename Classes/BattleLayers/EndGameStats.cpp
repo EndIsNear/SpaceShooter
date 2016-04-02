@@ -2,7 +2,7 @@
 
 #include "Scenes\BattleScene.h"
 #include "Scenes\MainMenuScene.h"
-#include "BattleManager.h"
+#include "BattleLogic\BattleManager.h"
 
 #include "cocostudio\CocoStudio.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"

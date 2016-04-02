@@ -54,9 +54,6 @@
     <ClCompile Include="..\Classes\BattleLayers\Joystick.cpp">
       <Filter>src\BattleLayers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BattleManager.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\BattleLayers\HUDLayer.cpp">
       <Filter>src\BattleLayers</Filter>
     </ClCompile>
@@ -93,6 +90,9 @@
     <ClCompile Include="..\Classes\Shaders\Shaders.cpp">
       <Filter>src\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BattleLogic\BattleManager.cpp">
+      <Filter>src\BattleLogic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -118,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BattleLayers\Joystick.h">
       <Filter>src\BattleLayers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BattleManager.h">
-      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BattleLayers\HUDLayer.h">
       <Filter>src\BattleLayers</Filter>
@@ -157,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Shaders\Shaders.h">
       <Filter>src\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleLogic\BattleManager.h">
+      <Filter>src\BattleLogic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

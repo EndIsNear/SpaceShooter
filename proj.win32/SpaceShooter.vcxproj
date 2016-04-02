@@ -151,10 +151,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\BattleLayers\Joystick.cpp" />
     <ClCompile Include="..\Classes\BattleLayers\MainLayer.cpp" />
     <ClCompile Include="..\Classes\BattleLayers\SettingsLayer.cpp" />
+    <ClCompile Include="..\Classes\BattleLogic\BattleManager.cpp" />
     <ClCompile Include="..\Classes\BattleLogic\LogicalShip.cpp" />
     <ClCompile Include="..\Classes\BattleLogic\LogicalWeapon.cpp" />
     <ClCompile Include="..\Classes\BattleLogic\Spawner.cpp" />
-    <ClCompile Include="..\Classes\BattleManager.cpp" />
     <ClCompile Include="..\Classes\GameLogic\GameManager.cpp" />
     <ClCompile Include="..\Classes\Physics\BodyBase.cpp" />
     <ClCompile Include="..\Classes\Physics\BulletBase.cpp" />
@@ -173,10 +173,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BattleLayers\Joystick.h" />
     <ClInclude Include="..\Classes\BattleLayers\MainLayer.h" />
     <ClInclude Include="..\Classes\BattleLayers\SettingsLayer.h" />
+    <ClInclude Include="..\Classes\BattleLogic\BattleManager.h" />
     <ClInclude Include="..\Classes\BattleLogic\LogicalShip.h" />
     <ClInclude Include="..\Classes\BattleLogic\LogicalWeapon.h" />
     <ClInclude Include="..\Classes\BattleLogic\Spawner.h" />
-    <ClInclude Include="..\Classes\BattleManager.h" />
     <ClInclude Include="..\Classes\GameLogic\GameManager.h" />
     <ClInclude Include="..\Classes\Physics\BodyBase.h" />
     <ClInclude Include="..\Classes\Physics\BulletBase.h" />
