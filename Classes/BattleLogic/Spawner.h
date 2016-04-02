@@ -16,7 +16,7 @@ struct Spawner
 	{
 		LogicalShip * lShip;
 		ShipBase * phShip;
-		AIBase * ai;
+		AIBaseInterface * ai;
 	};
 
 	//std::vector<cocos2d::Vec2*> m_SpawningPts;//spawning pts

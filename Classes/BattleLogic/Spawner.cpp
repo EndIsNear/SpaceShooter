@@ -7,20 +7,24 @@ void Spawner::Initialize()
 	SpawnElement tmp;
 	tmp.phShip = new ShipBase(Vec2(1920, 540), Vec2(1, 0), 400.f, "enemies/Enemy5.png");
 	tmp.lShip = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AIPointToPoint(*tmp.phShip, *(tmp.lShip->GetWeapon()));
+	std::mt19937 rng;
+	AIBaseStruct basestruct{ cocos2d::Size(0.,0.),rng,*tmp.phShip, *(tmp.lShip->GetWeapon()) };
 
-	tmp.phShip->Update(0.f);
-	dynamic_cast<AIPointToPoint*>(tmp.ai)->AddPoint(cocos2d::Vec2(200, 200));
-	dynamic_cast<AIPointToPoint*>(tmp.ai)->AddPoint(cocos2d::Vec2(2200, 1200));
+	tmp.ai = new StayAwayEndShoot(basestruct);
 
 	m_SpawnElements.emplace_back(2.f, tmp);
+	//tmp.phShip->Update(0.f);
+	//dynamic_cast<AIPointToPoint*>(tmp.ai)->AddPoint(cocos2d::Vec2(200, 200));
+	//dynamic_cast<AIPointToPoint*>(tmp.ai)->AddPoint(cocos2d::Vec2(2200, 1200));
 
-	tmp.phShip = new ShipBase(Vec2(960, 1080), Vec2(1, 0), 400.f, "enemies/Enemy4.png");
-	tmp.phShip->Update(0.f);
-	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
-	m_SpawnElements.push_back(std::pair<float, SpawnElement>(3.f, tmp));
+	//m_SpawnElements.emplace_back(2.f, tmp);
 
+	//tmp.phShip = new ShipBase(Vec2(960, 1080), Vec2(1, 0), 400.f, "enemies/Enemy4.png");
+	//tmp.phShip->Update(0.f);
+	//tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
+	//tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
+	//m_SpawnElements.push_back(std::pair<float, SpawnElement>(3.f, tmp));
+	/*
 	tmp.phShip = new ShipBase(Vec2(960, 1620), Vec2(1, 0), 400.f, "enemies/Enemy3.png");
 	tmp.phShip->Update(0.f);
 	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
@@ -49,7 +53,7 @@ void Spawner::Initialize()
 	tmp.phShip->Update(0.f);
 	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	tmp.ai = new AIBase(*tmp.phShip, *(tmp.lShip->GetWeapon()));
-	m_SpawnElements.push_back(std::pair<float, SpawnElement>(8.f, tmp));
+	m_SpawnElements.push_back(std::pair<float, SpawnElement>(8.f, tmp));*/
 }
 
 bool Spawner::GetElementForTime(const float time, SpawnElement& res)
