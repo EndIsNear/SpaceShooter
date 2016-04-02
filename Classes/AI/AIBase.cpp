@@ -18,13 +18,11 @@ AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<Bullet
 	assert(m_Pattern.size());
 	std::uniform_real_distribution<> v(0, 1);
 	AIMove res;
-	if (mr_Weapon.CanShoot() )
+	if (mr_Weapon.CanShoot())
 	{
 		// shoot
-		res.newVelocity = 1.5;
+		res.newVelocity = 1.5f;
 		const float angle = mr_Me.GetDirection().getAngle((enemy[0]->GetPosition() - mr_Me.GetPosition()));
-		//std::string debugString;
-		//debugString  = angle;
 		if(fabs(angle) < 0.1f)
 		{
 			res.newDir = (enemy[0]->GetPosition() - mr_Me.GetPosition()).getNormalized();
@@ -32,7 +30,6 @@ AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<Bullet
 		}
 		else
 		{
-			//OutputDebugStringA("AtackPrepare");
 			res.newDir = Animation(angle, dt).getNormalized();
 			res.fire = AIMove::None;
 		}
@@ -63,7 +60,7 @@ AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>
 {
 	float dist = mr_Me.GetPosition().getDistance(enemy[0]->GetPosition());
 	AIMove res;
-	res.newDir = cocos2d::Vec2(1., 0.);
+	res.newDir = cocos2d::Vec2(1.f, 0.f);
 	float angle = 0.;
 	for (unsigned i = 0; i < enemyBullets.size(); i++)
 	{

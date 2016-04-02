@@ -5,7 +5,7 @@ USING_NS_CC;
 void Spawner::Initialize()
 {
 	SpawnElement tmp;
-	tmp.phShip = new ShipBase(Vec2(1920, 540), Vec2(0, 0), 400.f, "enemies/Enemy5.png");
+	tmp.phShip = new ShipBase(Vec2(1920, 540), Vec2(1, 0), 400.f, "enemies/Enemy5.png");
 	tmp.lShip = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	tmp.ai = new AIPointToPoint(*tmp.phShip, *(tmp.lShip->GetWeapon()));
 
@@ -15,37 +15,37 @@ void Spawner::Initialize()
 
 	m_SpawnElements.emplace_back(2.f, tmp);
 
-	tmp.phShip = new ShipBase(Vec2(960, 1080), Vec2(0, 0), 400.f, "enemies/Enemy4.png");
+	tmp.phShip = new ShipBase(Vec2(960, 1080), Vec2(1, 0), 400.f, "enemies/Enemy4.png");
 	tmp.phShip->Update(0.f);
 	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
 	m_SpawnElements.push_back(std::pair<float, SpawnElement>(3.f, tmp));
 
-	tmp.phShip = new ShipBase(Vec2(960, 1620), Vec2(0, 0), 400.f, "enemies/Enemy3.png");
+	tmp.phShip = new ShipBase(Vec2(960, 1620), Vec2(1, 0), 400.f, "enemies/Enemy3.png");
 	tmp.phShip->Update(0.f);
 	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
 	m_SpawnElements.push_back(std::pair<float, SpawnElement>(4.f, tmp));
 
-	tmp.phShip = new ShipBase(Vec2(960, 540), Vec2(0, 0), 400.f, "enemies/Enemy6.png");
+	tmp.phShip = new ShipBase(Vec2(960, 540), Vec2(1, 0), 400.f, "enemies/Enemy6.png");
 	tmp.phShip->Update(0.f);
 	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
 	m_SpawnElements.push_back(std::pair<float, SpawnElement>(5.f, tmp));
 
-	tmp.phShip = new ShipBase(Vec2(2780, 1620), Vec2(0, 0), 400.f, "enemies/Enemy1.png");
+	tmp.phShip = new ShipBase(Vec2(2780, 1620), Vec2(1, 0), 400.f, "enemies/Enemy1.png");
 	tmp.phShip->Update(0.f);
 	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	tmp.ai = new AIBase(*tmp.phShip, *(tmp.lShip->GetWeapon()));
 	m_SpawnElements.push_back(std::pair<float, SpawnElement>(6.f, tmp));
 
-	tmp.phShip = new ShipBase(Vec2(1920, 1620), Vec2(0, 0), 400.f, "enemies/Enemy2.png");
+	tmp.phShip = new ShipBase(Vec2(1920, 1620), Vec2(1, 0), 400.f, "enemies/Enemy2.png");
 	tmp.phShip->Update(0.f);
 	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	tmp.ai = new AIBase(*tmp.phShip, *(tmp.lShip->GetWeapon()));
 	m_SpawnElements.push_back(std::pair<float, SpawnElement>(7.f, tmp));
 
-	tmp.phShip = new ShipBase(Vec2(2780, 1080), Vec2(0, 0), 400.f, "enemies/Enemy5.png");
+	tmp.phShip = new ShipBase(Vec2(2780, 1080), Vec2(1, 0), 400.f, "enemies/Enemy5.png");
 	tmp.phShip->Update(0.f);
 	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	tmp.ai = new AIBase(*tmp.phShip, *(tmp.lShip->GetWeapon()));
