@@ -31,6 +31,7 @@ public:
 	const std::vector<LogicalShip*>& GetLogicalShips() const;
 	const std::vector<LogicalWeapon*>& GetLogicalWeapons() const;
 	const std::vector<std::string>& GetSpriteNames() const;
+	const LevelInfo& GetLevelInfo(size_t levelID) const;
 
 	void Initialize();
 
