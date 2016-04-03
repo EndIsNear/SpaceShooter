@@ -6,9 +6,11 @@ AIBaseInterface * GetAIbyID(const BodyBase& rMe, const LogicalWeapon &mWeapon, u
 	switch (type)
 	{
 		case 0:
-		{
 			return new StayAwayEndShoot(ai);
-		}
+		case 1:
+			return new JustShoot(ai);
+		default:
+			return new JustShoot(ai);
 	}
 
 }

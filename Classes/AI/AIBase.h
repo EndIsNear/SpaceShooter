@@ -264,6 +264,6 @@ typedef AITreeNodeBase <AIStayAway<600>, AIDefaultMove<100>> StayAwayPolicy;
 typedef AIListNode <AIStrikeOnCd, AIStayBehindEnemy> StayBehindAndShootPolicy;
 typedef AITreeNodeBase <StayBehindAndShootPolicy, StayAwayPolicy> ShootOrRunPolicy;
 typedef AITreeNodeBase <AIStayAway<250>, ShootOrRunPolicy> StayAwayEndShoot;
-
+typedef AITreeNodeBase < AIStrikeOnCd, AIDefaultMove<1>> JustShoot;
 
 #endif // __AI_BASE_H__
