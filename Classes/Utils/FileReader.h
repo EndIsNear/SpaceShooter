@@ -14,20 +14,7 @@ class FileReader
 public:
 	FileReader(std::string rFileName)
 	{
-		std::ifstream inputFile;
-
-		// Open file
-		inputFile.open(cocos2d::FileUtils::getInstance()->fullPathForFilename(rFileName).c_str());
-
-		//Read whole file
-		inputFile.seekg(0, std::ios::end);
-		m_Json.reserve(inputFile.tellg());
-		inputFile.seekg(0, std::ios::beg);
-
-		m_Json.assign((std::istreambuf_iterator<char>(inputFile)),
-			std::istreambuf_iterator<char>());
-
-		inputFile.close();
+		m_Json = cocos2d::FileUtils::getInstance()->getStringFromFile(cocos2d::FileUtils::getInstance()->fullPathForFilename(rFileName).c_str());
 		m_Document.Parse<0>(m_Json.c_str());
 	};
 
