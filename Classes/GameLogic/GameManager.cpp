@@ -24,7 +24,7 @@ const std::vector<LogicalShip*>& GameManager::GetLogicalShips() const
 	return m_LogicalShipsDB;
 }
 
-const std::vector<LogicalWeapon *>& GameManager::GetLogicalWepons() const;
+const std::vector<LogicalWeapon*>& GameManager::GetLogicalWeapons() const
 {
 	return m_LogicalWeaponsDB;
 }

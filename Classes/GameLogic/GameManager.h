@@ -29,7 +29,7 @@ public:
 	//end of singleton part
 	//////////////////////////////
 	const std::vector<LogicalShip*>& GetLogicalShips() const;
-	const std::vector<LogicalWeapon *>& GetLogicalWepons() const;
+	const std::vector<LogicalWeapon*>& GetLogicalWeapons() const;
 	const std::vector<std::string>& GetSpriteNames() const;
 
 	void Initialize();
@@ -38,7 +38,7 @@ private:
 	std::vector<LogicalShip*>   m_LogicalShipsDB;
 	std::vector<LogicalWeapon*> m_LogicalWeaponsDB;
 	std::vector<std::string>    m_SpriteNamesDB;
-	std::vector<LevelInfo>    m_LevelInfos;
+	std::vector<LevelInfo>      m_LevelInfos;
 };
 
 #endif // __GAME_MANAGER_H__

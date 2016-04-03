@@ -7,7 +7,6 @@ void Spawner::Initialize(size_t levelID)
 {
 	auto lShips = GameManager::Instance()->GetLogicalShips();
 	auto spNames = GameManager::Instance()->GetSpriteNames();
-	auto ais = GameManager::Instance()->GetAIs();
 
 	SpawnElement tmp;
 	tmp.phShip = new ShipBase(Vec2(1920, 540), Vec2(1, 0), 400.f, spNames[4].c_str());

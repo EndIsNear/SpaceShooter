@@ -158,6 +158,9 @@
     <ClInclude Include="..\Classes\BattleLogic\BattleManager.h">
       <Filter>src\BattleLogic</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\GameLogic\LevelInfo.h">
+      <Filter>src\GameLogic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
