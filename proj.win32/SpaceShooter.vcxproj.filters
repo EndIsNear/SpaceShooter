@@ -31,6 +31,9 @@
     <Filter Include="src\Scenes">
       <UniqueIdentifier>{e6acf698-0754-47d0-bac5-2258facb4dfa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Utils">
+      <UniqueIdentifier>{e37dd297-cf75-4cbc-9a7c-17bacf6fcf1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\BattleLogic\BattleManager.cpp">
       <Filter>src\BattleLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLogic\LevelInfo.cpp">
+      <Filter>src\GameLogic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameLogic\LevelInfo.h">
       <Filter>src\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\FileReader.h">
+      <Filter>src\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -34,17 +34,12 @@ public:
 
 	size_t GetEntryCount()
 	{
-		if (m_Document.HasMember("EntryCount"))
-			return m_Document["EntryCount"].GetInt();
+		return m_Document["Entries"].Size();
 	}
 
 	bool GetEntryByIndex(size_t idx, Entry& rEntry)
 	{
-		std::stringstream stream;
-		stream << "Entry" <<  idx;
-		std::string str;
-		stream >> str;
-		rEntry.Load(m_Document[str.c_str()]);
+		rEntry.Load(m_Document["Entries"][idx]);
 		return true;
 	}
 
@@ -60,5 +55,6 @@ protected:
 	rapidjson::Document m_Document;
 };
 
+typedef rapidjson::GenericValue<rapidjson::UTF8<> > FileEntryForRead;
 
 #endif // __MFILE_H__
