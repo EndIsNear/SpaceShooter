@@ -13,7 +13,7 @@ bool LevelInfo::SpawnEntry::Load(const GenericValue<UTF8<> > &entry)
 	return true;
 }
 
-bool LevelInfo::Load(const GenericValue<UTF8<> > &entry)
+bool LevelInfo::Load(const GenericValue<UTF8<>> &entry)
 {
 
 	// read level size

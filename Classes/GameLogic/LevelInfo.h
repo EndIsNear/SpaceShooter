@@ -2,7 +2,7 @@
 #define  __LEVEL_INFO_H__
 
 #include "cocos2d.h"
-#include "..\cocos2d\\external\json\\document.h"
+#include "external\json\document.h"
 
 struct LevelInfo
 {

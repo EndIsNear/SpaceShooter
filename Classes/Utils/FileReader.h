@@ -2,7 +2,7 @@
 #define __MFILE_H__
 
 #include "cocos2d.h"
-#include "..\cocos2d\\external\json\\document.h"
+#include "external\json\document.h"
 #include <sstream>
 #include "fstream"
 
@@ -17,7 +17,7 @@ public:
 		std::ifstream inputFile;
 
 		// Open file
-		inputFile.open(cocos2d::FileUtils::getInstance()->sharedFileUtils()->fullPathForFilename(rFileName).c_str());
+		inputFile.open(cocos2d::FileUtils::getInstance()->fullPathForFilename(rFileName).c_str());
 
 		//Read whole file
 		inputFile.seekg(0, std::ios::end);

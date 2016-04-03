@@ -1,0 +1,74 @@
+{
+    "Entries": 	[
+    			{
+    				"LevelH" : 3000,
+    				"LevelW" : 2500,
+    				"PlayerX" : 1200,
+    				"PlayerY" : 1200,
+
+	    			"SpawnEnties":	[
+	    					{
+	    						"spwnPntID": 0,
+	    						"lShipID" : 0,
+	    						"lWeaponID" : 0,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"timeToSpawn" : 1
+	    					},
+	    					{
+	    						"spwnPntID": 1,
+	    						"lShipID" : 0,
+	    						"lWeaponID" : 0,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 2,
+	    						"timeToSpawn" : 1
+	    					},
+	    					{
+	    						"spwnPntID": 0,
+	    						"lShipID" : 1,
+	    						"lWeaponID" : 1,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 1,
+	    						"timeToSpawn" : 4
+	    					},
+	    					{
+	    						"spwnPntID": 1,
+	    						"lShipID" : 1,
+	    						"lWeaponID" : 1,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 3,
+	    						"timeToSpawn" : 4
+	    					},
+	    					{
+	    						"spwnPntID": 0,
+	    						"lShipID" : 2,
+	    						"lWeaponID" : 2,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 4,
+	    						"timeToSpawn" : 7
+	    					},
+	    					{
+	    						"spwnPntID": 1,
+	    						"lShipID" : 2,
+	    						"lWeaponID" : 2,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 5,
+	    						"timeToSpawn" : 7
+	    					}
+	    			],
+
+	    			"SpawnPoints":	[
+	    					{
+	    						"X" : 1920,
+	    						"Y" : 540,
+	    						"SpawnEntryID" : 0
+	    					},
+	    					{
+	    						"X" : 1920,
+	    						"Y" : 1620,
+	    						"SpawnEntryID" : 1
+	    					}
+	    			]
+    			}
+    ]
+}

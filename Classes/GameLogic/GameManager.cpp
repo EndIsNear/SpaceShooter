@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "Utils\FileReader.h"
 
 USING_NS_CC;
 
@@ -23,20 +24,13 @@ void GameManager::Initialize()
 	}
 
 
-	LevelInfo tmp;
-	tmp.m_SpawnPoints.emplace_back(Vec2(1920, 540), 0);
-	for (int i = 0; i < 5; ++i)
+	FileReader<LevelInfo> test("jsons/levels.json");
+	unsigned lvlCnt = test.GetEntryCount();
+	m_LevelInfos.resize(lvlCnt);
+	for (unsigned i = 0; i < lvlCnt; i++)
 	{
-		LevelInfo::SpawnEntry tmpEntry;
-		tmpEntry.timeToSpawn = i * 2.f;
-		tmpEntry.lShipID = i % 3;
-		tmpEntry.lWeaponID = i % 3;
-		tmpEntry.spwnPntID = 0;
-		tmpEntry.sprtNameID = i;
-		tmp.m_SpawnEntries.push_back(tmpEntry);
+		test.GetEntryByIndex(i, m_LevelInfos[i]);
 	}
-
-	m_LevelInfos.push_back(tmp);
 }
 
 const std::vector<LogicalShip*>& GameManager::GetLogicalShips() const
