@@ -8,9 +8,8 @@ void Spawner::Initialize()
 	tmp.phShip = new ShipBase(Vec2(1920, 540), Vec2(1, 0), 400.f, "enemies/Enemy5.png");
 	tmp.lShip = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
 	std::mt19937 rng;
-	AIBaseStruct basestruct{ cocos2d::Size(0.,0.),rng,*tmp.phShip, *(tmp.lShip->GetWeapon()) };
-
-	tmp.ai = new StayAwayEndShoot(basestruct);
+	
+	tmp.ai = GetAIbyID(*tmp.phShip, *(tmp.lShip->GetWeapon()), 0/*first ai*/);
 
 	m_SpawnElements.emplace_back(2.f, tmp);
 	//tmp.phShip->Update(0.f);

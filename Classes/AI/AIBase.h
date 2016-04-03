@@ -25,10 +25,21 @@ struct AIMove
 struct AIBaseStruct
 {
 	cocos2d::Size m_AreaSize;
-	std::mt19937 rng;
 	const BodyBase& mr_Me;
 	const LogicalWeapon& mr_Weapon;
 };
+
+
+class AIBaseInterface
+{
+public:
+	virtual AIMove GetMove(std::vector<ShipBase*>& enemy,
+		std::vector<BulletBase*>& enemyBullets,
+		std::vector<ShipBase*>& friends,
+		const float dt) = 0;
+};
+
+AIBaseInterface * GetAIbyID(const BodyBase& rMe, const LogicalWeapon &mWeapon, unsigned type);
 
 template <int VELOCITY>
 class AIDefaultMove
@@ -170,16 +181,8 @@ private:
 };
 
 
-class AIBaseInterface
-{
-public:
-	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, 
-						std::vector<BulletBase*>& enemyBullets, 
-						std::vector<ShipBase*>& friends, 
-						const float dt) = 0;
-};
 
-template <typename AIPolicy1, typename AIPolicy2, typename AIBaseStructT>
+template <typename AIPolicy1, typename AIPolicy2, typename AIBaseStructT = AIBaseStruct>
 class AIListNode
 {
 public:
@@ -213,7 +216,7 @@ protected:
 	AIPolicy2 m_policy2;
 };
 
-template <typename AIPolicy1, typename AIPolicy2, typename AIBaseStructT>
+template <typename AIPolicy1, typename AIPolicy2, typename AIBaseStructT = AIBaseStruct>
 class AITreeNodeBase : public AIBaseStructT , public AIBaseInterface
 {
 public:
@@ -256,11 +259,11 @@ protected:
 };
 
 
-typedef AITreeNodeBase <AIStayAway<600>, AIDefaultMove<100>, AIBaseStruct> StayAwayPolicy;
+typedef AITreeNodeBase <AIStayAway<600>, AIDefaultMove<100>> StayAwayPolicy;
 
-typedef AIListNode <AIStrikeOnCd, AIStayBehindEnemy, AIBaseStruct> StayBehindAndShootPolicy;
-typedef AITreeNodeBase <StayBehindAndShootPolicy, StayAwayPolicy, AIBaseStruct> ShootOrRunPolicy;
-typedef AITreeNodeBase <AIStayAway<250>, ShootOrRunPolicy, AIBaseStruct> StayAwayEndShoot;
+typedef AIListNode <AIStrikeOnCd, AIStayBehindEnemy> StayBehindAndShootPolicy;
+typedef AITreeNodeBase <StayBehindAndShootPolicy, StayAwayPolicy> ShootOrRunPolicy;
+typedef AITreeNodeBase <AIStayAway<250>, ShootOrRunPolicy> StayAwayEndShoot;
 
 
 #endif // __AI_BASE_H__
