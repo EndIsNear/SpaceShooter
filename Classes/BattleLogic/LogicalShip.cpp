@@ -1,5 +1,17 @@
 #include "LogicalShip.h"
 
+LogicalShip::LogicalShip() :
+	m_MaxHP(0.f),
+	m_CrnHP(0.f),
+	m_HPPerSec(0.f),
+	m_MaxShield(0.f),
+	m_CrnShield(0.f),
+	m_ShieldPerSec(0.f),
+	m_Weapon(NULL)
+{
+
+}
+
 
 LogicalShip::LogicalShip(float hp, float shield, float shieldPerSec, float healthPerSec, LogicalWeapon * wep) :
 	m_MaxHP(hp),
@@ -72,3 +84,15 @@ void LogicalShip::OnHit(LogicalWeapon * atacker)
 		m_CrnShield -= dmg;
 	}
 }
+
+bool LogicalShip::Load(const rapidjson::GenericValue<rapidjson::UTF8<> > &entry)
+{
+	m_MaxHP = entry["MaxHP"].GetDouble();
+	m_CrnHP = m_MaxHP;
+	m_HPPerSec = entry["HPPerSec"].GetDouble();
+	m_MaxShield = entry["MaxShield"].GetDouble();
+	m_CrnShield = m_MaxShield;
+	m_ShieldPerSec = entry["ShieldPerSec"].GetDouble();
+	return true;
+}
+

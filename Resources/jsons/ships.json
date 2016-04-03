@@ -1,0 +1,18 @@
+{
+	"Entries" : [
+					{
+						"MaxHP" : 200 ,
+						"HPPerSec" : 0,
+						"MaxShield" : 250,
+						"ShieldPerSec" : 10 
+					},
+
+					{
+						"MaxHP" : 500 ,
+						"HPPerSec" : 0,
+						"MaxShield" : 50,
+						"ShieldPerSec" : 10
+
+					}
+				]
+}

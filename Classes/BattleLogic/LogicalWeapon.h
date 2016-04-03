@@ -1,9 +1,12 @@
 #ifndef  __LOGICAL_WEAPON_H__
 #define  __LOGICAL_WEAPON_H__
 
+#include "Utils\FileReader.h"
+
 class LogicalWeapon
 {
 public:
+	LogicalWeapon();
 	LogicalWeapon(const float dmg, const float delay, const float bulletSpeed);
 	LogicalWeapon(const LogicalWeapon& wpn);
 	LogicalWeapon& operator=(const LogicalWeapon& wpn);
@@ -14,6 +17,8 @@ public:
 	float GetBulletSpeed() const { return m_BulletSpeed; }
 	bool CanShoot() const { return m_ShootCrnDelay < 0.f; }
 	void Shoot() { m_ShootCrnDelay = m_ShootMaxDelay; }
+
+	bool Load(const rapidjson::GenericValue<rapidjson::UTF8<> > &entry);
 private:
 	float m_Dmg;
 	float m_BulletSpeed;

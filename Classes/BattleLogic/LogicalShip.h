@@ -1,10 +1,12 @@
 #ifndef  __LOGICAL_SHIP_H__
 #define  __LOGICAL_SHIP_H__
 #include "LogicalWeapon.h"
+#include "Utils\FileReader.h"
 
 class LogicalShip
 {
 public:
+	LogicalShip();
 	LogicalShip(float hp, float shield, float shieldPerSec, float healthPerSec, LogicalWeapon * wep = nullptr);
 	LogicalShip(const LogicalShip& ls);
 	LogicalShip& operator=(const LogicalShip& ls);
@@ -19,6 +21,8 @@ public:
 	float GetShieldInPer() const { return (m_CrnShield / m_MaxShield) * 100.f; }
 	const LogicalWeapon * GetWeapon() const { return m_Weapon; }
 	LogicalWeapon * GetWeapon() { return m_Weapon; }
+
+	bool Load(const rapidjson::GenericValue<rapidjson::UTF8<> > &entry);
 private:
 	float m_MaxHP;
 	float m_CrnHP;
