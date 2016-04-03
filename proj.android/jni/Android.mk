@@ -19,6 +19,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/BattleLogic/LogicalShip.cpp \
                    ../../Classes/BattleLogic/LogicalWeapon.cpp \
                    ../../Classes/BattleLogic/Spawner.cpp \
+                   ../../Classes/BattleLogic/BattleManager.cpp \
                    ../../Classes/AI/AIBase.cpp \
                    ../../Classes/Physics/BodyBase.cpp \
                    ../../Classes/Physics/ShipBase.cpp \
@@ -26,7 +27,6 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Scenes/BattleScene.cpp \
                    ../../Classes/Scenes/MainMenuScene.cpp \
                    ../../Classes/Shaders/Shaders.cpp \
-                   ../../Classes/BattleManager.cpp \
                    ../../Classes/PopupMenu.cpp \
                    ../../Classes/AppDelegate.cpp
 

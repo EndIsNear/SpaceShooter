@@ -20,10 +20,14 @@ LogicalWeapon::LogicalWeapon(const LogicalWeapon& wpn) :
 
 LogicalWeapon& LogicalWeapon::operator=(const LogicalWeapon& wpn)
 {
-	m_Dmg = wpn.m_Dmg;
-	m_ShootMaxDelay = wpn.m_ShootMaxDelay;
-	m_ShootCrnDelay = 0.f;
-	m_BulletSpeed = wpn.m_BulletSpeed;
+	if (this != &wpn)
+	{
+		m_Dmg = wpn.m_Dmg;
+		m_ShootMaxDelay = wpn.m_ShootMaxDelay;
+		m_ShootCrnDelay = 0.f;
+		m_BulletSpeed = wpn.m_BulletSpeed;
+	}
+	return *this;
 }
 
 
