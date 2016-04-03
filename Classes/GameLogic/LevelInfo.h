@@ -13,6 +13,7 @@ struct LevelInfo
 		size_t lWeaponID;
 		size_t aiID;
 		size_t sprtNameID;
+		float shipSpeed;
 		float timeToSpawn;
 		bool Load(const rapidjson::GenericValue<rapidjson::UTF8<> > &entry);
 	};

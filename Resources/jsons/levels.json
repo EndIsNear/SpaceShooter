@@ -13,6 +13,7 @@
 	    						"lWeaponID" : 0,
 	    						"aiID" : 0,
 	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 2000,
 	    						"timeToSpawn" : 1
 	    					},
 	    					{
@@ -21,6 +22,7 @@
 	    						"lWeaponID" : 0,
 	    						"aiID" : 0,
 	    						"sprtNameID" : 2,
+	    						"shipSpeed" : 400,
 	    						"timeToSpawn" : 1
 	    					},
 	    					{
@@ -29,6 +31,7 @@
 	    						"lWeaponID" : 1,
 	    						"aiID" : 0,
 	    						"sprtNameID" : 1,
+	    						"shipSpeed" : 400,
 	    						"timeToSpawn" : 4
 	    					},
 	    					{
@@ -37,6 +40,7 @@
 	    						"lWeaponID" : 1,
 	    						"aiID" : 0,
 	    						"sprtNameID" : 3,
+	    						"shipSpeed" : 400,
 	    						"timeToSpawn" : 4
 	    					},
 	    					{
@@ -45,6 +49,7 @@
 	    						"lWeaponID" : 2,
 	    						"aiID" : 0,
 	    						"sprtNameID" : 4,
+	    						"shipSpeed" : 400,
 	    						"timeToSpawn" : 7
 	    					},
 	    					{
@@ -53,6 +58,7 @@
 	    						"lWeaponID" : 2,
 	    						"aiID" : 0,
 	    						"sprtNameID" : 5,
+	    						"shipSpeed" : 400,
 	    						"timeToSpawn" : 7
 	    					}
 	    			],

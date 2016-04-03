@@ -15,7 +15,8 @@ void Spawner::Initialize(size_t levelID)
 	for (auto& entry : levelInfo.m_SpawnEntries)
 	{
 		//TODO: remove hardcoded 400.f
-		tmp.phShip = new ShipBase(levelInfo.m_SpawnPoints[entry.spwnPntID].first, Vec2(1.f, 0.f), 400.f, spNames[entry.sprtNameID]);
+		tmp.phShip = new ShipBase(levelInfo.m_SpawnPoints[entry.spwnPntID].first, Vec2(1.f, 0.f), entry.shipSpeed,
+			spNames[entry.sprtNameID]);
 
 		tmp.lShip = new LogicalShip(*lShips[entry.lShipID]);
 		tmp.lShip->SetLogicalWeapon(new LogicalWeapon(*lWeps[entry.lWeaponID]));

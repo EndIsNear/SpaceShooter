@@ -9,6 +9,7 @@ bool LevelInfo::SpawnEntry::Load(const GenericValue<UTF8<> > &entry)
 	lWeaponID = entry["lWeaponID"].GetInt();
 	aiID = entry["aiID"].GetInt();
 	sprtNameID = entry["sprtNameID"].GetInt();
+	shipSpeed = entry["shipSpeed"].GetDouble();
 	timeToSpawn = entry["timeToSpawn"].GetDouble();
 	return true;
 }
