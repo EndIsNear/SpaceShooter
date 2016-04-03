@@ -20,10 +20,19 @@ void Spawner::Initialize(size_t levelID)
 		tmp.lShip = new LogicalShip(*lShips[entry.lShipID]);
 		tmp.lShip->SetLogicalWeapon(new LogicalWeapon(*lWeps[entry.lWeaponID]));
 		//TODO: pick right AI
-		tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
+		tmp.ai = GetAIbyID(*tmp.phShip, *(tmp.lShip->GetWeapon()), 0);
 		tmp.phShip->Update(0.f);
 		m_SpawnElements.emplace_back(entry.timeToSpawn, tmp);
 	}
+
+	//SpawnElement tmp;
+	//tmp.phShip = new ShipBase(Vec2(1920, 540), Vec2(1, 0), 400.f, "enemies/Enemy5.png");
+	//tmp.lShip = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
+	//std::mt19937 rng;
+	//
+	//tmp.ai = GetAIbyID(*tmp.phShip, *(tmp.lShip->GetWeapon()), 1);
+
+	//m_SpawnElements.emplace_back(2.f, tmp);
 }
 
 bool Spawner::GetElementForTime(const float time, SpawnElement& res)

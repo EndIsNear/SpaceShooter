@@ -20,7 +20,7 @@ struct Spawner
 	{
 		LogicalShip * lShip;
 		ShipBase * phShip;
-		AIBase * ai;
+		AIBaseInterface * ai;
 	};
 
 	bool GetElementForTime(const float time, SpawnElement& res);

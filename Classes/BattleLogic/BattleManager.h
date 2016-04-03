@@ -75,7 +75,7 @@ private:
 		//player on idx 0 always for allies
 		std::vector<ShipBase*> phShips;///< physical part of ship
 		std::vector<LogicalShip*> lShips;///< logical part of ship
-		std::vector<AIBase*> ais;
+		std::vector<AIBaseInterface*> ais;
 	};
 
 	struct Bullets

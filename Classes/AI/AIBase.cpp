@@ -1,97 +1,16 @@
-#include "AIBase.h"
+#include "AI\AIBase.h"
 
-
-AIMove AIBase::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt)
+AIBaseInterface * GetAIbyID(const BodyBase& rMe, const LogicalWeapon &mWeapon, unsigned type)
 {
-	std::uniform_real_distribution<> v(0, 1);
-	AIMove res;
-	res.newVelocity = v(rng);
-	res.newDir = (enemy[0]->GetPosition() - mr_Me.GetPosition()).getNormalized();
-	res.fire = AIMove::FireType( v(rng) > 0.9f);
-	return res;
-}
-
-
-//virtual override
-AIMove AIPointToPoint::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt)
-{
-	assert(m_Pattern.size());
-	std::uniform_real_distribution<> v(0, 1);
-	AIMove res;
-	if (mr_Weapon.CanShoot())
+	AIBaseStruct ai{ cocos2d::Size(1., 1.), rMe, mWeapon };
+	switch (type)
 	{
-		// shoot
-		res.newVelocity = 1.5f;
-		const float angle = mr_Me.GetDirection().getAngle((enemy[0]->GetPosition() - mr_Me.GetPosition()));
-		if(fabs(angle) < 0.1f)
-		{
-			res.newDir = (enemy[0]->GetPosition() - mr_Me.GetPosition()).getNormalized();
-			res.fire = AIMove::NormalAttack;
-		}
-		else
-		{
-			res.newDir = Animation(angle, dt).getNormalized();
-			res.fire = AIMove::None;
-		}
+		case 0:
+			return new StayAwayEndShoot(ai);
+		case 1:
+			return new JustShoot(ai);
+		default:
+			return new JustShoot(ai);
 	}
-	else 
-	{
-		res.newVelocity = 5.f;
-		res.newDir = (m_Pattern[m_NextPtIdx] - mr_Me.GetPosition()).getNormalized();
-		res.fire = AIMove::None;
-	}
-	if (m_Pattern[m_NextPtIdx].getDistance(mr_Me.GetPosition()) < 20.f)
-	{
-		m_NextPtIdx++;
-		m_NextPtIdx %= m_Pattern.size();
-	}
-	return res;
-}
 
-const cocos2d::Vec2 AIBase::Animation(float angle, double dt) const
-{
-	return mr_Me.GetDirection().rotateByAngle(cocos2d::Vec2(0.f, 0.f), angle * (dt / 0.15f /*acselerator*/));
-}
-
-
-
-//virtual  override
-AIMove AICoward::GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt)
-{
-	float dist = mr_Me.GetPosition().getDistance(enemy[0]->GetPosition());
-	AIMove res;
-	res.newDir = cocos2d::Vec2(1.f, 0.f);
-	float angle = 0.;
-	for (unsigned i = 0; i < enemyBullets.size(); i++)
-	{
-		cocos2d::Vec2 dir = mr_Me.GetPosition() - enemyBullets[i]->GetPosition();
-		if (fabs(dir.getAngle(enemyBullets[i]->GetDirection())) < 0.351f)
-		{
-			res.newDir = enemyBullets[i]->GetDirection().getPerp().getNormalized();
-			res.newVelocity = 10.f;
-			return res;
-		}
-	}
-	if (mr_Weapon.CanShoot() && m_Timer< 0.0001f)
-	{
-		// shoot
-		angle = mr_Me.GetDirection().getAngle((enemy[0]->GetPosition() - mr_Me.GetPosition()));
-		res.fire = fabs(angle) < 0.1f ? AIMove::NormalAttack : AIMove::None;
-	}
-	else if (dist < m_MinDist )	
-	{
-		// too close
-		m_Timer = m_Timer < 0.0001f ? 0.2f /*start new move*/: m_Timer/*keep runing*/;
-		angle = mr_Me.GetDirection().getAngle((mr_Me.GetPosition() - enemy[0]->GetPosition()));
-		res.fire = AIMove::None;
-	} 
-	else if (dist > m_MaxDist)
-	{	
-		// too far
-		angle = mr_Me.GetDirection().getAngle(enemy[0]->GetPosition() - mr_Me.GetPosition());
-	}
-	res.newVelocity = 5.f;
-	res.newDir = Animation(angle, dt).getNormalized();
-	m_Timer -= dt;
-	return res;
 }

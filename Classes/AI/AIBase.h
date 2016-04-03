@@ -22,57 +22,248 @@ struct AIMove
 	float newVelocity;//normalized (0 - 1)
 };
 
-
-class AIBase
+struct AIBaseStruct
 {
-public:
-	AIBase(const BodyBase& me, const LogicalWeapon& weapon) : mr_Me(me), mr_Weapon(weapon) { rng.seed(std::random_device()()); }
-	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt);
-
-protected:
-	cocos2d::Vec2 NormalizePtBySize(const cocos2d::Vec2 &pt) const { return cocos2d::Vec2(pt.x / m_AreaSize.width, pt.y / m_AreaSize.height); }
-	const cocos2d::Vec2 Animation(float angle, double dt) const;
-
-protected:
 	cocos2d::Size m_AreaSize;
-	std::mt19937 rng;
 	const BodyBase& mr_Me;
 	const LogicalWeapon& mr_Weapon;
 };
 
 
-class AIPointToPoint : public AIBase
+class AIBaseInterface
 {
 public:
-	AIPointToPoint(const BodyBase& me, const LogicalWeapon& weapon) :m_NextPtIdx(0) , AIBase(me, weapon) {}
-	void AddPoint(const cocos2d::Vec2 &rPt) { m_Pattern.push_back(rPt);}
-	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt) override;
+	virtual AIMove GetMove(std::vector<ShipBase*>& enemy,
+		std::vector<BulletBase*>& enemyBullets,
+		std::vector<ShipBase*>& friends,
+		const float dt) = 0;
+};
+
+AIBaseInterface * GetAIbyID(const BodyBase& rMe, const LogicalWeapon &mWeapon, unsigned type);
+
+template <int VELOCITY>
+class AIDefaultMove
+{
+public:
+	AIDefaultMove(const AIBaseStruct& parent)
+		:
+		m_ParentRef(parent)
+	{
+
+	}
+
+	bool GetMove(std::vector<ShipBase*>& enemy,
+		std::vector<BulletBase*>& enemyBullets,
+		std::vector<ShipBase*>& friends,
+		const float dt,
+		AIMove &rResult)
+	{
+		rResult.fire = AIMove::None;
+		rResult.newDir = m_ParentRef.mr_Me.GetDirection();
+		rResult.newVelocity = VELOCITY;
+		return true;
+	}
+
+private:
+	const AIBaseStruct& m_ParentRef;
+
+};
+
+
+class  AIStayBehindEnemy
+{
+public:
+		AIStayBehindEnemy(const AIBaseStruct& parent)
+			:
+			m_ParentRef(parent)
+		{
+		}
+
+		bool GetMove(std::vector<ShipBase*>& enemy,
+			std::vector<BulletBase*>& enemyBullets,
+			std::vector<ShipBase*>& friends,
+			const float dt,
+			AIMove &rResult)
+		{
+			const BodyBase& me = m_ParentRef.mr_Me;
+			const float hisPOV = enemy[0]->GetDirection().getAngle(me.GetPosition() - enemy[0]->GetPosition());
+			if (fabs(hisPOV) > 0.5f)
+			{
+				rResult.newVelocity = 0.01 * me.GetVelocityNormalized();
+				return true;
+			}
+			return false;
+		}
+
+private:
+	const AIBaseStruct& m_ParentRef;
+};
+
+
+template <int DISTANCE>
+class AIStayAway
+{
+public:
+	AIStayAway(const AIBaseStruct& parent)
+		:
+		m_ParentRef(parent)
+	{
+	}
+
+	bool GetMove(std::vector<ShipBase*>& enemy,
+		std::vector<BulletBase*>& enemyBullets,
+		std::vector<ShipBase*>& friends,
+		const float dt,
+		AIMove &rResult)
+	{
+		const BodyBase& me = m_ParentRef.mr_Me;
+		float dist = me.GetPosition().getDistance(enemy[0]->GetPosition());
+		if (dist < DISTANCE || m_Timer > 0.01f)
+		{
+			const float angle = me.GetDirection().getAngle(me.GetPosition() - enemy[0]->GetPosition());
+			rResult.fire = AIMove::None;
+			rResult.newVelocity = 1.;
+			rResult.newDir = me.GetDirection().rotateByAngle(cocos2d::Vec2(0.f, 0.f), angle * dt / 0.2/*acelerator*/);
+			if (dist < DISTANCE)
+			{ // reset time
+				m_Timer = 0.7f;
+			}
+			m_Timer -= dt;
+			return true;
+		}
+		return false;
+	}
+private:
+	float m_Timer;
+	const AIBaseStruct& m_ParentRef;
+};
+
+class AIStrikeOnCd
+{
+public:
+	AIStrikeOnCd(const AIBaseStruct& parent)
+		:
+		m_ParentRef(parent)
+	{
+
+	}
+
+	bool GetMove(std::vector<ShipBase*>& enemy,
+		std::vector<BulletBase*>& enemyBullets,
+		std::vector<ShipBase*>& friends,
+		const float dt,
+		AIMove &rResult)
+	{
+		if (m_ParentRef.mr_Weapon.CanShoot())
+		{
+			const BodyBase&  me = m_ParentRef.mr_Me;
+			const float angle = me.GetDirection().getAngle((enemy[0]->GetPosition() - me.GetPosition()));
+			if(fabs(angle) < 0.1f)
+			{
+				rResult.newDir = me.GetDirection();//(enemy[0]->GetPosition() - me.GetPosition()).getNormalized();
+				rResult.fire = AIMove::NormalAttack;
+			}
+			else
+			{
+				rResult.newDir = me.GetDirection().rotateByAngle(cocos2d::Vec2(0.f, 0.f), angle * dt / 0.2/*acelerator*/);
+				rResult.fire = AIMove::None;
+			}
+			const float hisPOV = enemy[0]->GetDirection().getAngle(me.GetPosition() - enemy[0]->GetPosition());
+			rResult.newVelocity = (hisPOV > 0.5f ? 0.1f : 0.9f )* me.GetVelocityNormalized();
+			return true;
+		}
+		return false;
+	}
+
+private:
+	const AIBaseStruct& m_ParentRef;
+
+};
+
+
+
+template <typename AIPolicy1, typename AIPolicy2, typename AIBaseStructT = AIBaseStruct>
+class AIListNode
+{
+public:
+	AIListNode(const AIBaseStructT &r)
+		:
+		m_policy1(r),
+		m_policy2(r)
+	{}
+
+
+		bool GetMove(std::vector<ShipBase*>& enemy,
+			std::vector<BulletBase*>& enemyBullets,
+			std::vector<ShipBase*>& friends,
+			const float dt,
+			AIMove &rResult)
+	{
+		// this method give oportinuty  to build list of different Policy
+		if (m_policy1.GetMove(enemy, enemyBullets, friends, dt, rResult))
+		{
+			m_policy2.GetMove(enemy, enemyBullets, friends, dt, rResult);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 protected:
-
-	
-private:
-	//contain only norm pt
-	unsigned m_NextPtIdx;
-	std::vector<cocos2d::Vec2> m_Pattern;
+	AIPolicy1 m_policy1;
+	AIPolicy2 m_policy2;
 };
 
-class AICoward : public AIBase
+template <typename AIPolicy1, typename AIPolicy2, typename AIBaseStructT = AIBaseStruct>
+class AITreeNodeBase : public AIBaseStructT , public AIBaseInterface
 {
 public:
-	AICoward(const BodyBase& me, const LogicalWeapon& weapon, const float minDist, const float maxDist) :
-		AIBase(me, weapon)
-		, m_MinDist(minDist)
-		, m_MaxDist(maxDist)
-		, m_Timer(0.f)
+
+	AITreeNodeBase(const AIBaseStructT &r)
+		:
+		m_policy1(*this),
+		m_policy2(*this),
+		AIBaseStructT(r)
 		{}
-	virtual AIMove GetMove(std::vector<ShipBase*>& enemy, std::vector<BulletBase*>& enemyBullets, std::vector<ShipBase*>& friends, const float dt) override;
-private:
-	float m_MinDist;
-	float m_MaxDist;
-	float m_Timer;
+
+	virtual AIMove GetMove(std::vector<ShipBase*>& enemy,
+							std::vector<BulletBase*>& enemyBullets, 
+							std::vector<ShipBase*>& friends, 
+							const float dt) override
+	{
+		AIMove result;
+		// branching
+		if (!m_policy1.GetMove(enemy, enemyBullets, friends, dt, result /*out*/))
+		{
+			m_policy2.GetMove(enemy, enemyBullets, friends, dt, result /*out*/);
+		}
+		return result;
+	}
+
+	bool GetMove(std::vector<ShipBase*>& enemy,
+		std::vector<BulletBase*>& enemyBullets,
+		std::vector<ShipBase*>& friends,
+		const float dt,
+		AIMove &rResult)
+	{
+		// this method give oportinuty to build tree of different Policy
+		return m_policy1.GetMove(enemy, enemyBullets, friends, dt, rResult) 
+			|| m_policy2.GetMove(enemy, enemyBullets, friends, dt, rResult);
+	}
+
+protected:
+	AIPolicy1 m_policy1;
+	AIPolicy2 m_policy2;
 };
 
 
+typedef AITreeNodeBase <AIStayAway<600>, AIDefaultMove<100>> StayAwayPolicy;
+
+typedef AIListNode <AIStrikeOnCd, AIStayBehindEnemy> StayBehindAndShootPolicy;
+typedef AITreeNodeBase <StayBehindAndShootPolicy, StayAwayPolicy> ShootOrRunPolicy;
+typedef AITreeNodeBase <AIStayAway<250>, ShootOrRunPolicy> StayAwayEndShoot;
+typedef AITreeNodeBase < AIStrikeOnCd, AIDefaultMove<1>> JustShoot;
 
 #endif // __AI_BASE_H__
