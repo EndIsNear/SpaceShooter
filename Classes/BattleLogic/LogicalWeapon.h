@@ -5,6 +5,8 @@ class LogicalWeapon
 {
 public:
 	LogicalWeapon(const float dmg, const float delay, const float bulletSpeed);
+	LogicalWeapon(const LogicalWeapon& wpn);
+	LogicalWeapon& operator=(const LogicalWeapon& wpn);
 
 	void Update(const float dt);
 

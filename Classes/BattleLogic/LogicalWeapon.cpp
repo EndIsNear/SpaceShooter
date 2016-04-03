@@ -9,6 +9,24 @@ LogicalWeapon::LogicalWeapon(const float dmg, const float delay, const float bul
 	
 }
 
+LogicalWeapon::LogicalWeapon(const LogicalWeapon& wpn) :
+	m_Dmg(wpn.m_Dmg),
+	m_ShootMaxDelay(wpn.m_ShootMaxDelay),
+	m_ShootCrnDelay(0.f),
+	m_BulletSpeed(wpn.m_BulletSpeed)
+{
+
+}
+
+LogicalWeapon& LogicalWeapon::operator=(const LogicalWeapon& wpn)
+{
+	m_Dmg = wpn.m_Dmg;
+	m_ShootMaxDelay = wpn.m_ShootMaxDelay;
+	m_ShootCrnDelay = 0.f;
+	m_BulletSpeed = wpn.m_BulletSpeed;
+}
+
+
 void LogicalWeapon::Update(const float dt)
 {
 	m_ShootCrnDelay -= dt;

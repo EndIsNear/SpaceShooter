@@ -6,6 +6,8 @@ class LogicalShip
 {
 public:
 	LogicalShip(float hp, float shield, float shieldPerSec, float healthPerSec, LogicalWeapon * wep);
+	LogicalShip(const LogicalShip& ls);
+	LogicalShip& operator=(const LogicalShip& ls);
 
 	void Update(const float dt);
 	void OnHit(LogicalWeapon * atacker);
