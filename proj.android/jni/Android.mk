@@ -26,6 +26,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Physics/BulletBase.cpp \
                    ../../Classes/Scenes/BattleScene.cpp \
                    ../../Classes/Scenes/MainMenuScene.cpp \
+                   ../../Classes/Scenes/LevelSelectScene.cpp \
                    ../../Classes/Shaders/Shaders.cpp \
                    ../../Classes/GameLogic/GameManager.cpp \
                    ../../Classes/GameLogic/LevelInfo.cpp \

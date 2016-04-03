@@ -1,5 +1,5 @@
 #include "Scenes/MainMenuScene.h"
-#include "Scenes/BattleScene.h"
+#include "Scenes/LevelSelectScene.h"
 #include "cocostudio\CocoStudio.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"
 
@@ -52,7 +52,7 @@ bool MainMenuScene::init()
 
 void MainMenuScene::menuBattleCallback()
 {
-	auto newScene = BattleScene::createScene();
+	auto newScene = LevelSelectScene::createScene();
 	Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
 }
 

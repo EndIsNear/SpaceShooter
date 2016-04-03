@@ -1,11 +1,11 @@
-#ifndef __MAIN_MENU_SCENE_H__
-#define __MAIN_MENU_SCENE_H__
+#ifndef __LEVEL_SELECT_SCENE_H__
+#define __LEVEL_SELECT_SCENE_H__
 #include "cocos2d.h"
 #include "cocos\base\CCVector.h"
 #include "ui/UIButton.h"
 
 
-class MainMenuScene : public cocos2d::Layer
+class LevelSelectScene : public cocos2d::Layer
 {
 	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
 	cocos2d::ui::Button * m_PlayButton;
@@ -15,13 +15,14 @@ class MainMenuScene : public cocos2d::Layer
 	cocos2d::ui::Button * m_ExitButton;
 
 public:
-	CREATE_FUNC(MainMenuScene);
+	CREATE_FUNC(LevelSelectScene);
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 
-	void menuBattleCallback();
-	void menuBackCallback();
+	void menuStartCallback(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
+	void menuBackCallback(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type);
+
 };
 
 
-#endif // __MAIN_MENU_SCENE_H__
+#endif // __LEVEL_SELECT_SCENE_H__

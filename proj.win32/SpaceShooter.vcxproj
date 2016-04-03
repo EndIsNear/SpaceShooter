@@ -162,6 +162,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Physics\ShipBase.cpp" />
     <ClCompile Include="..\Classes\PopupMenu.cpp" />
     <ClCompile Include="..\Classes\Scenes\BattleScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\LevelSelectScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene.cpp" />
     <ClCompile Include="..\Classes\Shaders\Shaders.cpp" />
     <ClCompile Include="main.cpp" />
@@ -185,6 +186,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Physics\ShipBase.h" />
     <ClInclude Include="..\Classes\PopupMenu.h" />
     <ClInclude Include="..\Classes\Scenes\BattleScene.h" />
+    <ClInclude Include="..\Classes\Scenes\LevelSelectScene.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene.h" />
     <ClInclude Include="..\Classes\Shaders\Shaders.h" />
     <ClInclude Include="..\Classes\Utils.h" />
