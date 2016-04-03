@@ -5,55 +5,25 @@ USING_NS_CC;
 
 void Spawner::Initialize(size_t levelID)
 {
-	auto lShips = GameManager::Instance()->GetLogicalShips();
-	auto spNames = GameManager::Instance()->GetSpriteNames();
+	auto gm = GameManager::Instance();
+	auto lShips = gm->GetLogicalShips();
+	auto lWeps = gm->GetLogicalWeapons();
+	auto spNames = gm->GetSpriteNames();
+	auto levelInfo = gm->GetLevelInfo(levelID);
 
 	SpawnElement tmp;
-	tmp.phShip = new ShipBase(Vec2(1920, 540), Vec2(1, 0), 400.f, spNames[4].c_str());
-	tmp.lShip = new LogicalShip(1000, 700, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AIPointToPoint(*tmp.phShip, *(tmp.lShip->GetWeapon()));
+	for (auto& entry : levelInfo.m_SpawnEntries)
+	{
+		//TODO: remove hardcoded 400.f
+		tmp.phShip = new ShipBase(levelInfo.m_SpawnPoints[entry.spwnPntID].first, Vec2(1.f, 0.f), 400.f, spNames[entry.sprtNameID]);
 
-	tmp.phShip->Update(0.f);
-	dynamic_cast<AIPointToPoint*>(tmp.ai)->AddPoint(cocos2d::Vec2(200, 200));
-	dynamic_cast<AIPointToPoint*>(tmp.ai)->AddPoint(cocos2d::Vec2(2200, 1200));
-
-	m_SpawnElements.emplace_back(2.f, tmp);
-
-	tmp.phShip = new ShipBase(Vec2(960, 1080), Vec2(1, 0), 400.f, spNames[3].c_str());
-	tmp.phShip->Update(0.f);
-	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
-	m_SpawnElements.push_back(std::pair<float, SpawnElement>(3.f, tmp));
-
-	tmp.phShip = new ShipBase(Vec2(960, 1620), Vec2(1, 0), 400.f, spNames[2].c_str());
-	tmp.phShip->Update(0.f);
-	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
-	m_SpawnElements.push_back(std::pair<float, SpawnElement>(4.f, tmp));
-
-	tmp.phShip = new ShipBase(Vec2(960, 540), Vec2(1, 0), 400.f, spNames[5].c_str());
-	tmp.phShip->Update(0.f);
-	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
-	m_SpawnElements.push_back(std::pair<float, SpawnElement>(5.f, tmp));
-
-	tmp.phShip = new ShipBase(Vec2(2780, 1620), Vec2(1, 0), 400.f, spNames[0].c_str());
-	tmp.phShip->Update(0.f);
-	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AIBase(*tmp.phShip, *(tmp.lShip->GetWeapon()));
-	m_SpawnElements.push_back(std::pair<float, SpawnElement>(6.f, tmp));
-
-	tmp.phShip = new ShipBase(Vec2(1920, 1620), Vec2(1, 0), 400.f, spNames[1].c_str());
-	tmp.phShip->Update(0.f);
-	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AIBase(*tmp.phShip, *(tmp.lShip->GetWeapon()));
-	m_SpawnElements.push_back(std::pair<float, SpawnElement>(7.f, tmp));
-
-	tmp.phShip = new ShipBase(Vec2(2780, 1080), Vec2(1, 0), 400.f, spNames[4].c_str());
-	tmp.phShip->Update(0.f);
-	tmp.lShip = new LogicalShip(300, 100, 33, 0, new LogicalWeapon(100.f, 1.f, 700.f));
-	tmp.ai = new AIBase(*tmp.phShip, *(tmp.lShip->GetWeapon()));
-	m_SpawnElements.push_back(std::pair<float, SpawnElement>(8.f, tmp));
+		tmp.lShip = new LogicalShip(*lShips[entry.lShipID]);
+		tmp.lShip->SetLogicalWeapon(new LogicalWeapon(*lWeps[entry.lWeaponID]));
+		//TODO: pick right AI
+		tmp.ai = new AICoward(*tmp.phShip, *(tmp.lShip->GetWeapon()), 250, 400);
+		tmp.phShip->Update(0.f);
+		m_SpawnElements.emplace_back(entry.timeToSpawn, tmp);
+	}
 }
 
 bool Spawner::GetElementForTime(const float time, SpawnElement& res)

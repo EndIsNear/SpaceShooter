@@ -19,10 +19,9 @@ LogicalShip::LogicalShip(const LogicalShip& ls) :
 	m_HPPerSec(ls.m_HPPerSec),
 	m_MaxShield(ls.m_MaxShield),
 	m_CrnShield(ls.m_CrnShield),
-	m_ShieldPerSec(ls.m_ShieldPerSec),
-	m_Weapon(new LogicalWeapon(*ls.m_Weapon))
+	m_ShieldPerSec(ls.m_ShieldPerSec)
 {
-
+	if (ls.m_Weapon) m_Weapon = new LogicalWeapon(*ls.m_Weapon);
 }
 
 LogicalShip& LogicalShip::operator=(const LogicalShip& ls)
@@ -39,6 +38,11 @@ LogicalShip& LogicalShip::operator=(const LogicalShip& ls)
 		m_Weapon = new LogicalWeapon(*ls.m_Weapon);
 	}
 	return *this;
+}
+
+void LogicalShip::SetLogicalWeapon(LogicalWeapon * newWeapon)
+{
+	m_Weapon = newWeapon;
 }
 
 void LogicalShip::Update(const float dt)
