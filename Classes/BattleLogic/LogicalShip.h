@@ -5,7 +5,7 @@
 class LogicalShip
 {
 public:
-	LogicalShip(float hp, float shield, float shieldPerSec, float healthPerSec, LogicalWeapon * wep);
+	LogicalShip(float hp, float shield, float shieldPerSec, float healthPerSec, LogicalWeapon * wep = nullptr);
 	LogicalShip(const LogicalShip& ls);
 	LogicalShip& operator=(const LogicalShip& ls);
 

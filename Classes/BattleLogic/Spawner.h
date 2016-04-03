@@ -10,7 +10,11 @@
 
 struct Spawner
 {
-	Spawner() : m_crnIdx(0) { Initialize(); }
+	Spawner() : m_crnIdx(0)
+	{ 
+		//tmp should be created with level ID
+		Initialize(0);
+	}
 	
 	struct SpawnElement
 	{
@@ -19,15 +23,10 @@ struct Spawner
 		AIBase * ai;
 	};
 
-	//std::vector<cocos2d::Vec2*> m_SpawningPts;//spawning pts
-	//std::vector<LogicalShip*> m_ShipTypes;
-	//std::vector<AIBase*> m_AITypes;
-	//std::vector<SpawnElement> m_SpawnElements;
-
 	bool GetElementForTime(const float time, SpawnElement& res);
 	bool IsThereEnemies() { return m_crnIdx < m_SpawnElements.size(); }
 private:
-	void Initialize();
+	void Initialize(size_t levelID);
 
 	size_t m_crnIdx;
 	std::vector <std::pair<float, SpawnElement>> m_SpawnElements;
