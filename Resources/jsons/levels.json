@@ -56,7 +56,7 @@
 	    						"spwnPntID": 1,
 	    						"lShipID" : 2,
 	    						"lWeaponID" : 2,
-	    						"aiID" : 0,
+	    						"aiID" : 1,
 	    						"sprtNameID" : 5,
 	    						"shipSpeed" : 400,
 	    						"timeToSpawn" : 7
