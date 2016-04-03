@@ -2,6 +2,7 @@
 #define  __LEVEL_INFO_H__
 
 #include "cocos2d.h"
+#include "..\cocos2d\\external\json\\document.h"
 
 struct LevelInfo
 {
@@ -13,13 +14,20 @@ struct LevelInfo
 		size_t aiID;
 		size_t sprtNameID;
 		float timeToSpawn;
+		bool Load(const rapidjson::GenericValue<rapidjson::UTF8<> > &entry);
 	};
+	//spawn pts, pair of position and ID
+	typedef std::pair<cocos2d::Vec2, size_t> SpawnPointInfo;
+
 
 	cocos2d::Size m_LevelSize;
 	cocos2d::Vec2 m_PlayerStartPos;
-	//spawn pts, pair of position and ID
-	std::vector<std::pair<cocos2d::Vec2, size_t>> m_SpawnPoints;
+
+	
+	std::vector<SpawnPointInfo> m_SpawnPoints;
 	std::vector<SpawnEntry> m_SpawnEntries;
+
+	bool Load(const rapidjson::GenericValue<rapidjson::UTF8<> > &entry);
 };
 
 #endif // __LEVEL_INFO_H__

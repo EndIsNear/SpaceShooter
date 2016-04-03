@@ -96,6 +96,9 @@
     <ClCompile Include="..\Classes\BattleLogic\BattleManager.cpp">
       <Filter>src\BattleLogic</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameLogic\LevelInfo.cpp">
+      <Filter>src\GameLogic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
