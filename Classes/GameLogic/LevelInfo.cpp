@@ -10,7 +10,6 @@ bool LevelInfo::SpawnEntry::Load(const GenericValue<UTF8<> > &entry)
 	aiID = entry["aiID"].GetInt();
 	sprtNameID = entry["sprtNameID"].GetInt();
 	shipSpeed = entry["shipSpeed"].GetDouble();
-	timeToSpawn = entry["timeToSpawn"].GetDouble();
 	return true;
 }
 
@@ -29,24 +28,39 @@ bool LevelInfo::Load(const GenericValue<UTF8<>> &entry)
 
 	// read all spawn entryes
 	{
-		const GenericValue<UTF8<> > &SwapnEntriesArr = entry["SpawnEnties"];
-		SizeType spawnEntriesCnt = SwapnEntriesArr.Size();
-		m_SpawnEntries.resize(spawnEntriesCnt);
+		const GenericValue<UTF8<> >& SpawnEntriesArr = entry["SpawnEnties"];
+		SizeType spawnEntriesCnt = SpawnEntriesArr.Size();
+		unsigned realShipCnt = 0;
 		for (SizeType i = 0; i < spawnEntriesCnt; i++)
 		{
-			m_SpawnEntries[i].Load(SwapnEntriesArr[i]);
+			// count real ships
+			realShipCnt += SpawnEntriesArr[i]["timeToSpawn"].Size();
+		}
+		m_SpawnEntries.resize(realShipCnt);
+		for (SizeType i = 0; i < spawnEntriesCnt; i++)
+		{
+			m_SpawnEntries[i].Load(SpawnEntriesArr[i]);
+			const GenericValue<UTF8<> >& TimeToSwapnArr = SpawnEntriesArr[i]["timeToSpawn"];
+			m_SpawnEntries[i].timeToSpawn = TimeToSwapnArr[0].GetDouble();
+			SizeType otherEntriesCnt = TimeToSwapnArr.Size();
+			for (SizeType j = 1; j < otherEntriesCnt; j++)
+			{
+				m_SpawnEntries[i + j] = m_SpawnEntries[i];
+				m_SpawnEntries[i + j].timeToSpawn = TimeToSwapnArr[j].GetDouble();
+			}
+			i += otherEntriesCnt - 1;
 		}
 	}
 
 	// read spawn points
 	{
-		const GenericValue<UTF8<> > &SwapnPtsArr = entry["SpawnPoints"];
-		SizeType spawnPtsCnt = SwapnPtsArr.Size();
+		const GenericValue<UTF8<> >& SpawnPtsArr = entry["SpawnPoints"];
+		SizeType spawnPtsCnt = SpawnPtsArr.Size();
 		m_SpawnPoints.resize(spawnPtsCnt);
 		for (SizeType i = 0; i < spawnPtsCnt; i++)
 		{
 			SpawnPointInfo& currenPt = m_SpawnPoints[i];
-			const GenericValue<UTF8<> >& currentEntry = SwapnPtsArr[i];
+			const GenericValue<UTF8<> >& currentEntry = SpawnPtsArr[i];
 			currenPt.first = cocos2d::Vec2(currentEntry["X"].GetInt(), currentEntry["Y"].GetInt());
 			currenPt.second = currentEntry["SpawnEntryID"].GetInt();
 		}

@@ -14,7 +14,7 @@
 	    						"aiID" : 0,
 	    						"sprtNameID" : 0,
 	    						"shipSpeed" : 2000,
-	    						"timeToSpawn" : 1
+	    						"timeToSpawn" : [1,2,3,4,5]
 	    					},
 	    					{
 	    						"spwnPntID": 1,
@@ -23,7 +23,7 @@
 	    						"aiID" : 0,
 	    						"sprtNameID" : 2,
 	    						"shipSpeed" : 400,
-	    						"timeToSpawn" : 1
+	    						"timeToSpawn" : [1]
 	    					},
 	    					{
 	    						"spwnPntID": 0,
@@ -32,7 +32,7 @@
 	    						"aiID" : 0,
 	    						"sprtNameID" : 1,
 	    						"shipSpeed" : 400,
-	    						"timeToSpawn" : 4
+	    						"timeToSpawn" : [4]
 	    					},
 	    					{
 	    						"spwnPntID": 1,
@@ -41,7 +41,7 @@
 	    						"aiID" : 0,
 	    						"sprtNameID" : 3,
 	    						"shipSpeed" : 400,
-	    						"timeToSpawn" : 4
+	    						"timeToSpawn" : [4]
 	    					},
 	    					{
 	    						"spwnPntID": 0,
@@ -50,7 +50,7 @@
 	    						"aiID" : 0,
 	    						"sprtNameID" : 4,
 	    						"shipSpeed" : 400,
-	    						"timeToSpawn" : 7
+	    						"timeToSpawn" : [7]
 	    					},
 	    					{
 	    						"spwnPntID": 1,
@@ -59,7 +59,7 @@
 	    						"aiID" : 1,
 	    						"sprtNameID" : 5,
 	    						"shipSpeed" : 400,
-	    						"timeToSpawn" : 7
+	    						"timeToSpawn" : [7]
 	    					}
 	    			],
 
