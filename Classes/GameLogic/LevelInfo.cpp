@@ -10,8 +10,12 @@ bool LevelInfo::SpawnEntry::Load(const GenericValue<UTF8<> > &entry)
 	aiID = entry["aiID"].GetInt();
 	sprtNameID = entry["sprtNameID"].GetInt();
 	shipSpeed = entry["shipSpeed"].GetDouble();
-	timeToSpawn = entry["timeToSpawn"].GetDouble();
 	return true;
+}
+
+static bool SpawnEntryComp(const LevelInfo::SpawnEntry& ls, const LevelInfo::SpawnEntry& rs)
+{
+	return ls.timeToSpawn < rs.timeToSpawn;
 }
 
 bool LevelInfo::Load(const GenericValue<UTF8<>> &entry)
@@ -29,24 +33,42 @@ bool LevelInfo::Load(const GenericValue<UTF8<>> &entry)
 
 	// read all spawn entryes
 	{
-		const GenericValue<UTF8<> > &SwapnEntriesArr = entry["SpawnEnties"];
-		SizeType spawnEntriesCnt = SwapnEntriesArr.Size();
-		m_SpawnEntries.resize(spawnEntriesCnt);
+		const GenericValue<UTF8<> >& SpawnEntriesArr = entry["SpawnEnties"];
+		SizeType spawnEntriesCnt = SpawnEntriesArr.Size();
+		unsigned realShipCnt = 0;
 		for (SizeType i = 0; i < spawnEntriesCnt; i++)
 		{
-			m_SpawnEntries[i].Load(SwapnEntriesArr[i]);
+			// count real ships
+			realShipCnt += SpawnEntriesArr[i]["timeToSpawn"].Size();
 		}
+		m_SpawnEntries.resize(realShipCnt);
+		unsigned currentShip = 0;
+		for (SizeType i = 0; i < spawnEntriesCnt; i++)
+		{
+			m_SpawnEntries[currentShip].Load(SpawnEntriesArr[i]);
+			const GenericValue<UTF8<> >& TimeToSwapnArr = SpawnEntriesArr[i]["timeToSpawn"];
+			m_SpawnEntries[currentShip].timeToSpawn = TimeToSwapnArr[0].GetDouble();
+			SizeType otherEntriesCnt = TimeToSwapnArr.Size();
+			currentShip++;
+			for (SizeType j = 1; j < otherEntriesCnt; j++, currentShip++)
+			{
+				m_SpawnEntries[currentShip] = m_SpawnEntries[currentShip -1];
+				m_SpawnEntries[currentShip].timeToSpawn = TimeToSwapnArr[j].GetDouble();
+			}
+		}
+
+		std::sort(m_SpawnEntries.begin(), m_SpawnEntries.end(), SpawnEntryComp);
 	}
 
 	// read spawn points
 	{
-		const GenericValue<UTF8<> > &SwapnPtsArr = entry["SpawnPoints"];
-		SizeType spawnPtsCnt = SwapnPtsArr.Size();
+		const GenericValue<UTF8<> >& SpawnPtsArr = entry["SpawnPoints"];
+		SizeType spawnPtsCnt = SpawnPtsArr.Size();
 		m_SpawnPoints.resize(spawnPtsCnt);
 		for (SizeType i = 0; i < spawnPtsCnt; i++)
 		{
 			SpawnPointInfo& currenPt = m_SpawnPoints[i];
-			const GenericValue<UTF8<> >& currentEntry = SwapnPtsArr[i];
+			const GenericValue<UTF8<> >& currentEntry = SpawnPtsArr[i];
 			currenPt.first = cocos2d::Vec2(currentEntry["X"].GetInt(), currentEntry["Y"].GetInt());
 			currenPt.second = currentEntry["SpawnEntryID"].GetInt();
 		}

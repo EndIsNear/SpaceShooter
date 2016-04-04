@@ -1,0 +1,22 @@
+{
+	"Entries" : [
+					{
+						"Dmg" : 50,
+						"BulletSpeed" : 20 , 
+						"ShootMaxDelay" : 0.4
+					},
+
+					{
+						"Dmg" : 70,
+						"BulletSpeed" : 15 , 
+						"ShootMaxDelay" : 0.4
+					},
+
+
+					{
+						"Dmg" : 10,
+						"BulletSpeed" : 70 , 
+						"ShootMaxDelay" : 0.1
+					}
+				]
+}
