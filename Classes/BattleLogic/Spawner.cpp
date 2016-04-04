@@ -24,6 +24,17 @@ void Spawner::Initialize(size_t levelID)
 	}
 }
 
+Spawner::~Spawner()
+{
+	for (auto& entry : m_SpawnElements)
+	{
+		delete entry.second.lShip;
+		delete entry.second.phShip;
+		delete entry.second.ai;
+	}
+}
+
+
 bool Spawner::GetElementForTime(const float time, SpawnElement& res)
 {
 	if (m_crnIdx < m_SpawnElements.size() && m_SpawnElements[m_crnIdx].first < time)

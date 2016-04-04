@@ -8,6 +8,8 @@
 #include "Physics\ShipBase.h"
 #include "Physics\BulletBase.h"
 
+
+///Spawner is resposinble to free all enemis (ph ships logical ships etc.)
 struct Spawner
 {
 	Spawner() : m_crnIdx(0)
@@ -15,6 +17,8 @@ struct Spawner
 		//tmp should be created with level ID
 		Initialize(0);
 	}
+
+	~Spawner();
 	
 	struct SpawnElement
 	{

@@ -1,6 +1,7 @@
 #include "BattleManager.h"
 
 #include "Shaders\Shaders.h"
+#include "BattleLogic\Spawner.h"
 
 USING_NS_CC;
 
@@ -39,12 +40,6 @@ void BattleManager::free()
 	m_PlayerBullets.weapons.resize(0);
 
 	////free enemy
-	for (size_t i = 0; i < m_Enemies.Size(); ++i)
-	{
-		delete m_Enemies.phShips[i];
-		delete m_Enemies.lShips[i];
-		delete m_Enemies.ais[i];
-	}
 	m_Enemies.phShips.resize(0);
 	m_Enemies.lShips.resize(0);
 	m_Enemies.ais.resize(0);
