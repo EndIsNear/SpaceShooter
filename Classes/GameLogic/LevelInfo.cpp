@@ -13,6 +13,11 @@ bool LevelInfo::SpawnEntry::Load(const GenericValue<UTF8<> > &entry)
 	return true;
 }
 
+static bool SpawnEntryComp(const LevelInfo::SpawnEntry& ls, const LevelInfo::SpawnEntry& rs)
+{
+	return ls.timeToSpawn < rs.timeToSpawn;
+}
+
 bool LevelInfo::Load(const GenericValue<UTF8<>> &entry)
 {
 
@@ -37,19 +42,22 @@ bool LevelInfo::Load(const GenericValue<UTF8<>> &entry)
 			realShipCnt += SpawnEntriesArr[i]["timeToSpawn"].Size();
 		}
 		m_SpawnEntries.resize(realShipCnt);
+		unsigned currentShip = 0;
 		for (SizeType i = 0; i < spawnEntriesCnt; i++)
 		{
-			m_SpawnEntries[i].Load(SpawnEntriesArr[i]);
+			m_SpawnEntries[currentShip].Load(SpawnEntriesArr[i]);
 			const GenericValue<UTF8<> >& TimeToSwapnArr = SpawnEntriesArr[i]["timeToSpawn"];
-			m_SpawnEntries[i].timeToSpawn = TimeToSwapnArr[0].GetDouble();
+			m_SpawnEntries[currentShip].timeToSpawn = TimeToSwapnArr[0].GetDouble();
 			SizeType otherEntriesCnt = TimeToSwapnArr.Size();
-			for (SizeType j = 1; j < otherEntriesCnt; j++)
+			currentShip++;
+			for (SizeType j = 1; j < otherEntriesCnt; j++, currentShip++)
 			{
-				m_SpawnEntries[i + j] = m_SpawnEntries[i];
-				m_SpawnEntries[i + j].timeToSpawn = TimeToSwapnArr[j].GetDouble();
+				m_SpawnEntries[currentShip] = m_SpawnEntries[currentShip -1];
+				m_SpawnEntries[currentShip].timeToSpawn = TimeToSwapnArr[j].GetDouble();
 			}
-			i += otherEntriesCnt - 1;
 		}
+
+		std::sort(m_SpawnEntries.begin(), m_SpawnEntries.end(), SpawnEntryComp);
 	}
 
 	// read spawn points
