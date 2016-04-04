@@ -254,6 +254,6 @@ void BattleManager::startExplosion(ShipBase * ship)
 	}
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
 	auto animate = Animate::create(animation);
-	auto seq = Sequence::create(animate, animate->reverse(), CallFunc::create([ship]() { delete ship; }), NULL);
+	auto seq = Sequence::create(animate, animate->reverse(), CallFunc::create([ship]() { ship->GetSprite()->setVisible(false); }), NULL);
 	ship->GetSprite()->runAction(seq);
 }
