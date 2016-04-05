@@ -62,7 +62,8 @@ private:
 		inline void Erase(size_t idx)
 		{
 			const size_t size = Size();
-			if (idx > size)
+			assert(idx < size);
+			if (idx >= size)
 				return;
 			phShips[idx] = phShips[size - 1];
 			lShips[idx] = lShips[size - 1];
@@ -89,7 +90,8 @@ private:
 		inline void Erase(size_t idx)
 		{
 			const size_t size = Size();
-			if (idx > size)
+			assert(idx < size);
+			if (idx >= size)
 				return;
 			bullets[idx] = bullets[size - 1];
 			weapons[idx] = weapons[size - 1];
