@@ -130,6 +130,9 @@ void BattleManager::updateEnemies(const float dt)
 {
 	for (size_t i = 0; i < m_Enemies.Size(); ++i)
 	{
+		assert(m_Enemies.phShips[i] != nullptr);
+		assert(m_Enemies.lShips[i] != nullptr);
+		assert(m_Enemies.ais[i] != nullptr);
 		AIMove move = m_Enemies.ais[i]->GetMove(m_Allies.phShips, m_PlayerBullets.bullets, m_Enemies.phShips, dt);
 		m_Enemies.phShips[i]->SetDirection(move.newDir);
 		m_Enemies.phShips[i]->SetVelocity(move.newVelocity);
@@ -154,6 +157,7 @@ void BattleManager::updateBullets(Bullets& bulletArray, const float dt)
 {
 	for (size_t i = 0 ; i < bulletArray.Size(); )
 	{
+		assert(bulletArray.bullets[i] != nullptr);
 		if (!bulletArray.bullets[i]->Update(dt))
 		{
 			delete bulletArray.bullets[i];
@@ -199,6 +203,8 @@ void BattleManager::checkForHitEnemy()
 		collision = false;
 		for (size_t j = 0; j < m_Enemies.Size();)
 		{
+			assert(m_PlayerBullets.bullets[i] != nullptr);
+			assert(m_Enemies.phShips[j] != nullptr);
 			if (m_PlayerBullets.bullets[i]->Collision(*(m_Enemies.phShips[j])))
 			{
 				collision = true;
@@ -229,6 +235,8 @@ void BattleManager::checkForHitEnemy()
 void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx)
 {
 	const Ships& crn = isPlayerBullet ? m_Allies : m_Enemies;
+	assert(crn.lShips[shooterIdx] != nullptr);
+	assert(crn.phShips[shooterIdx] != nullptr);
 	if (!crn.lShips[shooterIdx]->GetWeapon()->CanShoot())
 		return;
 
