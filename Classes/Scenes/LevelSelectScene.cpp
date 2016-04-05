@@ -2,11 +2,10 @@
 
 #include "Scenes\MainMenuScene.h"
 #include "Scenes\BattleScene.h"
+#include "GameLogic\GameManager.h"
 
 #include "cocostudio\CocoStudio.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"
-
-#include "GameLogic\GameManager.h"
 
 USING_NS_CC;
 
@@ -39,7 +38,7 @@ bool LevelSelectScene::init()
 			auto crnButton = reinterpret_cast<ui::Button*>(child);
 			crnButton->addTouchEventListener(CC_CALLBACK_2(LevelSelectScene::menuStartCallback, this));
 			auto subStr = child->getName().substr(child->getName().find_first_of("0123456789"));
-			size_t idx = stoi(subStr);
+			size_t idx = atoi(subStr.c_str());
 			if (idx > GameManager::Instance()->GetLevelCount() - 1)
 				crnButton->setEnabled(false);
 		}
@@ -57,7 +56,7 @@ void LevelSelectScene::menuStartCallback(Ref* sender, ui::Widget::TouchEventType
 	if (ui::Widget::TouchEventType::ENDED == type)
 	{
 		auto subStr = node->getName().substr(node->getName().find_first_of("0123456789"));
-		size_t idx = stoi(subStr);
+		size_t idx = atoi(subStr.c_str());
 		if (idx < GameManager::Instance()->GetLevelCount())
 			GameManager::Instance()->SetCrnLevel(idx);
 		auto newScene = BattleScene::createScene();
