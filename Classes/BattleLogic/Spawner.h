@@ -12,10 +12,10 @@
 ///Spawner is resposinble to free all enemis (ph ships logical ships etc.)
 struct Spawner
 {
-	Spawner() : m_crnIdx(0)
+	Spawner(size_t lvlIdx) : m_crnIdx(0)
 	{ 
 		//tmp should be created with level ID
-		Initialize(0);
+		Initialize(lvlIdx);
 	}
 
 	~Spawner();

@@ -1,6 +1,7 @@
 #include "Scenes/BattleScene.h"
 #include "Scenes/MainMenuScene.h"
 #include "BattleLogic/BattleManager.h"
+#include "GameLogic\GameManager.h"
 USING_NS_CC;
 
 
@@ -38,7 +39,7 @@ bool BattleScene::init()
 	this->scheduleUpdate();
 
 	auto bm = BattleManager::Instance();
-	bm->initialize(new Spawner());
+	bm->initialize(new Spawner(GameManager::Instance()->GetCrnLevel()));
 	bm->SetParent(m_MainLayer);
 	setBattleManagerCallbacks();
 
@@ -75,7 +76,7 @@ void BattleScene::restartGame()
 {
 	auto bm = BattleManager::Instance();
 	bm->free();
-	bm->initialize(new Spawner());
+	bm->initialize(new Spawner(GameManager::Instance()->GetCrnLevel()));
 	bm->SetParent(m_MainLayer);
 	setBattleManagerCallbacks();
 }

@@ -6,6 +6,8 @@
 #include "cocostudio\CocoStudio.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"
 
+#include "GameLogic\GameManager.h"
+
 USING_NS_CC;
 
 
@@ -27,13 +29,19 @@ bool LevelSelectScene::init()
 	auto levelSelectLayer = CSLoader::createNode("LevelMenu/LevelSelectMenu.csb");
 	this->addChild(levelSelectLayer);
 
+
 	auto scrollView = levelSelectLayer->getChildByName("ScrollView");
 	for (auto& child : scrollView->getChildren())
 	{
 		auto res = child->getName().find("Level");
 		if (res != std::string::npos)
 		{
-			reinterpret_cast<ui::Button*>(child)->addTouchEventListener(CC_CALLBACK_2(LevelSelectScene::menuStartCallback, this));
+			auto crnButton = reinterpret_cast<ui::Button*>(child);
+			crnButton->addTouchEventListener(CC_CALLBACK_2(LevelSelectScene::menuStartCallback, this));
+			auto subStr = child->getName().substr(child->getName().find_first_of("0123456789"));
+			size_t idx = stoi(subStr);
+			if (idx > GameManager::Instance()->GetLevelCount() - 1)
+				crnButton->setEnabled(false);
 		}
 	}
 
@@ -45,8 +53,13 @@ bool LevelSelectScene::init()
 
 void LevelSelectScene::menuStartCallback(Ref* sender, ui::Widget::TouchEventType type)
 {
+	auto node = reinterpret_cast<Node*>(sender);
 	if (ui::Widget::TouchEventType::ENDED == type)
 	{
+		auto subStr = node->getName().substr(node->getName().find_first_of("0123456789"));
+		size_t idx = stoi(subStr);
+		if (idx < GameManager::Instance()->GetLevelCount())
+			GameManager::Instance()->SetCrnLevel(idx);
 		auto newScene = BattleScene::createScene();
 		Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
 	}

@@ -32,6 +32,10 @@ public:
 	const std::vector<LogicalWeapon*>& GetLogicalWeapons() const;
 	const std::vector<std::string>& GetSpriteNames() const;
 	const LevelInfo& GetLevelInfo(size_t levelID) const;
+	size_t GetLevelCount() const;
+
+	size_t GetCrnLevel() const { return m_CrnLevel; }
+	void SetCrnLevel(size_t n) { m_CrnLevel = n; }
 
 	void Initialize();
 
@@ -40,6 +44,8 @@ private:
 	std::vector<LogicalWeapon*> m_LogicalWeaponsDB;
 	std::vector<std::string>    m_SpriteNamesDB;
 	std::vector<LevelInfo>      m_LevelInfos;
+
+	size_t m_CrnLevel;
 
 	void loadShips();
 	void loadWeapons();

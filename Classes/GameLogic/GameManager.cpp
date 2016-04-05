@@ -7,6 +7,7 @@ GameManager * GameManager::m_instance = nullptr;
 
 void GameManager::Initialize()
 {
+	m_CrnLevel = 0;
 	loadShips();
 	loadWeapons();
 	loadLevels();
@@ -39,6 +40,12 @@ const LevelInfo& GameManager::GetLevelInfo(size_t levelID) const
 	assert(levelID <= m_LevelInfos.size());
 	return m_LevelInfos[levelID];
 }
+
+size_t GameManager::GetLevelCount() const
+{
+	return m_LevelInfos.size();
+}
+
 
 void GameManager::loadShips()
 {
