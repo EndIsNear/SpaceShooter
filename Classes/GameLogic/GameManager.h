@@ -40,6 +40,10 @@ private:
 	std::vector<LogicalWeapon*> m_LogicalWeaponsDB;
 	std::vector<std::string>    m_SpriteNamesDB;
 	std::vector<LevelInfo>      m_LevelInfos;
+
+	void loadShips();
+	void loadWeapons();
+	void loadLevels();
 };
 
 #endif // __GAME_MANAGER_H__

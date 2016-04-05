@@ -2,21 +2,18 @@
 	"Entries" : [
 					{
 						"Dmg" : 50,
-						"BulletSpeed" : 20 , 
+						"BulletSpeed" : 700, 
 						"ShootMaxDelay" : 0.4
 					},
-
 					{
 						"Dmg" : 70,
-						"BulletSpeed" : 15 , 
-						"ShootMaxDelay" : 0.4
+						"BulletSpeed" : 700, 
+						"ShootMaxDelay" : 0.7
 					},
-
-
 					{
-						"Dmg" : 10,
-						"BulletSpeed" : 70 , 
-						"ShootMaxDelay" : 0.1
+						"Dmg" : 100,
+						"BulletSpeed" : 700, 
+						"ShootMaxDelay" : 1
 					}
 				]
 }
