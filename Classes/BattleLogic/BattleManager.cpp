@@ -170,8 +170,8 @@ void BattleManager::checkForHitPlayer()
 	{
 		for (size_t j = 0; j < m_Allies.Size(); ++j)
 		{
-			assert(m_EnemyBullets.bullets[i] == nullptr);
-			assert(m_Allies.phShips[j] == nullptr);
+			assert(m_EnemyBullets.bullets[i] != nullptr);
+			assert(m_Allies.phShips[j] != nullptr);
 			if (m_EnemyBullets.bullets[i]->Collision(*(m_Allies.phShips[j])))
 			{
 				//apply dmg
