@@ -63,7 +63,7 @@ void EndGameStats::onContinue()
 {
 	auto newScene = MainMenuScene::createScene();
 	BattleManager::Instance()->free();
-	Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
+	Director::getInstance()->popScene();//replaceScene(reinterpret_cast<Scene*>(newScene));
 }
 
 void EndGameStats::onRestart()

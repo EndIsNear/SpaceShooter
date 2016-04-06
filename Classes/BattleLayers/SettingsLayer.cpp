@@ -41,7 +41,7 @@ void SettingsLayer::onQuit()
 {
 	auto newScene = MainMenuScene::createScene();
 	BattleManager::Instance()->free();
-	Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
+	Director::getInstance()->popScene();
 }
 
 void SettingsLayer::onRestart()

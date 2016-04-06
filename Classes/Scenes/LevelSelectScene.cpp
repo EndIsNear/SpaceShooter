@@ -60,7 +60,7 @@ void LevelSelectScene::menuStartCallback(Ref* sender, ui::Widget::TouchEventType
 		if (idx < GameManager::Instance()->GetLevelCount())
 			GameManager::Instance()->SetCrnLevel(idx);
 		auto newScene = BattleScene::createScene();
-		Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
+		Director::getInstance()->pushScene(TransitionShrinkGrow::create(1.f, reinterpret_cast<Scene*>(newScene)));
 	}
 }
 
