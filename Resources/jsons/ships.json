@@ -1,7 +1,8 @@
 {
 	"Entries" : [
 					{
-						"MaxHP" : 300 ,
+						"_comment" : "id 0",
+						"MaxHP" : 200 ,
 						"HPPerSec" : 0,
 						"MaxShield" : 100,
 						"ShieldPerSec" : 33 
@@ -13,11 +14,22 @@
 						"ShieldPerSec" : 33 
 					},
 					{
-						"MaxHP" : 100,
+						"_comment" : "id 1",
+						"MaxHP" : 500 ,
 						"HPPerSec" : 0,
 						"MaxShield" : 700,
 						"ShieldPerSec" : 33
 
+					},
+
+					{
+						"_comment" : "id 2",
+						"MaxHP" : 1000 ,
+						"HPPerSec" : 0,
+						"MaxShield" : 500,
+						"ShieldPerSec" : 25
+
 					}
+
 				]
 }

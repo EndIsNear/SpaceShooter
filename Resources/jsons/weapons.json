@@ -1,19 +1,30 @@
 {
 	"Entries" : [
 					{
+						"_comment": "Id 0 ",
 						"Dmg" : 50,
-						"BulletSpeed" : 700, 
-						"ShootMaxDelay" : 0.4
+						"BulletSpeed" : 450 , 
+						"ShootMaxDelay" : 0.5
 					},
 					{
+						"_comment": "Id 1 ",
 						"Dmg" : 70,
-						"BulletSpeed" : 700, 
+						"BulletSpeed" : 450 , 
 						"ShootMaxDelay" : 0.7
 					},
 					{
-						"Dmg" : 100,
-						"BulletSpeed" : 700, 
-						"ShootMaxDelay" : 1
+						"_comment": "Id 2 ",
+						"Dmg" : 10,
+						"BulletSpeed" : 9000 , 
+						"ShootMaxDelay" : 0.1
+					},
+
+					{
+						"_comment": "Id 3 ",
+						"Dmg" : 5,
+						"BulletSpeed" : 1400 , 
+						"ShootMaxDelay" : 0.01
 					}
+
 				]
 }
