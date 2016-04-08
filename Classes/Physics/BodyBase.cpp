@@ -28,7 +28,9 @@ BodyBase::~BodyBase()
 {
 	m_Sprite->removeFromParent();
 	m_Sprite->release();
+	m_BodyLayer->removeFromParent();
 	m_BodyLayer->release();
+
 }
 
 void BodyBase::UpdateWithoutRotation(const float dt, const Vec2& min, const Vec2& max)
