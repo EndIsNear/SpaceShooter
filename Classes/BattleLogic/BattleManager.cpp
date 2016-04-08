@@ -139,6 +139,7 @@ void BattleManager::updateEnemies(const float dt)
 		if (move.fire == AIMove::FireType::NormalAttack)
 			fireBullet(false, i);
 		m_Enemies.phShips[i]->Update(dt);
+		reinterpret_cast<EnemyShip*>(m_Enemies.phShips[i])->Update(dt, m_Enemies.lShips[i]->GetLifeInPer(), m_Enemies.lShips[i]->GetShieldInPer());
 		m_Enemies.lShips[i]->Update(dt);
 	}
 }
