@@ -30,6 +30,11 @@ public:
 	void Update(const float dt, const float lifeInPer, const float shieldInPer, const cocos2d::Vec2& min = cocos2d::Vec2::ZERO, const cocos2d::Vec2& max = cocos2d::Vec2(3840, 2160))
 	{
 		BodyBase::UpdateWithRotation(dt, min, max);
+		UpdateHPBars(lifeInPer, shieldInPer);
+	}
+
+	void UpdateHPBars(const float lifeInPer, const float shieldInPer)
+	{
 		m_HPBar->setPercent(lifeInPer);
 		m_ShieldBar->setPercent(shieldInPer);
 	}
