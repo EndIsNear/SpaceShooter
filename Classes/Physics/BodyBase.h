@@ -24,6 +24,7 @@ public:
 	void SetPosition(const cocos2d::Vec2& _p) { m_Position = _p; }
 	void SetDirection(const cocos2d::Vec2& _d);
 	void SetVelocity(const float _v);//_v shoud be normalized (0 - 1)
+	void SetVisible(const bool _v) { m_BodyLayer->setVisible(_v); }
 
 	const cocos2d::Vec2* GetPositionRef() const { return &m_Position; }
 	cocos2d::Vec2 GetPosition() const { return m_Position; }
@@ -41,6 +42,7 @@ protected:
 	cocos2d::Vec2 m_Position;
 	cocos2d::Vec2 m_Direction; ///< Should be with len 0-1
 	cocos2d::Sprite * m_Sprite;
+	cocos2d::Node * m_BodyLayer;
 	float m_Velocity;
 	float m_MaxVelocity;
 
