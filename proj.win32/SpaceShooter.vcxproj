@@ -159,6 +159,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\GameLogic\LevelInfo.cpp" />
     <ClCompile Include="..\Classes\Physics\BodyBase.cpp" />
     <ClCompile Include="..\Classes\Physics\BulletBase.cpp" />
+    <ClCompile Include="..\Classes\Physics\EnemyShip.cpp" />
     <ClCompile Include="..\Classes\Physics\ShipBase.cpp" />
     <ClCompile Include="..\Classes\PopupMenu.cpp" />
     <ClCompile Include="..\Classes\Scenes\BattleScene.cpp" />
@@ -183,6 +184,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\GameLogic\LevelInfo.h" />
     <ClInclude Include="..\Classes\Physics\BodyBase.h" />
     <ClInclude Include="..\Classes\Physics\BulletBase.h" />
+    <ClInclude Include="..\Classes\Physics\EnemyShip.h" />
     <ClInclude Include="..\Classes\Physics\ShipBase.h" />
     <ClInclude Include="..\Classes\PopupMenu.h" />
     <ClInclude Include="..\Classes\Scenes\BattleScene.h" />

@@ -138,7 +138,7 @@ void BattleManager::updateEnemies(const float dt)
 		m_Enemies.phShips[i]->SetVelocity(move.newVelocity);
 		if (move.fire == AIMove::FireType::NormalAttack)
 			fireBullet(false, i);
-		m_Enemies.phShips[i]->Update(dt);
+		reinterpret_cast<EnemyShip*>(m_Enemies.phShips[i])->Update(dt, m_Enemies.lShips[i]->GetLifeInPer(), m_Enemies.lShips[i]->GetShieldInPer());
 		m_Enemies.lShips[i]->Update(dt);
 	}
 }
@@ -207,9 +207,11 @@ void BattleManager::checkForHitEnemy()
 			assert(m_Enemies.phShips[j] != nullptr);
 			if (m_PlayerBullets.bullets[i]->Collision(*(m_Enemies.phShips[j])))
 			{
+
 				collision = true;
 				//apply dmg
 				m_Enemies.lShips[j]->OnHit(m_PlayerBullets.weapons[i]);
+				reinterpret_cast<EnemyShip*>(m_Enemies.phShips[j])->UpdateHPBars(m_Enemies.lShips[j]->GetLifeInPer(), m_Enemies.lShips[j]->GetShieldInPer());
 
 				//delete the bullet
 				delete m_PlayerBullets.bullets[i];

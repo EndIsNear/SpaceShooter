@@ -6,6 +6,7 @@
 #include "LogicalShip.h"
 #include "AI\AIBase.h"
 #include "Physics\ShipBase.h"
+#include "Physics\EnemyShip.h"
 #include "Physics\BulletBase.h"
 
 

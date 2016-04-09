@@ -14,7 +14,7 @@ void Spawner::Initialize(size_t levelID)
 	SpawnElement tmp;
 	for (auto& entry : levelInfo.m_SpawnEntries)
 	{
-		tmp.phShip = new ShipBase(levelInfo.m_SpawnPoints[entry.spwnPntID].first, Vec2(1.f, 0.f), entry.shipSpeed,
+		tmp.phShip = new EnemyShip(levelInfo.m_SpawnPoints[entry.spwnPntID].first, Vec2(1.f, 0.f), entry.shipSpeed,
 			spNames[entry.sprtNameID]);
 		tmp.lShip = new LogicalShip(*lShips[entry.lShipID]);
 		tmp.lShip->SetLogicalWeapon(new LogicalWeapon(*lWeps[entry.lWeaponID]));
