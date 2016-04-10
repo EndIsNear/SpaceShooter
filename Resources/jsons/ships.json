@@ -1,20 +1,22 @@
+
 {
 	"Entries" : [
 					{
 						"_comment" : "id 0",
-						"MaxHP" : 200 ,
+						"MaxHP" : 220 ,
 						"HPPerSec" : 0,
 						"MaxShield" : 100,
 						"ShieldPerSec" : 33 
 					},
 					{
+						"_comment" : "id 1",
 						"MaxHP" : 600,
 						"HPPerSec" : 0,
 						"MaxShield" : 400,
 						"ShieldPerSec" : 33 
 					},
 					{
-						"_comment" : "id 1",
+						"_comment" : "id 2",
 						"MaxHP" : 500 ,
 						"HPPerSec" : 0,
 						"MaxShield" : 700,
@@ -23,10 +25,19 @@
 					},
 
 					{
-						"_comment" : "id 2",
+						"_comment" : "id 3",
 						"MaxHP" : 1000 ,
 						"HPPerSec" : 0,
 						"MaxShield" : 500,
+						"ShieldPerSec" : 25
+
+					},
+
+					{
+						"_comment" : "id 4",
+						"MaxHP" : 5000 ,
+						"HPPerSec" : 0,
+						"MaxShield" : 1000,
 						"ShieldPerSec" : 25
 
 					}

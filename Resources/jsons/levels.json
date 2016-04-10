@@ -120,7 +120,7 @@
 
 
     			{
-    				"_comment": "level2",
+    				"_comment": "level3",
     				"LevelH" : 3000,
     				"LevelW" : 2500,
     				"PlayerX" : 1200,
@@ -157,7 +157,7 @@
 	    						"timeToSpawn" : [5,6,7,8,9]
 	    					},
 
-{
+							{
 	    						"spwnPntID": 3,
 	    						"lShipID" : 2,
 	    						"lWeaponID" : 2,
@@ -197,11 +197,220 @@
 	    					},
 
 	    					{
-	    						"X" : 16000,
+	    						"X" : 1600,
 	    						"Y" : 500,
 	    						"SpawnEntryID" : 1
 	    					}
 	    			]
+    			},
+
+    			{
+    				"_comment": "level4",
+    				"LevelH" : 3000,
+    				"LevelW" : 2500,
+    				"PlayerX" : 1200,
+    				"PlayerY" : 1200,
+
+	    			"SpawnEnties":	[
+	    					{
+	    						"spwnPntID": 2,
+	    						"lShipID" : 0,
+	    						"lWeaponID" : 0,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 1000,
+	    						"timeToSpawn" : [2,3,4,5,6 ,36 ,37 ,38 ,39, 40 ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 1,
+	    						"lShipID" : 0,
+	    						"lWeaponID" : 0,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 1000,
+	    						"timeToSpawn" : [2,3,4,5,6 ,36 ,37 ,38 ,39, 40  ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 2,
+	    						"lShipID" : 1,
+	    						"lWeaponID" : 2,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 5,
+	    						"shipSpeed" : 800,
+	    						"timeToSpawn" : [5,10,15,20,25,30 ,35, 40, 45, 50 ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 1,
+	    						"lShipID" : 1,
+	    						"lWeaponID" : 2,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 5,
+	    						"shipSpeed" : 800,
+	    						"timeToSpawn" : [5,10,15,20,25,30 ,35, 40, 45, 50 ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 2,
+	    						"lShipID" : 4,
+	    						"lWeaponID" : 4,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 5,
+	    						"shipSpeed" : 200,
+	    						"timeToSpawn" : [60, 61, 62]
+	    					},
+
+	    					{
+	    						"spwnPntID": 3,
+	    						"lShipID" : 4,
+	    						"lWeaponID" : 4,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 5,
+	    						"shipSpeed" : 200,
+	    						"timeToSpawn" : [60, 61, 62]
+	    					}
+	    			],
+
+	    			"SpawnPoints":	[
+	    					{
+	    						"X" : 1500,
+	    						"Y" : 800,
+	    						"SpawnEntryID" : 0
+	    					},
+	    					{
+	    						"X" : 500,
+	    						"Y" : 500,
+	    						"SpawnEntryID" : 1
+	    					},
+
+	    					{
+	    						"X" : 900,
+	    						"Y" : 400,
+	    						"SpawnEntryID" : 1
+	    					},
+
+	    					{
+	    						"X" : 2800,
+	    						"Y" : 1800,
+	    						"SpawnEntryID" : 1
+	    					}
+	    			]
+    			},
+
+    			{
+    				"_comment": "level5",
+    				"LevelH" : 3000,
+    				"LevelW" : 2500,
+    				"PlayerX" : 1200,
+    				"PlayerY" : 1200,
+
+	    			"SpawnEnties":	[
+	    					{
+	    						"spwnPntID": 0,
+	    						"lShipID" : 2,
+	    						"lWeaponID" : 5,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 1000,
+	    						"timeToSpawn" : [2,3,4,5,6 ,36 ,37 ,38 ,39, 40 ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 1,
+	    						"lShipID" : 2,
+	    						"lWeaponID" : 5,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 1000,
+	    						"timeToSpawn" : [2,3,4,5,6 ,36 ,37 ,38 ,39, 40 ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 2,
+	    						"lShipID" : 2,
+	    						"lWeaponID" : 5,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 1000,
+	    						"timeToSpawn" : [2,3,4,5,6 ,36 ,37 ,38 ,39, 40 ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 3,
+	    						"lShipID" : 2,
+	    						"lWeaponID" : 5,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 1000,
+	    						"timeToSpawn" : [2,3,4,5,6 ,36 ,37 ,38 ,39, 40 ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 4,
+	    						"lShipID" : 2,
+	    						"lWeaponID" : 5,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 1000,
+	    						"timeToSpawn" : [2,3,4,5,6 ,36 ,37 ,38 ,39, 40 ]
+	    					},
+
+	    					{
+	    						"spwnPntID": 0,
+	    						"lShipID" : 3,
+	    						"lWeaponID" : 5,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 3,
+	    						"shipSpeed" : 1400,
+	    						"timeToSpawn" : [10, 20 , 30 ,40 ,50, 60]
+	    					},
+
+	    					{
+	    						"spwnPntID": 4,
+	    						"lShipID" : 3,
+	    						"lWeaponID" : 5,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 3,
+	    						"shipSpeed" : 1400,
+	    						"timeToSpawn" : [10, 20 , 30 ,40 ,50, 60]
+	    					}
+
+	    			],
+
+	    			"SpawnPoints":	[
+	    					{
+	    						"X" : 200,
+	    						"Y" : 2300,
+	    						"SpawnEntryID" : 0
+	    					},
+	    					{
+	    						"X" : 900,
+	    						"Y" : 2300,
+	    						"SpawnEntryID" : 1
+	    					},
+
+	    					{
+	    						"X" : 1600,
+	    						"Y" : 2300,
+	    						"SpawnEntryID" : 1
+	    					},
+
+	    					{
+	    						"X" : 2300,
+	    						"Y" : 2300,
+	    						"SpawnEntryID" : 1
+	    					},
+
+
+	    					{
+	    						"X" : 2900,
+	    						"Y" : 2300,
+	    						"SpawnEntryID" : 1
+	    					}
+	    			]
     			}
+
     ]
 }
