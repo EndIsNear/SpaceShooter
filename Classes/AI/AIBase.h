@@ -10,14 +10,7 @@
 
 struct AIMove
 {
-	enum FireType : unsigned char
-	{
-		None = 0,
-		NormalAttack =  (1<<0),
-		Skill1 = (1 << 1),
-		Skill2 = (1 << 2),
-		Skill3 = (1 << 3)
-	}  fire;
+	UsedSkill fire;
 	cocos2d::Vec2 newDir;
 	float newVelocity;//normalized (0 - 1)
 };
@@ -58,7 +51,7 @@ public:
 		const float dt,
 		AIMove &rResult)
 	{
-		rResult.fire = AIMove::None;
+		rResult.fire = UsedSkill::None;
 		rResult.newDir = m_ParentRef.mr_Me.GetDirection();
 		rResult.newVelocity = VELOCITY;
 		return true;
@@ -120,7 +113,7 @@ public:
 		if (dist < DISTANCE || m_Timer > 0.01f)
 		{
 			const float angle = me.GetDirection().getAngle(me.GetPosition() - enemy[0]->GetPosition());
-			rResult.fire = AIMove::None;
+			rResult.fire = UsedSkill::None;
 			rResult.newVelocity = 1.;
 			rResult.newDir = me.GetDirection().rotateByAngle(cocos2d::Vec2(0.f, 0.f), angle * dt / 0.2/*acelerator*/);
 			if (dist < DISTANCE)
@@ -161,12 +154,12 @@ public:
 			if(fabs(angle) < 0.1f)
 			{
 				rResult.newDir = enemyDir;
-				rResult.fire = AIMove::NormalAttack;
+				rResult.fire = UsedSkill::NormalAttack;
 			}
 			else
 			{
 				rResult.newDir = me.GetDirection().rotateByAngle(cocos2d::Vec2(0.f, 0.f), angle * dt / 0.2/*acelerator*/);
-				rResult.fire = AIMove::None;
+				rResult.fire = UsedSkill::None;
 			}
 			const float hisPOV = enemy[0]->GetDirection().getAngle(enemyDir);
 			rResult.newVelocity = std::max(dt/(hisPOV > 0.5f ? 0.1f : 0.9f ) * 0.5f* me.GetVelocityNormalized(), 0.5f);

@@ -136,7 +136,7 @@ void BattleManager::updateEnemies(const float dt)
 		AIMove move = m_Enemies.ais[i]->GetMove(m_Allies.phShips, m_PlayerBullets.bullets, m_Enemies.phShips, dt);
 		m_Enemies.phShips[i]->SetDirection(move.newDir);
 		m_Enemies.phShips[i]->SetVelocity(move.newVelocity);
-		if (move.fire == AIMove::FireType::NormalAttack)
+		if (move.fire == UsedSkill::NormalAttack)
 			fireBullet(false, i);
 		reinterpret_cast<EnemyShip*>(m_Enemies.phShips[i])->Update(dt, m_Enemies.lShips[i]->GetLifeInPer(), m_Enemies.lShips[i]->GetShieldInPer());
 		m_Enemies.lShips[i]->Update(dt);

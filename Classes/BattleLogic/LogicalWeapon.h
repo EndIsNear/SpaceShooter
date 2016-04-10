@@ -1,7 +1,17 @@
 #ifndef  __LOGICAL_WEAPON_H__
 #define  __LOGICAL_WEAPON_H__
-
 #include "Utils\FileReader.h"
+
+
+enum UsedSkill : unsigned char
+{
+	None = 0,
+	NormalAttack = (1 << 0),
+	Skill1 = (1 << 1),
+	Skill2 = (1 << 2),
+	Skill3 = (1 << 3),
+	Count
+};
 
 class LogicalWeapon
 {
