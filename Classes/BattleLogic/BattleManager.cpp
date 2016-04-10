@@ -252,22 +252,23 @@ void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx)
 	bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
 }
 
-void BattleManager::startExplosion(ShipBase * ship)
+void BattleManager::loadExplosionAnim()
 {
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create("ShipExplosion/Explosion.png");
 	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile("ShipExplosion/Explosion.plist");
-
-
-	Vector<SpriteFrame*> animFrames;
 	char str[100] = { 0 };
 	for (int i = 0; i < 24; i++)
 	{
 		sprintf(str, "Explosion/%i.png", i);
 		SpriteFrame* frame = cache->getSpriteFrameByName(str);
-		animFrames.pushBack(frame);
+		m_ExplosionAnim.pushBack(frame);
 	}
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.03f);
+}
+
+void BattleManager::startExplosion(ShipBase * ship)
+{
+	auto animation = Animation::createWithSpriteFrames(m_ExplosionAnim, 0.03f);
 	auto animate = Animate::create(animation);
 	auto seq = Sequence::create(animate, CallFunc::create([ship]() { ship->SetVisible(false); }), NULL);
 	ship->GetSprite()->runAction(seq);

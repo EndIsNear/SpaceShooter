@@ -12,7 +12,7 @@
 class BattleManager
 {
 	static BattleManager * m_instance;
-	BattleManager() {}
+	BattleManager() { loadExplosionAnim(); }
 	~BattleManager() {}	BattleManager(const BattleManager&) = delete;
 	BattleManager& operator= (const BattleManager&) = delete;
 public:
@@ -117,6 +117,8 @@ private:
 	void checkForHitPlayer();
 	void checkForHitEnemy();
 
+	void loadExplosionAnim();
+
 	std::function<cocos2d::Vec2()> m_PlayerDirCB;
 	std::function<unsigned()> m_PlayerButtonsCB; ///< result is bitfield for pressed buttons
 	std::function<void(float)> m_DisplayPlayerLifeCB;
@@ -131,6 +133,8 @@ private:
 	Bullets m_PlayerBullets;
 	Bullets m_EnemyBullets;
 	float m_ElapsedTime;
+
+	cocos2d::Vector<cocos2d::SpriteFrame*> m_ExplosionAnim;
 };
 
 #endif // __BATTLE_MANAGER_H__
