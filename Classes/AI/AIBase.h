@@ -89,7 +89,7 @@ public:
 			const float hisPOV = enemy[0]->GetDirection().getAngle(me.GetPosition() - enemy[0]->GetPosition());
 			if (fabs(hisPOV) > 0.5f)
 			{
-				rResult.newVelocity = 0.01 * me.GetVelocityNormalized();
+				rResult.newVelocity = std::max((dt/ 0.5f) * 0.5f * me.GetVelocityNormalized(), 0.5f);
 				return true;
 			}
 			return false;
@@ -98,7 +98,6 @@ public:
 private:
 	const AIBaseStruct& m_ParentRef;
 };
-
 
 template <int DISTANCE>
 class AIStayAway
@@ -157,10 +156,11 @@ public:
 		if (m_ParentRef.mr_Weapon.CanShoot())
 		{
 			const BodyBase&  me = m_ParentRef.mr_Me;
-			const float angle = me.GetDirection().getAngle((enemy[0]->GetPosition() - me.GetPosition()));
+			const cocos2d::Vec2 enemyDir = (enemy[0]->GetPosition() - me.GetPosition()).getNormalized();
+			const float angle = me.GetDirection().getAngle(enemyDir);
 			if(fabs(angle) < 0.1f)
 			{
-				rResult.newDir = me.GetDirection();//(enemy[0]->GetPosition() - me.GetPosition()).getNormalized();
+				rResult.newDir = enemyDir;
 				rResult.fire = AIMove::NormalAttack;
 			}
 			else
@@ -168,8 +168,8 @@ public:
 				rResult.newDir = me.GetDirection().rotateByAngle(cocos2d::Vec2(0.f, 0.f), angle * dt / 0.2/*acelerator*/);
 				rResult.fire = AIMove::None;
 			}
-			const float hisPOV = enemy[0]->GetDirection().getAngle(me.GetPosition() - enemy[0]->GetPosition());
-			rResult.newVelocity = (hisPOV > 0.5f ? 0.1f : 0.9f )* me.GetVelocityNormalized();
+			const float hisPOV = enemy[0]->GetDirection().getAngle(enemyDir);
+			rResult.newVelocity = std::max(dt/(hisPOV > 0.5f ? 0.1f : 0.9f ) * 0.5f* me.GetVelocityNormalized(), 0.5f);
 			return true;
 		}
 		return false;
@@ -259,11 +259,13 @@ protected:
 };
 
 
+
 typedef AITreeNodeBase <AIStayAway<600>, AIDefaultMove<100>> StayAwayPolicy;
 
 typedef AIListNode <AIStrikeOnCd, AIStayBehindEnemy> StayBehindAndShootPolicy;
 typedef AITreeNodeBase <StayBehindAndShootPolicy, StayAwayPolicy> ShootOrRunPolicy;
-typedef AITreeNodeBase <AIStayAway<250>, ShootOrRunPolicy> StayAwayEndShoot;
+typedef AITreeNodeBase <ShootOrRunPolicy, AIStayAway<250>> StayAwayEndShoot;
+
 typedef AITreeNodeBase < AIStrikeOnCd, AIDefaultMove<1>> JustShoot;
 
 #endif // __AI_BASE_H__
