@@ -40,6 +40,7 @@ public:
 class SkillInterface
 {
 public:
+	SkillInterface() { m_CrnCooldown = 0.f; }
 	virtual SkillInterface * Clone() = 0;
 	virtual ~SkillInterface() {};
 	
@@ -63,7 +64,7 @@ public:
 
 protected:
 	float m_CrnCooldown;
-	float m_MaxCooldown = 1.f;
+	float m_MaxCooldown;
 };
 
 #endif // __SKILL_BASE_H__

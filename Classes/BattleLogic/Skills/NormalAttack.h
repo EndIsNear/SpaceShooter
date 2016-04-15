@@ -10,7 +10,7 @@ class NormalAtack : public SkillInterface
 	std::string spriteName;
 
 public:
-	NormalAtack() { dmg = 100.f; bulletSpeeed = 800.f; spriteName = "bullet.png"; }
+	NormalAtack() { dmg = 100.f; bulletSpeeed = 800.f; spriteName = "bullet.png"; m_MaxCooldown = 0.5f; }
 	virtual SkillInterface * Clone() override { return new NormalAtack(); };
 	virtual ~NormalAtack() override {}
 
