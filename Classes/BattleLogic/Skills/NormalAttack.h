@@ -11,11 +11,11 @@ class NormalAtack : public SkillInterface
 
 public:
 	NormalAtack() { dmg = 100.f; bulletSpeeed = 800.f; spriteName = "bullet.png"; }
-	virtual SkillInterface * Clone() { return new NormalAtack(); };
-	virtual ~NormalAtack() {}
+	virtual SkillInterface * Clone() override { return new NormalAtack(); };
+	virtual ~NormalAtack() override {}
 
 	/// Used when there is command to cast a skill
-	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir)
+	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
 	{
 		SkillResult res;
 		res.m_Source = this;
@@ -27,10 +27,7 @@ public:
 	}
 
 	/// Used after the projectile hit the enemy
-	virtual SkillResult OnHit()
-	{
-		return SkillResult();
-	}
+	virtual SkillResult OnHit() override;
 };
 
 #endif // __NORMAL_ATACK_H__

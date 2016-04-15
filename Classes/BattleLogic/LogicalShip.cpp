@@ -72,8 +72,19 @@ void LogicalShip::Update(const float dt)
 
 void LogicalShip::OnHit(SkillInterface * atackerWep)
 {
-	//TODO: FIX THIS
-	float dmg = 100;// atacker->GetDamage();
+	auto hitRes = atackerWep->OnHit();
+	if(hitRes.m_Effect.m_Type == SkillEffect::EffectType::OneTime)
+	{
+		hitRes.m_Effect.m_Func(this);
+	}
+	else
+	{
+
+	}
+}
+
+void LogicalShip::TakeDmg(float dmg)
+{
 	if (dmg > m_CrnShield)
 	{
 		dmg -= m_CrnShield;
@@ -85,6 +96,7 @@ void LogicalShip::OnHit(SkillInterface * atackerWep)
 		m_CrnShield -= dmg;
 	}
 }
+
 
 bool LogicalShip::Load(const rapidjson::GenericValue<rapidjson::UTF8<> > &entry)
 {

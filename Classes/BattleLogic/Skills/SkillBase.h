@@ -4,18 +4,33 @@
 #include "Physics\BulletBase.h"
 
 class SkillInterface;
+class LogicalShip;
 
-class SkillEfect
+typedef std::function<void(LogicalShip*)> EffectFunc;
+
+struct SkillEffect
 {
-	float dmg;
+	enum EffectType
+	{
+		OneTime,
+		DoT
+	} m_Type;
+	SkillEffect() {}
+	SkillEffect(EffectType type, EffectFunc func) : m_Type(type), m_Func(func) {} 
+	EffectFunc m_Func;
 };
 
 class SkillResult
 {
 public:
-	SkillResult() : m_Bullet(nullptr), m_Effect(nullptr), m_Source(nullptr){}
+	enum ResultType
+	{
+		Bullet,
+		Effect
+	} m_Type;
+	SkillResult() : m_Bullet(nullptr), m_Source(nullptr) {}
 	BulletBase * m_Bullet;
-	SkillEfect * m_Effect;
+	SkillEffect m_Effect;
 
 	//always exist ptr to source
 	SkillInterface * m_Source;

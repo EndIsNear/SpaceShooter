@@ -1,7 +1,7 @@
 #ifndef  __LOGICAL_WEAPON_H__
 #define  __LOGICAL_WEAPON_H__
 #include "Utils\FileReader.h"
-#include "BattleLogic\Skills\NormalAtack.h"
+#include "BattleLogic\Skills\NormalAttack.h"
 
 const size_t skillSize = 4;
 
@@ -30,7 +30,7 @@ public:
 		}
 	}
 
-	SkillResult Cast(UsedSkill usedSkill, cocos2d::Vec2& pos, cocos2d::Vec2& dir)
+	SkillResult Cast(UsedSkill usedSkill, const cocos2d::Vec2& pos, const cocos2d::Vec2& dir)
 	{
 		for (size_t i = 0; i < skillSize; ++i)
 		{

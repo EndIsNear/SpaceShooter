@@ -108,6 +108,9 @@
     <ClCompile Include="..\Classes\Physics\EnemyShip.cpp">
       <Filter>src\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BattleLogic\Skills\NormalAttack.cpp">
+      <Filter>src\BattleLogic\Skills</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -188,7 +191,7 @@
     <ClInclude Include="..\Classes\BattleLogic\Skills\SkillBase.h">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BattleLogic\Skills\NormalAtack.h">
+    <ClInclude Include="..\Classes\BattleLogic\Skills\NormalAttack.h">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
   </ItemGroup>
