@@ -179,6 +179,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BattleLogic\BattleManager.h" />
     <ClInclude Include="..\Classes\BattleLogic\LogicalShip.h" />
     <ClInclude Include="..\Classes\BattleLogic\LogicalWeapon.h" />
+    <ClInclude Include="..\Classes\BattleLogic\Skills\NormalAtack.h" />
+    <ClInclude Include="..\Classes\BattleLogic\Skills\SkillBase.h" />
     <ClInclude Include="..\Classes\BattleLogic\Spawner.h" />
     <ClInclude Include="..\Classes\GameLogic\GameManager.h" />
     <ClInclude Include="..\Classes\GameLogic\LevelInfo.h" />

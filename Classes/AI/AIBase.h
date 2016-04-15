@@ -146,7 +146,8 @@ public:
 		const float dt,
 		AIMove &rResult)
 	{
-		if (m_ParentRef.mr_Weapon.CanShoot())
+		//TODO: fix this !
+		if (/*m_ParentRef.mr_Weapon.CanShoot()*/1)
 		{
 			const BodyBase&  me = m_ParentRef.mr_Me;
 			const cocos2d::Vec2 enemyDir = (enemy[0]->GetPosition() - me.GetPosition()).getNormalized();

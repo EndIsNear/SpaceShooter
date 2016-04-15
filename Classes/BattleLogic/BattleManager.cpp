@@ -14,7 +14,7 @@ void BattleManager::initialize(Spawner * spawner)
 	///////////////////////////
 	//test
 	m_Allies.phShips.push_back(new ShipBase(Vec2(1920, 1080), Vec2(1, 0), 400.f, "fighter.png"));
-	m_Allies.lShips.push_back(new LogicalShip(1000, 500, 33, 0, new LogicalWeapon(200.f, 0.18f, 800.f)));
+	m_Allies.lShips.push_back(new LogicalShip(1000, 500, 33, 0, new LogicalWeapon()));
 	m_Allies.ais.push_back(nullptr);
 	m_Allies.phShips[m_PlayerIndex]->Update(0.f);
 	m_Allies.phShips[m_PlayerIndex]->GetSprite()->setGLProgram(GetOnHitShader());
@@ -219,7 +219,6 @@ void BattleManager::checkForHitEnemy()
 
 				//if enemy dies explosion and delete it
 				if (!m_Enemies.lShips[j]->IsAlive()) {
-					//TODO: lShip and weapon leaks
 					auto forDel = m_Enemies.phShips[j];
 					m_Enemies.Erase(j);
 					startExplosion(forDel);
@@ -236,20 +235,22 @@ void BattleManager::checkForHitEnemy()
 
 void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx)
 {
+
 	const Ships& crn = isPlayerBullet ? m_Allies : m_Enemies;
 	assert(crn.lShips[shooterIdx] != nullptr);
 	assert(crn.phShips[shooterIdx] != nullptr);
-	if (!crn.lShips[shooterIdx]->GetWeapon()->CanShoot())
-		return;
 
-	crn.lShips[shooterIdx]->GetWeapon()->Shoot();
-	const char * spriteNames[2] = {"EnemyBullet.png", "bullet.png"};
-	BulletBase * bullet = new BulletBase(crn.phShips[shooterIdx]->GetPosition(), crn.phShips[shooterIdx]->GetDirection().getNormalized(), crn.lShips[shooterIdx]->GetWeapon()->GetBulletSpeed(), spriteNames[isPlayerBullet]);
-	auto& bulletArray = isPlayerBullet ? m_PlayerBullets : m_EnemyBullets;
-	bulletArray.bullets.push_back(bullet);
-	bulletArray.weapons.push_back(crn.lShips[shooterIdx]->GetWeapon());
+	auto lShip = crn.lShips[shooterIdx];
+	const auto phShip = crn.phShips[shooterIdx];
 	
-	bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
+	auto res = lShip->GetWeapon()->Cast(/*TODO:FIX&*/ UsedSkill::NormalAttack, phShip->GetPosition(), phShip->GetDirection());
+	if (res.m_Bullet)
+	{
+		auto& bulletArray = isPlayerBullet ? m_PlayerBullets : m_EnemyBullets;
+		bulletArray.bullets.push_back(res.m_Bullet);
+		bulletArray.weapons.push_back(crn.lShips[shooterIdx]->GetWeapon());
+		bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
+	}
 }
 
 void BattleManager::loadExplosionAnim()

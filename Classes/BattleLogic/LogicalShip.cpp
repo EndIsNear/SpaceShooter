@@ -72,7 +72,8 @@ void LogicalShip::Update(const float dt)
 
 void LogicalShip::OnHit(LogicalWeapon * atacker)
 {
-	float dmg = atacker->GetDamage();
+	//TODO: FIX THIS
+	float dmg = 100;// atacker->GetDamage();
 	if (dmg > m_CrnShield)
 	{
 		dmg -= m_CrnShield;

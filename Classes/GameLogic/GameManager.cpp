@@ -67,7 +67,8 @@ void GameManager::loadWeapons()
 	for (unsigned i = 0; i < wepCnt; i++)
 	{
 		m_LogicalWeaponsDB[i] = new LogicalWeapon;
-		wepsFile.GetEntryByIndex(i, *m_LogicalWeaponsDB[i]);
+		//TODO: fix this!
+		//wepsFile.GetEntryByIndex(i, *m_LogicalWeaponsDB[i]);
 	}
 }
 

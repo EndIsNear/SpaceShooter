@@ -1,7 +1,9 @@
 #ifndef  __LOGICAL_WEAPON_H__
 #define  __LOGICAL_WEAPON_H__
 #include "Utils\FileReader.h"
+#include "BattleLogic\Skills\NormalAtack.h"
 
+const size_t skillSize = 1;
 
 enum UsedSkill : unsigned char
 {
@@ -17,23 +19,27 @@ class LogicalWeapon
 {
 public:
 	LogicalWeapon();
-	LogicalWeapon(const float dmg, const float delay, const float bulletSpeed);
 	LogicalWeapon(const LogicalWeapon& wpn);
 	LogicalWeapon& operator=(const LogicalWeapon& wpn);
 
-	void Update(const float dt);
+	void Update(const float dt)
+	{
+		for (size_t i = 0; i < skillSize; ++i)
+		{
+			m_Skills[i]->Update(dt);
+		}
+	}
 
-	float GetDamage() const { return m_Dmg; }
-	float GetBulletSpeed() const { return m_BulletSpeed; }
-	bool CanShoot() const { return m_ShootCrnDelay < 0.f; }
-	void Shoot() { m_ShootCrnDelay = m_ShootMaxDelay; }
-
-	bool Load(const rapidjson::GenericValue<rapidjson::UTF8<> > &entry);
+	SkillResult Cast(UsedSkill usedSkill, cocos2d::Vec2& pos, cocos2d::Vec2& dir)
+	{
+		for (size_t i = 0; i < skillSize; ++i)
+		{
+			if (usedSkill & 1 << i && m_Skills[i]->CanCast()) return m_Skills[i]->OnCast(pos, dir);
+		}
+		return SkillResult();
+	}
 private:
-	float m_Dmg;
-	float m_BulletSpeed;
-	float m_ShootMaxDelay;
-	float m_ShootCrnDelay;
+	SkillInterface * m_Skills[skillSize];
 };
 
 #endif // __LOGICAL_WEAPON_H__
