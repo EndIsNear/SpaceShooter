@@ -4,9 +4,9 @@
 SkillResult NormalAtack::OnHit()
 {
 	SkillResult res;
-	res.m_Effect = SkillEffect(SkillEffect::EffectType::OneTime, [](LogicalShip* ship)
+	res.m_Effect = SkillEffect(SkillEffect::EffectType::OneTime, [this](LogicalShip* ship)
 	{
-		ship->TakeDmg(100.f);
+		ship->TakeDmg(m_Dmg);
 	});
 	return res;
 }

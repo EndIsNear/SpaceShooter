@@ -2,10 +2,10 @@
 
 LogicalWeapon::LogicalWeapon()
 {
-	for (size_t i = 0; i < skillSize; ++i)
-	{
-		m_Skills[i] = new NormalAtack;
-	}
+	m_Skills[0] = new NormalAtack(50.f, 0.8f, 800.f, "bullet.png");
+	m_Skills[1] = new NormalAtack(100.f, 0.01f, 800.f, "EnemyBullet.png");
+	m_Skills[2] = new NormalAtack(200.f, 1.f, 800.f, "EnemyBullet.png");
+	m_Skills[3] = new NormalAtack(500.f, 2.f, 800.f, "bullet2.png");
 }
 
 

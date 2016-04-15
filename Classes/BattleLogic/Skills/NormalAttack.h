@@ -5,13 +5,17 @@
 
 class NormalAtack : public SkillInterface
 {
-	float dmg;
-	float bulletSpeeed;
-	std::string spriteName;
+	float m_Dmg;
+	float m_BulletSpeeed;
+	std::string m_SpriteName;
 
 public:
-	NormalAtack() { dmg = 100.f; bulletSpeeed = 800.f; spriteName = "bullet.png"; m_MaxCooldown = 0.5f; }
-	virtual SkillInterface * Clone() override { return new NormalAtack(); };
+	NormalAtack(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName)
+		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName) 
+	{
+		m_MaxCooldown = cdn;
+	}
+	virtual SkillInterface * Clone() override { return new NormalAtack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
 	virtual ~NormalAtack() override {}
 
 	/// Used when there is command to cast a skill
@@ -19,7 +23,7 @@ public:
 	{
 		SkillResult res;
 		res.m_Source = this;
-		res.m_Bullet = new BulletBase(pos, dir, bulletSpeeed, spriteName);
+		res.m_Bullet = new BulletBase(pos, dir, m_BulletSpeeed, m_SpriteName);
 		
 		m_CrnCooldown = m_MaxCooldown;
 		assert(res.m_Bullet != nullptr);
