@@ -23,7 +23,7 @@ public:
 	{
 		SkillResult res;
 		res.m_Source = this;
-		res.m_Bullet = new BulletBase(pos, dir, m_BulletSpeeed, m_SpriteName);
+		res.m_Bullet = new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName);
 		
 		m_CrnCooldown = m_MaxCooldown;
 		assert(res.m_Bullet != nullptr);
