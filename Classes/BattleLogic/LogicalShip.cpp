@@ -70,7 +70,7 @@ void LogicalShip::Update(const float dt)
 	m_Weapon->Update(dt);
 }
 
-void LogicalShip::OnHit(LogicalWeapon * atacker)
+void LogicalShip::OnHit(SkillInterface * atackerWep)
 {
 	//TODO: FIX THIS
 	float dmg = 100;// atacker->GetDamage();

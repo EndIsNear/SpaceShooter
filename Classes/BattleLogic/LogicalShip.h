@@ -12,7 +12,7 @@ public:
 	LogicalShip& operator=(const LogicalShip& ls);
 
 	void Update(const float dt);
-	void OnHit(LogicalWeapon * atacker);
+	void OnHit(SkillInterface * atackerWep);
 
 	void SetLogicalWeapon(LogicalWeapon * newWeapon);
 

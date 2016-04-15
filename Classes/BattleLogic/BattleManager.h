@@ -99,7 +99,7 @@ private:
 			weapons.pop_back();
 		}
 		std::vector<BulletBase*> bullets;
-		std::vector<LogicalWeapon*> weapons; ///< ptr that contains the shooter, used to calc dmg
+		std::vector<SkillInterface*> weapons; ///< ptr that contains the shooter, used to calc dmg
 	};
 
 

@@ -248,7 +248,7 @@ void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx)
 	{
 		auto& bulletArray = isPlayerBullet ? m_PlayerBullets : m_EnemyBullets;
 		bulletArray.bullets.push_back(res.m_Bullet);
-		bulletArray.weapons.push_back(crn.lShips[shooterIdx]->GetWeapon());
+		bulletArray.weapons.push_back(res.m_Source);
 		bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
 	}
 }

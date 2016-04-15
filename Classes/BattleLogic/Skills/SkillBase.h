@@ -12,7 +12,6 @@ class SkillEfect
 
 class SkillResult
 {
-	//tmp
 public:
 	SkillResult() : m_Bullet(nullptr), m_Effect(nullptr), m_Source(nullptr){}
 	BulletBase * m_Bullet;
@@ -30,6 +29,7 @@ public:
 	virtual ~SkillInterface() {};
 	
 	/// Used when there is command to cast a skill
+	/// If returns effect on cast it have to be applied on the same ship
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) = 0;
 	/// Used after the projectile hit the enemy
 	virtual SkillResult OnHit() = 0;
