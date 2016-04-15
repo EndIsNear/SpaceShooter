@@ -24,8 +24,6 @@ public:
 	void setPlayerShield(float perc);
 	unsigned getPlayerPressButtons() const { return m_PressedButtons; }
 	bool isSettingsPressed();
-
-	void setFirePressed(cocos2d::Ref* pSender);
 };
 
 #endif //__HUD_LAYER_H__

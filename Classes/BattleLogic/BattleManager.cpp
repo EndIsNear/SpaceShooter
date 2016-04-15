@@ -119,8 +119,8 @@ void BattleManager::updatePlayer(const float dt)
 	m_DisplayPlayerShieldCB(m_Allies.lShips[m_PlayerIndex]->GetShieldInPer());
 
 	//input callbacks
-	if ((m_PlayerButtonsCB() & 1) == 1)
-		fireBullet(true, m_PlayerIndex);
+	if (m_PlayerButtonsCB())
+		fireBullet(true, m_PlayerIndex, static_cast<UsedSkill>(m_PlayerButtonsCB()));
 
 	//tmp
 	UpdateOnHitShader(m_Allies.phShips[m_PlayerIndex]->GetSprite()->getGLProgram(), m_ElapsedTime);
@@ -136,8 +136,7 @@ void BattleManager::updateEnemies(const float dt)
 		AIMove move = m_Enemies.ais[i]->GetMove(m_Allies.phShips, m_PlayerBullets.bullets, m_Enemies.phShips, dt);
 		m_Enemies.phShips[i]->SetDirection(move.newDir);
 		m_Enemies.phShips[i]->SetVelocity(move.newVelocity);
-		if (move.fire == UsedSkill::NormalAttack)
-			fireBullet(false, i);
+		fireBullet(false, i, move.fire);
 		reinterpret_cast<EnemyShip*>(m_Enemies.phShips[i])->Update(dt, m_Enemies.lShips[i]->GetLifeInPer(), m_Enemies.lShips[i]->GetShieldInPer());
 		m_Enemies.lShips[i]->Update(dt);
 	}
@@ -233,9 +232,9 @@ void BattleManager::checkForHitEnemy()
 	}
 }
 
-void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx)
+void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx, UsedSkill usedSkill)
 {
-
+	if (usedSkill == UsedSkill::None) return;
 	const Ships& crn = isPlayerBullet ? m_Allies : m_Enemies;
 	assert(crn.lShips[shooterIdx] != nullptr);
 	assert(crn.phShips[shooterIdx] != nullptr);
@@ -243,7 +242,7 @@ void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx)
 	auto lShip = crn.lShips[shooterIdx];
 	const auto phShip = crn.phShips[shooterIdx];
 	
-	auto res = lShip->GetWeapon()->Cast(/*TODO:FIX&*/ UsedSkill::NormalAttack, phShip->GetPosition(), phShip->GetDirection());
+	auto res = lShip->GetWeapon()->Cast(usedSkill, phShip->GetPosition(), phShip->GetDirection());
 	if (res.m_Bullet)
 	{
 		auto& bulletArray = isPlayerBullet ? m_PlayerBullets : m_EnemyBullets;

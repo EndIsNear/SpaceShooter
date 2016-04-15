@@ -3,7 +3,7 @@
 #include "Utils\FileReader.h"
 #include "BattleLogic\Skills\NormalAtack.h"
 
-const size_t skillSize = 1;
+const size_t skillSize = 4;
 
 enum UsedSkill : unsigned char
 {

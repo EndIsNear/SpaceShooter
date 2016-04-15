@@ -146,7 +146,7 @@ public:
 		const float dt,
 		AIMove &rResult)
 	{
-		//TODO: fix this !
+		//TO DO: fix this !
 		if (/*m_ParentRef.mr_Weapon.CanShoot()*/1)
 		{
 			const BodyBase&  me = m_ParentRef.mr_Me;

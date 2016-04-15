@@ -104,7 +104,7 @@ private:
 
 
 	void setNewParrent();
-	void fireBullet(bool isPlayerBullet, size_t shooterIdx);
+	void fireBullet(bool isPlayerBullet, size_t shooterIdx, UsedSkill usedSkill);
 	void startExplosion(ShipBase * ship);
 
 

@@ -28,14 +28,21 @@ bool HUDLayer::init()
 
 	auto ContrilsLayer = CSLoader::createNode("Controls/Controls.csb");
 	this->addChild(ContrilsLayer, 1);
-	ui::Button * fireButton = static_cast<ui::Button*>(ContrilsLayer->getChildByName("MainSkill"));
-	fireButton->setPressedActionEnabled(true);
-	fireButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
-		if (ui::Widget::TouchEventType::BEGAN == type)
-			m_PressedButtons = 1;
-		else if (ui::Widget::TouchEventType::ENDED == type || ui::Widget::TouchEventType::CANCELED == type)
-			m_PressedButtons = 0;
-	});
+	
+	const std::string namePrefix("Skill");
+	for (unsigned i = 0; i < 4; ++i)
+	{
+		char tmp[16];
+		sprintf(tmp, "%d", i);
+		auto fireButton = static_cast<ui::Button*>(ContrilsLayer->getChildByName(namePrefix + tmp));
+		fireButton->setPressedActionEnabled(true);
+		fireButton->addTouchEventListener([this, i](Ref* sender, ui::Widget::TouchEventType type) {
+			if (ui::Widget::TouchEventType::BEGAN == type)
+				m_PressedButtons |= (1 << i);
+			else if (ui::Widget::TouchEventType::ENDED == type || ui::Widget::TouchEventType::CANCELED == type)
+			 	m_PressedButtons &= ~(1 << i);
+		});
+	}
 
 	m_PressedButtons = 0;
 
@@ -55,11 +62,6 @@ void HUDLayer::setPlayerLife(float perc)
 void HUDLayer::setPlayerShield(float perc)
 {
 	m_ShieldBar->setPercent(perc);
-}
-
-void HUDLayer::setFirePressed(cocos2d::Ref* pSender)
-{
-	m_PressedButtons |= FireButtonPressed;
 }
 
 bool HUDLayer::isSettingsPressed()
