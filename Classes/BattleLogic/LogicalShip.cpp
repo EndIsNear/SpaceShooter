@@ -75,7 +75,7 @@ void LogicalShip::OnHit(SkillInterface * atackerWep)
 	auto hitRes = atackerWep->OnHit();
 	if(hitRes.m_Effect.m_Type == SkillEffect::EffectType::OneTime)
 	{
-		hitRes.m_Effect.m_Func(this);
+		hitRes.m_Effect.m_Func(this, 0.f);
 	}
 	else
 	{

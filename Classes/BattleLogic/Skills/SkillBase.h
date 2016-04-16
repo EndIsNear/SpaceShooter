@@ -6,7 +6,25 @@
 class SkillInterface;
 class LogicalShip;
 
-typedef std::function<void(LogicalShip*)> EffectFunc;
+//typedef std::function<bool(LogicalShip*)> EffectFunc;
+struct EffectFunc
+{
+	//return false when the effect ends
+	//first float is delta time
+	//second crn effect time
+	typedef std::function<bool(LogicalShip*, const float, float&)> Func;
+
+	EffectFunc() {}
+	EffectFunc(Func f, const float t = 0.f) : m_Func(f), m_EffectTime(t) {}
+
+	bool operator()(LogicalShip* ship, const float dt)
+	{
+		return m_Func(ship, dt, m_EffectTime);
+	}
+	//used to DoT (and other effect for given time)
+	float m_EffectTime;
+	Func m_Func;
+};
 
 struct SkillEffect
 {
@@ -15,9 +33,10 @@ struct SkillEffect
 		OneTime,
 		DoT
 	} m_Type;
-	SkillEffect() {}
-	SkillEffect(EffectType type, EffectFunc func) : m_Type(type), m_Func(func) {} 
 	EffectFunc m_Func;
+
+	SkillEffect() {}
+	SkillEffect(EffectType type, EffectFunc func) : m_Type(type), m_Func(func) {}
 };
 
 class SkillResult
