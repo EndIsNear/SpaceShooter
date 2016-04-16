@@ -46,6 +46,10 @@ bool HUDLayer::init()
 
 	m_PressedButtons = 0;
 
+#ifdef _WIN32
+	InitKeyboard();
+#endif
+
 	return true;
 }
 
@@ -73,3 +77,37 @@ bool HUDLayer::isSettingsPressed()
 	}
 	return false;
 }
+
+#ifdef _WIN32
+void HUDLayer::InitKeyboard()
+{
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(HUDLayer::onKeyPressed, this);
+	listener->onKeyReleased = CC_CALLBACK_2(HUDLayer::onKeyReleased, this);
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+void HUDLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		if (static_cast<int>(keyCode) == static_cast<int>(EventKeyboard::KeyCode::KEY_0) + i)
+		{
+			m_PressedButtons |= (1 << (i - 1));
+		}
+	}
+}
+
+void HUDLayer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		if (static_cast<int>(keyCode) == static_cast<int>(EventKeyboard::KeyCode::KEY_0) + i)
+		{
+			m_PressedButtons &= ~(1 << (i - 1));
+		}
+	}
+}
+
+#endif

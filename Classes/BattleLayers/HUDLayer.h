@@ -24,6 +24,12 @@ public:
 	void setPlayerShield(float perc);
 	unsigned getPlayerPressButtons() const { return m_PressedButtons; }
 	bool isSettingsPressed();
+
+#ifdef _WIN32
+	void InitKeyboard();
+	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+#endif
 };
 
 #endif //__HUD_LAYER_H__
