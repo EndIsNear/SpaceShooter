@@ -133,6 +133,15 @@ void BattleManager::updateEnemies(const float dt)
 		assert(m_Enemies.phShips[i] != nullptr);
 		assert(m_Enemies.lShips[i] != nullptr);
 		assert(m_Enemies.ais[i] != nullptr);
+
+		//check if death, can death from skilleffect without collision
+		if (!m_Enemies.lShips[i]->IsAlive()) {
+			auto forDel = m_Enemies.phShips[i];
+			m_Enemies.Erase(i);
+			startExplosion(forDel);
+		}
+
+
 		AIMove move = m_Enemies.ais[i]->GetMove(m_Allies.phShips, m_PlayerBullets.bullets, m_Enemies.phShips, dt);
 		m_Enemies.phShips[i]->SetDirection(move.newDir);
 		m_Enemies.phShips[i]->SetVelocity(move.newVelocity);
