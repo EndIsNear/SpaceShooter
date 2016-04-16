@@ -111,6 +111,9 @@
     <ClCompile Include="..\Classes\BattleLogic\Skills\NormalAttack.cpp">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BattleLogic\Skills\DoTAttack.cpp">
+      <Filter>src\BattleLogic\Skills</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -192,6 +195,9 @@
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BattleLogic\Skills\NormalAttack.h">
+      <Filter>src\BattleLogic\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleLogic\Skills\DoTAttack.h">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
   </ItemGroup>
