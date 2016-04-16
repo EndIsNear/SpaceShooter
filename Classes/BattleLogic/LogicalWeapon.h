@@ -44,7 +44,22 @@ public:
 	SkillInterface * GetSkillAt(size_t idx)
 	{
 		assert(idx <= skillSize);
+		assert(m_Skills[idx] != nullptr);
 		return m_Skills[idx];
+	}
+
+	float GetCooldownAt(size_t idx)
+	{
+		assert(idx <= skillSize);
+		assert(m_Skills[idx] != nullptr);
+		return m_Skills[idx]->GetCrnCooldown();
+	}
+
+	float GetPrcCooldownAt(size_t idx)
+	{
+		assert(idx <= skillSize);
+		assert(m_Skills[idx] != nullptr);
+		return m_Skills[idx]->GetCooldownInPerc();
 	}
 private:
 	SkillInterface * m_Skills[skillSize];

@@ -92,6 +92,16 @@ public:
 		return m_MaxCooldown;
 	}
 
+	virtual float GetCrnCooldown()
+	{
+		return m_CrnCooldown;
+	}
+
+	virtual float GetCooldownInPerc()
+	{
+		return GetCrnCooldown() / GetMaxCooldown();
+	}
+
 protected:
 	float m_CrnCooldown;
 	float m_MaxCooldown;
