@@ -92,9 +92,9 @@ void HUDLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	for (int i = 0; i < 4; ++i)
 	{
-		if (static_cast<int>(keyCode) == static_cast<int>(EventKeyboard::KeyCode::KEY_0) + i)
+		if (static_cast<int>(keyCode) == static_cast<int>(EventKeyboard::KeyCode::KEY_1) + i)
 		{
-			m_PressedButtons |= (1 << (i - 1));
+			m_PressedButtons |= (1 << i);
 		}
 	}
 }
@@ -103,9 +103,9 @@ void HUDLayer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	for (int i = 0; i < 4; ++i)
 	{
-		if (static_cast<int>(keyCode) == static_cast<int>(EventKeyboard::KeyCode::KEY_0) + i)
+		if (static_cast<int>(keyCode) == static_cast<int>(EventKeyboard::KeyCode::KEY_1) + i)
 		{
-			m_PressedButtons &= ~(1 << (i - 1));
+			m_PressedButtons &= ~(1 << i);
 		}
 	}
 }
