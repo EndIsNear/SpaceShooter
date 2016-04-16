@@ -260,6 +260,10 @@ void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx, UsedSkill
 		bulletArray.weapons.push_back(res.m_Source);
 		bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
 	}
+	else if (res.m_Type == SkillResult::ResultType::Effect)
+	{
+		lShip->AddEffect(res.m_Effect);
+	}
 }
 
 void BattleManager::loadExplosionAnim()

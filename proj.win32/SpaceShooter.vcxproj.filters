@@ -108,10 +108,10 @@
     <ClCompile Include="..\Classes\Physics\EnemyShip.cpp">
       <Filter>src\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BattleLogic\Skills\NormalAttack.cpp">
+    <ClCompile Include="..\Classes\BattleLogic\Skills\DamageSkills.cpp">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BattleLogic\Skills\DoTAttack.cpp">
+    <ClCompile Include="..\Classes\BattleLogic\Skills\BuffSkills.cpp">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClCompile>
   </ItemGroup>
@@ -194,10 +194,10 @@
     <ClInclude Include="..\Classes\BattleLogic\Skills\SkillBase.h">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BattleLogic\Skills\NormalAttack.h">
+    <ClInclude Include="..\Classes\BattleLogic\Skills\DamageSkills.h">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BattleLogic\Skills\DoTAttack.h">
+    <ClInclude Include="..\Classes\BattleLogic\Skills\BuffSkills.h">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
   </ItemGroup>

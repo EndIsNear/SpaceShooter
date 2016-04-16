@@ -1,8 +1,8 @@
 #ifndef  __LOGICAL_WEAPON_H__
 #define  __LOGICAL_WEAPON_H__
 #include "Utils\FileReader.h"
-#include "BattleLogic\Skills\NormalAttack.h"
-#include "BattleLogic\Skills\DoTAttack.h"
+#include "BattleLogic\Skills\DamageSkills.h"
+#include "BattleLogic\Skills\BuffSkills.h"
 
 const size_t skillSize = 4;
 
@@ -35,9 +35,16 @@ public:
 	{
 		for (size_t i = 0; i < skillSize; ++i)
 		{
-			if (usedSkill & 1 << i && m_Skills[i]->CanCast()) return m_Skills[i]->OnCast(pos, dir);
+			if (usedSkill & 1 << i && m_Skills[i]->CanCast()) 
+				return m_Skills[i]->OnCast(pos, dir);
 		}
 		return SkillResult();
+	}
+
+	SkillInterface * GetSkillAt(size_t idx)
+	{
+		assert(idx <= skillSize);
+		return m_Skills[idx];
 	}
 private:
 	SkillInterface * m_Skills[skillSize];

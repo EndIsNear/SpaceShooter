@@ -88,10 +88,15 @@ void LogicalShip::OnHit(SkillInterface * atackerWep)
 	{
 		hitRes.m_Effect.m_Func(this, 0.f);
 	}
-	else
+	else if(hitRes.m_Effect.m_Type == SkillEffect::EffectType::DoT)
 	{
-		m_Effects.push_back(hitRes.m_Effect.m_Func);
+		AddEffect(hitRes.m_Effect);
 	}
+}
+
+void LogicalShip::AddEffect(SkillEffect skillEffect)
+{
+	m_Effects.push_back(skillEffect.m_Func);
 }
 
 void LogicalShip::TakeDmg(float dmg)

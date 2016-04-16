@@ -13,6 +13,7 @@ public:
 
 	void Update(const float dt);
 	void OnHit(SkillInterface * atackerWep);
+	void AddEffect(SkillEffect skillEffect);
 	void TakeDmg(float dmg);
 
 	void SetLogicalWeapon(LogicalWeapon * newWeapon);

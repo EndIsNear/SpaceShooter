@@ -81,6 +81,17 @@ public:
 		m_CrnCooldown -= dt;
 	}
 
+	virtual void SetMaxCooldown(const float cdn)
+	{
+		m_MaxCooldown = cdn;
+		if (m_CrnCooldown > cdn) m_CrnCooldown = cdn;
+	}
+
+	virtual float GetMaxCooldown()
+	{
+		return m_MaxCooldown;
+	}
+
 protected:
 	float m_CrnCooldown;
 	float m_MaxCooldown;
