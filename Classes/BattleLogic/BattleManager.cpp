@@ -139,6 +139,7 @@ void BattleManager::updateEnemies(const float dt)
 			auto forDel = m_Enemies.phShips[i];
 			m_Enemies.Erase(i);
 			startExplosion(forDel);
+			break;
 		}
 
 

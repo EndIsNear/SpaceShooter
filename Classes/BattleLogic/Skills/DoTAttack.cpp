@@ -4,7 +4,7 @@
 SkillResult DoTAttack::OnHit()
 {
 	SkillResult res;
-	res.m_Effect = SkillEffect(SkillEffect::EffectType::DoT, EffectFunc([this](LogicalShip* ship, const float dt, float timeEffect)
+	res.m_Effect = SkillEffect(SkillEffect::EffectType::DoT, EffectFunc([this](LogicalShip* ship, const float dt, float& timeEffect)
 	{
 		if (timeEffect > 0.f)
 		{
