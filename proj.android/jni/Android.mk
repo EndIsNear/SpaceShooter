@@ -21,6 +21,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/BattleLogic/Spawner.cpp \
                    ../../Classes/BattleLogic/BattleManager.cpp \
                    ../../Classes/BattleLogic/Skills/NormalAttack.cpp \
+                   ../../Classes/BattleLogic/Skills/DoTAttack.cpp \
                    ../../Classes/AI/AIBase.cpp \
                    ../../Classes/Physics/BodyBase.cpp \
                    ../../Classes/Physics/ShipBase.cpp \

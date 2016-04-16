@@ -68,6 +68,17 @@ void LogicalShip::Update(const float dt)
 		m_CrnHP = m_MaxHP;
 
 	m_Weapon->Update(dt);
+
+	//update all effects applied on this ship
+	for (auto it = m_Effects.begin(); it != m_Effects.end();)
+	{
+		if (!(*it)(this, dt))
+		{
+			it = m_Effects.erase(it);
+		}
+		else
+			it++;
+	}
 }
 
 void LogicalShip::OnHit(SkillInterface * atackerWep)
@@ -79,7 +90,7 @@ void LogicalShip::OnHit(SkillInterface * atackerWep)
 	}
 	else
 	{
-
+		m_Effects.push_back(hitRes.m_Effect.m_Func);
 	}
 }
 

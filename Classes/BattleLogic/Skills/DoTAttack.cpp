@@ -13,6 +13,6 @@ SkillResult DoTAttack::OnHit()
 			return true;
 		}
 		return false;
-	}));
+	}, m_EffectTime));
 	return res;
 }

@@ -40,6 +40,15 @@
 						"MaxShield" : 1000,
 						"ShieldPerSec" : 25
 
+					},
+
+					{
+						"_comment" : "id 5",
+						"MaxHP" : 10000,
+						"HPPerSec" : 0,
+						"MaxShield" : 1,
+						"ShieldPerSec" : 0
+
 					}
 
 				]

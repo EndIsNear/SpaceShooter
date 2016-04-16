@@ -33,6 +33,7 @@ private:
 	float m_ShieldPerSec;
 
 	LogicalWeapon * m_Weapon;
+	std::vector<EffectFunc> m_Effects;
 };
 
 #endif // __LOGICAL_SHIP_H__

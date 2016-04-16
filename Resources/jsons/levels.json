@@ -410,6 +410,34 @@
 	    						"SpawnEntryID" : 1
 	    					}
 	    			]
+    			},
+
+    			{
+    				"_comment": "level6",
+    				"LevelH" : 3000,
+    				"LevelW" : 2500,
+    				"PlayerX" : 1200,
+    				"PlayerY" : 1200,
+
+	    			"SpawnEnties":	[
+	    					{
+	    						"spwnPntID": 0,
+	    						"lShipID" : 5,
+	    						"lWeaponID" : 5,
+	    						"aiID" : 0,
+	    						"sprtNameID" : 0,
+	    						"shipSpeed" : 500,
+	    						"timeToSpawn" : [2]
+	    					}
+	    			],
+
+	    			"SpawnPoints":	[
+    					{
+    						"X" : 2900,
+    						"Y" : 2300,
+    						"SpawnEntryID" : 0
+    					}
+	    			]
     			}
 
     ]

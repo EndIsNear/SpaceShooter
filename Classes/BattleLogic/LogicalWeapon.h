@@ -2,6 +2,7 @@
 #define  __LOGICAL_WEAPON_H__
 #include "Utils\FileReader.h"
 #include "BattleLogic\Skills\NormalAttack.h"
+#include "BattleLogic\Skills\DoTAttack.h"
 
 const size_t skillSize = 4;
 
