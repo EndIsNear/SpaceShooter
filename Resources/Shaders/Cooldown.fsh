@@ -11,9 +11,10 @@ void main()
   else
   {
   	const float min = 0.1;
-  	const float max = 0.1;
+  	const float max = 0.5;
+  	const float diff = max - min;
 
  	float coef = min  + (max - min) * u_percent ;
-  	gl_FragColor = vec4(u_percent, u_percent, u_percent, 1.) * texture2D(CC_Texture0, v_texCoord);
+  	gl_FragColor = vec4(min + u_percent * diff, min + u_percent * diff, min + u_percent * diff, 1.) * texture2D(CC_Texture0, v_texCoord);
   }
 }
