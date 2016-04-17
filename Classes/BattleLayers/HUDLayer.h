@@ -11,6 +11,8 @@ class HUDLayer : public cocos2d::Layer
 	cocos2d::ui::LoadingBar * m_LifeBar;
 	cocos2d::ui::LoadingBar * m_ShieldBar;
 	cocos2d::ui::Button * m_SettingsButton;
+	cocos2d::Sprite * m_SkillButtons[4];
+	cocos2d::GLProgram * m_CdnShaders[4];
 	unsigned m_PressedButtons;
 	bool m_SettingsPressed;
 public:

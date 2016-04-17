@@ -1,6 +1,8 @@
 #include "BattleLayers\HUDLayer.h"
 #include "BattleLogic\BattleManager.h"
 
+#include "Shaders\Shaders.h"
+
 #include "cocostudio\CocoStudio.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"
 
@@ -38,14 +40,30 @@ bool HUDLayer::init()
 	{
 		char tmp[16];
 		sprintf(tmp, "%d", i);
-		auto fireButton = static_cast<ui::Button*>(ContrilsLayer->getChildByName(namePrefix + tmp));
-		fireButton->setPressedActionEnabled(true);
-		fireButton->addTouchEventListener([this, i](Ref* sender, ui::Widget::TouchEventType type) {
-			if (ui::Widget::TouchEventType::BEGAN == type)
+		m_SkillButtons[i] = static_cast<Sprite*>(ContrilsLayer->getChildByName(namePrefix + tmp));
+		const float radius = m_SkillButtons[i]->getContentSize().width / 2;
+		const Vec2 center = m_SkillButtons[i]->getPosition();
+		auto listener = cocos2d::EventListenerTouchOneByOne::create();
+		listener->onTouchBegan = [this, i, radius, center](cocos2d::Touch* touch, cocos2d::Event* event)
+		{
+			Vec2 pnt = touch->getLocation();
+			if ((pnt - center).lengthSquared() < radius * radius)
+			{
 				m_PressedButtons |= (1 << i);
-			else if (ui::Widget::TouchEventType::ENDED == type || ui::Widget::TouchEventType::CANCELED == type)
-			 	m_PressedButtons &= ~(1 << i);
-		});
+				return true;
+			}
+			return false;
+		};
+
+		listener->onTouchEnded = [=](cocos2d::Touch* touch, cocos2d::Event* event)
+		{
+			m_PressedButtons &= ~(1 << i);
+		};
+		cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, m_SkillButtons[i]);
+
+		m_CdnShaders[i] = GetCooldownShader();
+		m_SkillButtons[i]->setGLProgram(m_CdnShaders[i]);
+		UpdateCooldownShader(m_CdnShaders[i], 1.f);
 	}
 
 	m_PressedButtons = 0;
@@ -70,11 +88,8 @@ void HUDLayer::updateCooldowns()
 	{
 		for (size_t i = 0; i < 4; ++i)
 		{
-			if (cdns[i] > FLT_EPSILON)
-			{
-				//now update the given shander
-				int a = 2;
-			}
+			//now update the given shander
+			UpdateCooldownShader(m_CdnShaders[i], 1.f - cdns[i]);
 		}
 	}
 }
