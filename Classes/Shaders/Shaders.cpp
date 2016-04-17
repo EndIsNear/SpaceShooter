@@ -17,7 +17,6 @@ static GLProgram* getOrCreateShader(const std::string& name, const std::string& 
 
 GLProgram * GetOnHitShader()
 {
-	//TODO: cache this on first call!
 	GLProgram * p = new GLProgram();
 	p->initWithFilenames("Shaders/OnHit.vsh", "Shaders/OnHit.fsh");
 	p->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
@@ -51,6 +50,5 @@ cocos2d::GLProgram * GetCooldownShader()
 
 void UpdateCooldownShader(GLProgramState * state, const float percent)
 {
-	GLuint u_percent = glGetUniformLocation(getOrCreateShader("CooldownShader", "Shaders/Cooldown.vsh", "Shaders/Cooldown.fsh")->getProgram(), "u_percent");
-	state->setUniformFloat(u_percent, percent);
+	state->setUniformFloat("u_percent", percent);
 }

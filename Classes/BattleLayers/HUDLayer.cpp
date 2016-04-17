@@ -43,6 +43,7 @@ bool HUDLayer::init()
 		m_SkillButtons[i] = static_cast<Sprite*>(ContrilsLayer->getChildByName(namePrefix + tmp));
 		const float radius = m_SkillButtons[i]->getContentSize().width / 2;
 		const Vec2 center = m_SkillButtons[i]->getPosition();
+
 		auto listener = cocos2d::EventListenerTouchOneByOne::create();
 		listener->onTouchBegan = [this, i, radius, center](cocos2d::Touch* touch, cocos2d::Event* event)
 		{
