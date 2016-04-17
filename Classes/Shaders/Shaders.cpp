@@ -2,6 +2,19 @@
 
 USING_NS_CC;
 
+static GLProgram* getOrCreateShader(const std::string& name, const std::string& vert, const std::string& frag)
+{
+	auto cache = GLProgramCache::getInstance();
+	auto prog = cache->getGLProgram(name);
+	if (prog == nullptr)
+	{
+		prog = GLProgram::createWithFilenames(vert, frag);
+		cache->addGLProgram(prog, name);
+	}
+	return prog;
+}
+
+
 GLProgram * GetOnHitShader()
 {
 	//TODO: cache this on first call!
@@ -29,22 +42,15 @@ void UpdateOnHitShader(GLProgram *p, const float time)
 
 cocos2d::GLProgram * GetCooldownShader()
 {
-	//TODO: cache this on first call!
-	GLProgram * p = new GLProgram();
-	p->initWithFilenames("Shaders/Cooldown.vsh", "Shaders/Cooldown.fsh");
-	p->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
-	p->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
-	p->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-	p->link();
-	p->updateUniforms();
-	return p;
+	auto prog = getOrCreateShader("CooldownShader", "Shaders/Cooldown.vsh", "Shaders/Cooldown.fsh");
+	prog->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
+	prog->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
+	prog->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORDS);
+	return prog;
 }
 
-void UpdateCooldownShader(GLProgram *p, const float percent)
+void UpdateCooldownShader(GLProgramState * state, const float percent)
 {
-
-	GLProgramState* state = GLProgramState::getOrCreateWithGLProgram(p);
-
-	GLuint u_percent = glGetUniformLocation(p->getProgram(), "u_percent");
+	GLuint u_percent = glGetUniformLocation(getOrCreateShader("CooldownShader", "Shaders/Cooldown.vsh", "Shaders/Cooldown.fsh")->getProgram(), "u_percent");
 	state->setUniformFloat(u_percent, percent);
 }
