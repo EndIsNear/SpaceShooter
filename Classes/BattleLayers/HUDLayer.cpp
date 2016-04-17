@@ -1,6 +1,10 @@
 #include "BattleLayers\HUDLayer.h"
+#include "BattleLogic\BattleManager.h"
+
 #include "cocostudio\CocoStudio.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"
+
+
 
 USING_NS_CC;
 
@@ -57,6 +61,24 @@ void HUDLayer::resetButtons()
 {
 	m_PressedButtons = 0;
 }
+
+void HUDLayer::updateCooldowns()
+{
+	float cdns[4];
+	//if there is cooldown higher than 0 (in percents)
+	if (BattleManager::Instance()->GetPlayerCooldowns(cdns))
+	{
+		for (size_t i = 0; i < 4; ++i)
+		{
+			if (cdns[i] > FLT_EPSILON)
+			{
+				//now update the given shander
+				int a = 2;
+			}
+		}
+	}
+}
+
 
 void HUDLayer::setPlayerLife(float perc)
 {

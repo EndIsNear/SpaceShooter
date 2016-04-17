@@ -74,6 +74,18 @@ void BattleManager::setNewParrent()
 		m_EnemyBullets.bullets[i]->SetParent(m_ParentLayer, 0);
 }
 
+bool BattleManager::GetPlayerCooldowns(float(&cdns)[4])
+{
+	bool res = false;
+	for (size_t i = 0; i < 4; ++i)
+	{
+		cdns[i] = m_Allies.lShips[0]->GetWeapon()->GetPrcCooldownAt(i);
+		res |= cdns[i] > FLT_EPSILON;
+	}
+	return res;
+}
+
+
 bool BattleManager::IsThereEnemies() const
 {
 	//tmp for now, with spawner have to be updated

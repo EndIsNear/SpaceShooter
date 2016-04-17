@@ -19,6 +19,7 @@ public:
 	CREATE_FUNC(HUDLayer);
 
 	void resetButtons();
+	void updateCooldowns();
 
 	void setPlayerLife(float perc);
 	void setPlayerShield(float perc);

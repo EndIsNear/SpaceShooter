@@ -99,7 +99,7 @@ public:
 
 	virtual float GetCooldownInPerc()
 	{
-		return GetCrnCooldown() / GetMaxCooldown();
+		return m_CrnCooldown > FLT_EPSILON ? m_CrnCooldown / m_MaxCooldown : 0.f;
 	}
 
 protected:

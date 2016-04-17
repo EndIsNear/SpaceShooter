@@ -39,6 +39,8 @@ public:
 	void SetParent(cocos2d::Layer * parent);
 	void Update(const float dt);
 	bool IsPlayerAlive() const { return m_Allies.lShips[0]->IsAlive(); }
+	//returns all player cooldowns in percents
+	bool GetPlayerCooldowns(float(&cdns)[4]);
 	bool IsThereEnemies() const;
 	const BodyBase * ptrShip() const { return m_Allies.phShips[0]; }
 

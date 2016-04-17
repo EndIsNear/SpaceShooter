@@ -70,6 +70,9 @@ void BattleScene::update(float dt)
 	}
 
 	m_MainLayer->updateCamera();
+
+	//update player cooldowns
+	m_HUDLayer->updateCooldowns();
 }
 
 void BattleScene::restartGame()
