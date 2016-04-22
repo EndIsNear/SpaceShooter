@@ -6,6 +6,7 @@
 #include "Physics\BulletBase.h"
 #include "BattleLogic\LogicalWeapon.h"
 #include <random>
+#include <algorithm>
 
 
 struct AIMove
@@ -15,12 +16,25 @@ struct AIMove
 	float newVelocity;//normalized (0 - 1)
 };
 
+
+class Boreder
+{
+public:
+	static float GetDistanceByPt(const cocos2d::Size size,const cocos2d::Vec2 pt)
+	{
+		float h = std::min(pt.y / size.height, size.height - pt.y/ size.height);
+		float v = std::min(pt.x / size.width, size.width - pt.x / size.height);
+		return  std::min(h, v);
+	}
+};
+
 struct AIBaseStruct
 {
 	cocos2d::Size m_AreaSize;
 	const BodyBase& mr_Me;
 	const LogicalWeapon& mr_Weapon;
 };
+
 
 
 class AIBaseInterface
@@ -146,8 +160,8 @@ public:
 		const float dt,
 		AIMove &rResult)
 	{
-		//TO DO: fix this !
-		if (/*m_ParentRef.mr_Weapon.CanShoot()*/1)
+		//TODO: remove const cast
+		if (const_cast<LogicalWeapon&>(m_ParentRef.mr_Weapon).GetCooldownAt(0))
 		{
 			const BodyBase&  me = m_ParentRef.mr_Me;
 			const cocos2d::Vec2 enemyDir = (enemy[0]->GetPosition() - me.GetPosition()).getNormalized();
@@ -174,6 +188,35 @@ private:
 
 };
 
+
+class AIStayAwayFromWall
+{
+public:
+	AIStayAwayFromWall(const AIBaseStruct& parent)
+		:
+		m_ParentRef(parent)
+	{
+	}
+
+	bool GetMove(std::vector<ShipBase*>& enemy,
+		std::vector<BulletBase*>& enemyBullets,
+		std::vector<ShipBase*>& friends,
+		const float dt,
+		AIMove &rResult)
+	{
+		const float dist = Boreder::GetDistanceByPt(m_ParentRef.m_AreaSize, m_ParentRef.mr_Me.GetPosition());
+		if (dist <  0.1)
+		{
+
+			return true;
+		}
+		return false;
+	}
+
+private:
+	const AIBaseStruct& m_ParentRef;
+
+};
 
 
 template <typename AIPolicy1, typename AIPolicy2, typename AIBaseStructT = AIBaseStruct>
@@ -258,8 +301,10 @@ typedef AITreeNodeBase <AIStayAway<600>, AIDefaultMove<100>> StayAwayPolicy;
 
 typedef AIListNode <AIStrikeOnCd, AIStayBehindEnemy> StayBehindAndShootPolicy;
 typedef AITreeNodeBase <StayBehindAndShootPolicy, StayAwayPolicy> ShootOrRunPolicy;
-typedef AITreeNodeBase <ShootOrRunPolicy, AIStayAway<250>> StayAwayEndShoot;
-
+typedef AITreeNodeBase <AIStayAway<250>, ShootOrRunPolicy> StayAwayAndShoot;
+typedef AITreeNodeBase <ShootOrRunPolicy, AIStayAway<250>> ShootAndStayAway;
+typedef AIListNode <AIStayAwayFromWall, StayAwayAndShoot> WallAvoid;
+typedef AITreeNodeBase <WallAvoid, ShootAndStayAway> MegaOpAI;
 typedef AITreeNodeBase < AIStrikeOnCd, AIDefaultMove<1>> JustShoot;
 
 #endif // __AI_BASE_H__
