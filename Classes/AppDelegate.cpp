@@ -46,10 +46,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	initGLView(director);
 
     register_all_packages();
-#ifdef _DEBUG
 	// turn on display FPS
 	director->setDisplayStats(true);
-#endif // _DEBUG
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0f / 60.f);
     // create a scene. it's an autorelease object

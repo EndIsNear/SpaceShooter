@@ -80,12 +80,9 @@ void BattleManager::setNewParrent()
 
 bool BattleManager::GetPlayerCooldowns(float(&cdns)[4])
 {
-	bool res = false;
+	bool res = true;
 	for (size_t i = 0; i < 4; ++i)
-	{
 		cdns[i] = m_Allies.lShips[0]->GetWeapon()->GetPrcCooldownAt(i);
-		res |= cdns[i] > FLT_EPSILON;
-	}
 	return res;
 }
 
