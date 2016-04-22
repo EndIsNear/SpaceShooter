@@ -37,7 +37,7 @@ void BattleManager::free()
 	for (size_t i = 0; i < m_PlayerBullets.Size(); ++i)
 		delete m_PlayerBullets.bullets[i];
 	m_PlayerBullets.bullets.resize(0);
-	m_PlayerBullets.weapons.resize(0);
+	m_PlayerBullets.skills.resize(0);
 
 	////free enemy
 	m_Enemies.phShips.resize(0);
@@ -50,7 +50,7 @@ void BattleManager::free()
 		delete m_EnemyBullets.bullets[i];
 	}
 	m_EnemyBullets.bullets.resize(0);
-	m_EnemyBullets.weapons.resize(0);
+	m_EnemyBullets.skills.resize(0);
 
 	//forever tmp
 	delete m_Spawner;
@@ -181,6 +181,12 @@ void BattleManager::updateBullets(Bullets& bulletArray, const float dt)
 		assert(bulletArray.bullets[i] != nullptr);
 		if (!bulletArray.bullets[i]->Update(dt))
 		{
+			auto res = bulletArray.skills[i]->OnExplosion(bulletArray.bullets[i]->GetPosition(), bulletArray.bullets[i]->GetDirection());
+			if (res.m_Type == SkillResult::ResultType::Bullet && res.m_Bullet)
+			{
+				applySkillBulletsResult(true, res);
+			}
+
 			delete bulletArray.bullets[i];
 			bulletArray.Erase(i);
 		}
@@ -200,7 +206,7 @@ void BattleManager::checkForHitPlayer()
 			if (m_EnemyBullets.bullets[i]->Collision(*(m_Allies.phShips[j])))
 			{
 				//apply dmg
-				m_Allies.lShips[j]->OnHit(m_EnemyBullets.weapons[i]);
+				m_Allies.lShips[j]->OnHit(m_EnemyBullets.skills[i]);
 
 				//delete the bullet
 				delete m_EnemyBullets.bullets[i];
@@ -231,7 +237,7 @@ void BattleManager::checkForHitEnemy()
 
 				collision = true;
 				//apply dmg
-				m_Enemies.lShips[j]->OnHit(m_PlayerBullets.weapons[i]);
+				m_Enemies.lShips[j]->OnHit(m_PlayerBullets.skills[i]);
 				reinterpret_cast<EnemyShip*>(m_Enemies.phShips[j])->UpdateHPBars(m_Enemies.lShips[j]->GetLifeInPer(), m_Enemies.lShips[j]->GetShieldInPer());
 
 				//delete the bullet
@@ -265,12 +271,9 @@ void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx, UsedSkill
 	const auto phShip = crn.phShips[shooterIdx];
 	
 	auto res = lShip->GetWeapon()->Cast(usedSkill, phShip->GetPosition(), phShip->GetDirection());
-	if (res.m_Bullet)
+	if (res.m_Type == SkillResult::ResultType::Bullet && res.m_Bullet)
 	{
-		auto& bulletArray = isPlayerBullet ? m_PlayerBullets : m_EnemyBullets;
-		bulletArray.bullets.push_back(res.m_Bullet);
-		bulletArray.weapons.push_back(res.m_Source);
-		bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
+		applySkillBulletsResult(isPlayerBullet, res);
 	}
 	else if (res.m_Type == SkillResult::ResultType::Effect)
 	{
@@ -298,4 +301,12 @@ void BattleManager::startExplosion(ShipBase * ship)
 	auto animate = Animate::create(animation);
 	auto seq = Sequence::create(animate, CallFunc::create([ship]() { ship->SetVisible(false); }), NULL);
 	ship->GetSprite()->runAction(seq);
+}
+
+void BattleManager::applySkillBulletsResult(bool playerBullets, SkillResult& res)
+{
+	auto& bulletArray = playerBullets ? m_PlayerBullets : m_EnemyBullets;
+	bulletArray.bullets.push_back(res.m_Bullet);
+	bulletArray.skills.push_back(res.m_Source);
+	bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
 }

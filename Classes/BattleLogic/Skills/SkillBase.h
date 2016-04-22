@@ -44,10 +44,11 @@ class SkillResult
 public:
 	enum ResultType
 	{
+		None,
 		Bullet,
 		Effect
 	} m_Type;
-	SkillResult() : m_Bullet(nullptr), m_Source(nullptr) {}
+	SkillResult() : m_Bullet(nullptr), m_Source(nullptr), m_Type(None) {}
 	BulletBase * m_Bullet;
 	SkillEffect m_Effect;
 
@@ -68,6 +69,9 @@ public:
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) = 0;
 	/// Used after the projectile hit the enemy
 	virtual SkillResult OnHit() = 0;
+
+	/// Used for something
+	virtual SkillResult OnExplosion(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) { return SkillResult(); }
 
 	/// Returns true if can shoot
 	virtual bool CanCast()

@@ -31,6 +31,7 @@ public:
 
 		m_CrnCooldown = m_MaxCooldown;
 		assert(res.m_Bullet != nullptr);
+		res.m_Type = SkillResult::ResultType::Bullet;
 		return res;
 	}
 
@@ -66,11 +67,50 @@ public:
 
 		m_CrnCooldown = m_MaxCooldown;
 		assert(res.m_Bullet != nullptr);
+		res.m_Type = SkillResult::ResultType::Bullet;
 		return res;
 	}
 
 	/// Used after the projectile hit the enemy
 	virtual SkillResult OnHit() override;
 };
+
+///////////////////////////////////////
+// not Normal Attack
+///////////////////////////////////////
+
+class NotNormalAtack : public SkillInterface
+{
+	float m_Dmg;
+	float m_BulletSpeeed;
+	std::string m_SpriteName;
+	SkillInterface& m_PostSkill;
+
+public:
+	NotNormalAtack(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName, SkillInterface& postCast)
+		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName), m_PostSkill(postCast)
+	{
+		m_MaxCooldown = cdn;
+	}
+	virtual SkillInterface * Clone() override { return new NormalAtack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
+	virtual ~NotNormalAtack() override {}
+
+	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
+	{
+		SkillResult res;
+		res.m_Source = this;
+		res.m_Bullet = new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName, 1.f);
+
+		m_CrnCooldown = m_MaxCooldown;
+		assert(res.m_Bullet != nullptr);
+		res.m_Type = SkillResult::ResultType::Bullet;
+		return res;
+	}
+
+	virtual SkillResult OnHit() override;
+	virtual SkillResult OnExplosion(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override;
+};
+
+
 
 #endif // __DAMAGE_SKILLS_H__

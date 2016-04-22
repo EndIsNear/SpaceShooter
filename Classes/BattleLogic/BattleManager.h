@@ -85,7 +85,7 @@ private:
 	{
 		inline size_t Size() const
 		{
-			assert(bullets.size() == weapons.size());
+			assert(bullets.size() == skills.size());
 			return bullets.size();
 		}
 
@@ -96,12 +96,12 @@ private:
 			if (idx >= size)
 				return;
 			bullets[idx] = bullets[size - 1];
-			weapons[idx] = weapons[size - 1];
+			skills[idx] = skills[size - 1];
 			bullets.pop_back();
-			weapons.pop_back();
+			skills.pop_back();
 		}
 		std::vector<BulletBase*> bullets;
-		std::vector<SkillInterface*> weapons; ///< ptr that contains the shooter, used to calc dmg
+		std::vector<SkillInterface*> skills; ///< ptr that contains the shooter, used to calc dmg
 	};
 
 
@@ -120,6 +120,7 @@ private:
 	void checkForHitEnemy();
 
 	void loadExplosionAnim();
+	void applySkillBulletsResult(bool playerBullets, SkillResult& res);
 
 	std::function<cocos2d::Vec2()> m_PlayerDirCB;
 	std::function<unsigned()> m_PlayerButtonsCB; ///< result is bitfield for pressed buttons
