@@ -181,14 +181,19 @@ void BattleManager::updateBullets(Bullets& bulletArray, const float dt)
 	for (size_t i = 0 ; i < bulletArray.Size(); )
 	{
 		assert(bulletArray.bullets[i] != nullptr);
-		if (!bulletArray.bullets[i]->Update(dt))
+		bool doOnExplosion = false;
+		const bool shouldErase = !bulletArray.bullets[i]->Update(dt, &doOnExplosion);
+		if (doOnExplosion)
 		{
 			auto res = bulletArray.skills[i]->OnExplosion(bulletArray.bullets[i]->GetPosition(), bulletArray.bullets[i]->GetDirection());
 			if (res.m_Type == SkillResult::ResultType::Bullet && res.m_Bullets[0])
 			{
 				applySkillBulletsResult(true, res);
 			}
+		}
 
+		if (shouldErase)
+		{
 			delete bulletArray.bullets[i];
 			bulletArray.Erase(i);
 		}

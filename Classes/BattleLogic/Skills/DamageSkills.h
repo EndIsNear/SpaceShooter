@@ -81,12 +81,15 @@ class GranadeAtack : public SkillInterface
 {
 	float m_Dmg;
 	float m_BulletSpeeed;
+	float m_ExplosionDelay;
 	std::string m_SpriteName;
 	SkillInterface& m_PostSkill;
 
 public:
-	GranadeAtack(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName, SkillInterface& postCast)
-		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName), m_PostSkill(postCast)
+	GranadeAtack(const float dmg, const float cdn, const float bulletSpeed, const float explosionDelay,
+		const std::string& spriteName, SkillInterface& postCast)
+		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName),
+			m_PostSkill(postCast), m_ExplosionDelay(explosionDelay)
 	{
 		m_MaxCooldown = cdn;
 	}
@@ -97,7 +100,7 @@ public:
 	{
 		SkillResult res;
 		res.m_Source = this;
-		res.m_Bullets.push_back(new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName, 1.f));
+		res.m_Bullets.push_back(new GranadeBullet(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName, m_ExplosionDelay));
 
 		m_CrnCooldown = m_MaxCooldown;
 		res.m_Type = SkillResult::ResultType::Bullet;
