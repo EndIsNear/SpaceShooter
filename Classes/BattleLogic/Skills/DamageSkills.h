@@ -3,24 +3,46 @@
 
 #include "BattleLogic\Skills\SkillBase.h"
 
+
 ///////////////////////////////////////
-// Normal Attack
+// Damage Skill Base
+// It implements simple OnHit method
 ///////////////////////////////////////
 
-class NormalAttack : public SkillInterface
+class DamageSkillBase : public SkillInterface
 {
+protected:
 	float m_Dmg;
 	float m_BulletSpeeed;
 	std::string m_SpriteName;
-
 public:
-	NormalAttack(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName)
+	DamageSkillBase(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName)
 		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName)
 	{
 		m_MaxCooldown = cdn;
 	}
-	virtual SkillInterface * Clone() override { return new NormalAttack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
-	virtual ~NormalAttack() override {}
+	virtual ~DamageSkillBase() override {}
+
+	/// Used when there is command to cast a skill
+	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) = 0;
+
+	/// Used when there is command to cast a skill
+	/// Used after the projectile hit the enemy
+	virtual SkillResult OnHit() override;
+};
+
+///////////////////////////////////////
+// Normal Attack
+///////////////////////////////////////
+
+class NormalAttackSkill : public DamageSkillBase
+{
+public:
+	NormalAttackSkill(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName)
+		: DamageSkillBase(dmg, cdn, bulletSpeed, spriteName)
+	{}
+	virtual SkillInterface * Clone() override { return new NormalAttackSkill(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
+	virtual ~NormalAttackSkill() override {}
 
 	/// Used when there is command to cast a skill
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
@@ -33,32 +55,23 @@ public:
 		res.m_Type = SkillResult::ResultType::Bullet;
 		return res;
 	}
-
-	/// Used after the projectile hit the enemy
-	virtual SkillResult OnHit() override;
 };
 
 ///////////////////////////////////////
 // Spread Attack
 ///////////////////////////////////////
 
-class NormalSpreadAttack : public SkillInterface
+class SpreadAttackSkill : public DamageSkillBase
 {
-	float m_Dmg;
-	float m_BulletSpeeed;
 	float m_SpreadAngle;
 	size_t m_BulletCnt;
-	std::string m_SpriteName;
-
 public:
-	NormalSpreadAttack(const float dmg, const float cdn, const float bulletSpeed, const float spreadAngle,
+	SpreadAttackSkill(const float dmg, const float cdn, const float bulletSpeed, const float spreadAngle,
 		const size_t bulletCnt, const std::string& spriteName)
-		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName), m_SpreadAngle(spreadAngle), m_BulletCnt(bulletCnt)
-	{
-		m_MaxCooldown = cdn;
-	}
-	virtual SkillInterface * Clone() override { return new NormalSpreadAttack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpreadAngle, m_BulletCnt, m_SpriteName); };
-	virtual ~NormalSpreadAttack() override {}
+		: DamageSkillBase(dmg, cdn, bulletSpeed, spriteName), m_SpreadAngle(spreadAngle), m_BulletCnt(bulletCnt)
+	{}
+	virtual SkillInterface * Clone() override { return new SpreadAttackSkill(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpreadAngle, m_BulletCnt, m_SpriteName); };
+	virtual ~SpreadAttackSkill() override {}
 
 	/// Used when there is command to cast a skill
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
@@ -76,28 +89,19 @@ public:
 		res.m_Type = SkillResult::ResultType::Bullet;
 		return res;
 	}
-
-	/// Used after the projectile hit the enemy
-	virtual SkillResult OnHit() override;
 };
 
 ///////////////////////////////////////
 // Dual Barrel Attack
 ///////////////////////////////////////
 
-class DualBarrelAttack : public SkillInterface
+class DualBarrelAttack : public DamageSkillBase
 {
-	float m_Dmg;
-	float m_BulletSpeeed;
 	float m_OffsetFromCenter;
-	std::string m_SpriteName;
-
 public:
 	DualBarrelAttack(const float dmg, const float cdn, const float bulletSpeed, const float offsetFromCenter, const std::string& spriteName)
-		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName), m_OffsetFromCenter(offsetFromCenter)
-	{
-		m_MaxCooldown = cdn;
-	}
+		: DamageSkillBase(dmg, cdn, bulletSpeed, spriteName), m_OffsetFromCenter(offsetFromCenter)
+	{}
 	virtual SkillInterface * Clone() override { return new DualBarrelAttack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_OffsetFromCenter, m_SpriteName); };
 	virtual ~DualBarrelAttack() override {}
 
@@ -115,9 +119,6 @@ public:
 		res.m_Type = SkillResult::ResultType::Bullet;
 		return res;
 	}
-
-	/// Used after the projectile hit the enemy
-	virtual SkillResult OnHit() override;
 };
 
 ///////////////////////////////////////
