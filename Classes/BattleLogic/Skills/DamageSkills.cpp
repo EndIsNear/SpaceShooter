@@ -12,6 +12,17 @@ SkillResult NormalAtack::OnHit()
 	return res;
 }
 
+SkillResult NormalSpreadAtack::OnHit()
+{
+	SkillResult res;
+	res.m_Effect = SkillEffect(SkillEffect::EffectType::OneTime, EffectFunc([this](LogicalShip* ship, const float dt, float& timeLeft) -> bool
+	{
+		ship->TakeDmg(m_Dmg);
+		return false;
+	}));
+	return res;
+}
+
 SkillResult DoTAttack::OnHit()
 {
 	SkillResult res;

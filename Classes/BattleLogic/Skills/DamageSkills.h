@@ -39,6 +39,49 @@ public:
 };
 
 ///////////////////////////////////////
+// Normal Attack
+///////////////////////////////////////
+
+class NormalSpreadAtack : public SkillInterface
+{
+	float m_Dmg;
+	float m_BulletSpeeed;
+	float m_SpreadAngle;
+	size_t m_BulletCnt;
+	std::string m_SpriteName;
+
+public:
+	NormalSpreadAtack(const float dmg, const float cdn, const float bulletSpeed, const float spreadAngle,
+		const size_t bulletCnt, const std::string& spriteName)
+		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName), m_SpreadAngle(spreadAngle), m_BulletCnt(bulletCnt)
+	{
+		m_MaxCooldown = cdn;
+	}
+	virtual SkillInterface * Clone() override { return new NormalAtack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
+	virtual ~NormalSpreadAtack() override {}
+
+	/// Used when there is command to cast a skill
+	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
+	{
+		SkillResult res;
+		res.m_Source = this;
+		res.m_Bullets.push_back(new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName));
+		for (size_t i = 1; i < m_BulletCnt; ++i)
+		{
+			res.m_Bullets.push_back(new BulletBase(pos, dir.getNormalized().rotateByAngle(cocos2d::Vec2::ZERO,
+				CC_DEGREES_TO_RADIANS(cocos2d::RandomHelper::random_real(-m_SpreadAngle, m_SpreadAngle))), m_BulletSpeeed, m_SpriteName));
+		}
+
+		m_CrnCooldown = m_MaxCooldown;
+		res.m_Type = SkillResult::ResultType::Bullet;
+		return res;
+	}
+
+	/// Used after the projectile hit the enemy
+	virtual SkillResult OnHit() override;
+};
+
+///////////////////////////////////////
 // DoT Attack
 ///////////////////////////////////////
 
