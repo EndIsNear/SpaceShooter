@@ -28,7 +28,7 @@ SkillResult DoTAttack::OnHit()
 	return res;
 }
 
-SkillResult NotNormalAtack::OnHit()
+SkillResult GranadeAtack::OnHit()
 {
 	SkillResult res;
 	res.m_Effect = SkillEffect(SkillEffect::EffectType::OneTime, EffectFunc([this](LogicalShip* ship, const float dt, float& timeLeft) -> bool
@@ -39,9 +39,18 @@ SkillResult NotNormalAtack::OnHit()
 	return res;
 }
 
-SkillResult NotNormalAtack::OnExplosion(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir)
+SkillResult GranadeAtack::OnExplosion(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir)
 {
-	SkillResult res = m_PostSkill.OnCast(pos, dir.getNormalized() * -1.f);
+	const int size = 10;
+	const float angleStep = 6.2831f / size;
+	SkillResult res;
+	res.m_Type = SkillResult::ResultType::Bullet;
+	for (int i = 0; i < size; ++i)
+	{
+		const float angle = angleStep * i;
+		res.m_Bullets.push_back(m_PostSkill.OnCast(pos, dir.getNormalized().rotateByAngle(cocos2d::Vec2::ZERO, angle)).m_Bullets[0]);
+	}
+	res.m_Source = &m_PostSkill;
 	return res;
 
 }

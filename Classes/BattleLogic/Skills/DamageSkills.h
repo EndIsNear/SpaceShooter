@@ -77,7 +77,7 @@ public:
 // not Normal Attack
 ///////////////////////////////////////
 
-class NotNormalAtack : public SkillInterface
+class GranadeAtack : public SkillInterface
 {
 	float m_Dmg;
 	float m_BulletSpeeed;
@@ -85,13 +85,13 @@ class NotNormalAtack : public SkillInterface
 	SkillInterface& m_PostSkill;
 
 public:
-	NotNormalAtack(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName, SkillInterface& postCast)
+	GranadeAtack(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName, SkillInterface& postCast)
 		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName), m_PostSkill(postCast)
 	{
 		m_MaxCooldown = cdn;
 	}
 	virtual SkillInterface * Clone() override { return new NormalAtack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
-	virtual ~NotNormalAtack() override {}
+	virtual ~GranadeAtack() override {}
 
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
 	{
