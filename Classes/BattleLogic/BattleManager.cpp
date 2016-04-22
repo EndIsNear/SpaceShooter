@@ -182,7 +182,7 @@ void BattleManager::updateBullets(Bullets& bulletArray, const float dt)
 		if (!bulletArray.bullets[i]->Update(dt))
 		{
 			auto res = bulletArray.skills[i]->OnExplosion(bulletArray.bullets[i]->GetPosition(), bulletArray.bullets[i]->GetDirection());
-			if (res.m_Type == SkillResult::ResultType::Bullet && res.m_Bullet)
+			if (res.m_Type == SkillResult::ResultType::Bullet && res.m_Bullets[0])
 			{
 				applySkillBulletsResult(true, res);
 			}
@@ -271,7 +271,7 @@ void BattleManager::fireBullet(bool isPlayerBullet, size_t shooterIdx, UsedSkill
 	const auto phShip = crn.phShips[shooterIdx];
 	
 	auto res = lShip->GetWeapon()->Cast(usedSkill, phShip->GetPosition(), phShip->GetDirection());
-	if (res.m_Type == SkillResult::ResultType::Bullet && res.m_Bullet)
+	if (res.m_Type == SkillResult::ResultType::Bullet && res.m_Bullets[0])
 	{
 		applySkillBulletsResult(isPlayerBullet, res);
 	}
@@ -306,7 +306,10 @@ void BattleManager::startExplosion(ShipBase * ship)
 void BattleManager::applySkillBulletsResult(bool playerBullets, SkillResult& res)
 {
 	auto& bulletArray = playerBullets ? m_PlayerBullets : m_EnemyBullets;
-	bulletArray.bullets.push_back(res.m_Bullet);
-	bulletArray.skills.push_back(res.m_Source);
-	bulletArray.bullets.back()->SetParent(m_ParentLayer, 0);
+	bulletArray.bullets.insert(bulletArray.bullets.end(), res.m_Bullets.begin(), res.m_Bullets.end());
+	for (size_t i = 0; i < res.m_Bullets.size(); ++i)
+	{
+		bulletArray.bullets[bulletArray.skills.size()]->SetParent(m_ParentLayer, 0);
+		bulletArray.skills.push_back(res.m_Source);
+	}
 }

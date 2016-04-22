@@ -48,8 +48,8 @@ public:
 		Bullet,
 		Effect
 	} m_Type;
-	SkillResult() : m_Bullet(nullptr), m_Source(nullptr), m_Type(None) {}
-	BulletBase * m_Bullet;
+	SkillResult() : m_Source(nullptr), m_Type(None) {}
+	std::vector<BulletBase*> m_Bullets;
 	SkillEffect m_Effect;
 
 	//always exist ptr to source

@@ -42,7 +42,6 @@ SkillResult NotNormalAtack::OnHit()
 SkillResult NotNormalAtack::OnExplosion(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir)
 {
 	SkillResult res = m_PostSkill.OnCast(pos, dir.getNormalized() * -1.f);
-	assert(res.m_Bullet != nullptr);
 	return res;
 
 }

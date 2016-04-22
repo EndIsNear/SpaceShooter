@@ -27,10 +27,9 @@ public:
 	{
 		SkillResult res;
 		res.m_Source = this;
-		res.m_Bullet = new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName);
+		res.m_Bullets.push_back(new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName));
 
 		m_CrnCooldown = m_MaxCooldown;
-		assert(res.m_Bullet != nullptr);
 		res.m_Type = SkillResult::ResultType::Bullet;
 		return res;
 	}
@@ -63,10 +62,9 @@ public:
 	{
 		SkillResult res;
 		res.m_Source = this;
-		res.m_Bullet = new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName);
+		res.m_Bullets.push_back(new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName));
 
 		m_CrnCooldown = m_MaxCooldown;
-		assert(res.m_Bullet != nullptr);
 		res.m_Type = SkillResult::ResultType::Bullet;
 		return res;
 	}
@@ -99,10 +97,9 @@ public:
 	{
 		SkillResult res;
 		res.m_Source = this;
-		res.m_Bullet = new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName, 1.f);
+		res.m_Bullets.push_back(new BulletBase(pos, dir.getNormalized(), m_BulletSpeeed, m_SpriteName, 1.f));
 
 		m_CrnCooldown = m_MaxCooldown;
-		assert(res.m_Bullet != nullptr);
 		res.m_Type = SkillResult::ResultType::Bullet;
 		return res;
 	}
