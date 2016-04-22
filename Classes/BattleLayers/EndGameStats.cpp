@@ -61,6 +61,7 @@ void EndGameStats::SetTime(const float time)
 
 void EndGameStats::onContinue()
 {
+	getParent()->unscheduleUpdate();
 	auto newScene = MainMenuScene::createScene();
 	BattleManager::Instance()->free();
 	Director::getInstance()->popScene();

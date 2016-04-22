@@ -39,6 +39,7 @@ bool SettingsLayer::init()
 
 void SettingsLayer::onQuit()
 {
+	getParent()->unscheduleUpdate();
 	auto newScene = MainMenuScene::createScene();
 	BattleManager::Instance()->free();
 	Director::getInstance()->popScene();

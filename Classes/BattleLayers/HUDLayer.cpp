@@ -6,8 +6,6 @@
 #include "cocostudio\CocoStudio.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"
 
-
-
 USING_NS_CC;
 
 bool HUDLayer::init()
