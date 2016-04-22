@@ -17,7 +17,11 @@ void BattleManager::initialize(Spawner * spawner)
 	m_Allies.lShips.push_back(new LogicalShip(1000, 500, 33, 0, new LogicalWeapon()));
 	m_Allies.ais.push_back(nullptr);
 	m_Allies.phShips[m_PlayerIndex]->Update(0.f);
-	m_Allies.phShips[m_PlayerIndex]->GetSprite()->setGLProgram(GetOnHitShader());
+	auto  p = GetOnHitShader();
+	m_state = GLProgramState::create(p);
+	//m_Allies.phShips[m_PlayerIndex]->GetSprite()->setGLProgram(p);
+	m_Allies.phShips[m_PlayerIndex]->GetSprite()->setGLProgramState(m_state);
+
 }
 
 void BattleManager::free()
@@ -130,12 +134,13 @@ void BattleManager::updatePlayer(const float dt)
 	m_DisplayPlayerLifeCB(m_Allies.lShips[m_PlayerIndex]->GetLifeInPer());
 	m_DisplayPlayerShieldCB(m_Allies.lShips[m_PlayerIndex]->GetShieldInPer());
 
+
 	//input callbacks
 	if (m_PlayerButtonsCB())
 		fireBullet(true, m_PlayerIndex, static_cast<UsedSkill>(m_PlayerButtonsCB()));
 
 	//tmp
-	UpdateOnHitShader(m_Allies.phShips[m_PlayerIndex]->GetSprite()->getGLProgram(), m_ElapsedTime);
+	UpdateOnHitShader(m_state, m_ElapsedTime);
 }
 
 void BattleManager::updateEnemies(const float dt)

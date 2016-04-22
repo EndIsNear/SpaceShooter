@@ -61,10 +61,17 @@ bool HUDLayer::init()
 		cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, m_SkillButtons[i]);
 
 		auto program = GetCooldownShader();
-		m_CdnShaders[i] = GLProgramState::create(program);
-		m_SkillButtons[i]->setGLProgram(program);
-		m_SkillButtons[i]->setGLProgramState(m_CdnShaders[i]);
-		UpdateCooldownShader(m_CdnShaders[i], 1.f);
+		if (program)
+		{
+			m_CdnShaders[i] = GLProgramState::create(program);
+			m_SkillButtons[i]->setGLProgram(program);
+			m_SkillButtons[i]->setGLProgramState(m_CdnShaders[i]);
+			UpdateCooldownShader(m_CdnShaders[i], 1.f);
+		}
+		else
+		{
+			m_CdnShaders[i] = NULL;
+		}
 	}
 
 	m_PressedButtons = 0;
@@ -90,6 +97,7 @@ void HUDLayer::updateCooldowns()
 		for (size_t i = 0; i < 4; ++i)
 		{
 			//now update the given shander
+			if(m_CdnShaders[i])
 			UpdateCooldownShader(m_CdnShaders[i], 1.f - cdns[i]);
 		}
 	}

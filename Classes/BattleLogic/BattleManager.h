@@ -137,6 +137,7 @@ private:
 	Bullets m_EnemyBullets;
 	float m_ElapsedTime;
 
+	cocos2d::GLProgramState *m_state;
 	cocos2d::Vector<cocos2d::SpriteFrame*> m_ExplosionAnim;
 };
 
