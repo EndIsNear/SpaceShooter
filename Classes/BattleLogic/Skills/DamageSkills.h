@@ -82,6 +82,45 @@ public:
 };
 
 ///////////////////////////////////////
+// Dual Barrel Attack
+///////////////////////////////////////
+
+class DualBarrelAttack : public SkillInterface
+{
+	float m_Dmg;
+	float m_BulletSpeeed;
+	float m_OffsetFromCenter;
+	std::string m_SpriteName;
+
+public:
+	DualBarrelAttack(const float dmg, const float cdn, const float bulletSpeed, const float offsetFromCenter, const std::string& spriteName)
+		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName), m_OffsetFromCenter(offsetFromCenter)
+	{
+		m_MaxCooldown = cdn;
+	}
+	virtual SkillInterface * Clone() override { return new DualBarrelAttack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_OffsetFromCenter, m_SpriteName); };
+	virtual ~DualBarrelAttack() override {}
+
+	/// Used when there is command to cast a skill
+	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
+	{
+		SkillResult res;
+		res.m_Source = this;
+		const cocos2d::Vec2 nDir = dir.getNormalized();
+		cocos2d::Vec2 offset = dir.getPerp();
+		offset.scale(m_OffsetFromCenter);
+		res.m_Bullets.push_back(new BulletBase(pos + offset, nDir, m_BulletSpeeed, m_SpriteName));
+		res.m_Bullets.push_back(new BulletBase(pos - offset, nDir, m_BulletSpeeed, m_SpriteName));
+		m_CrnCooldown = m_MaxCooldown;
+		res.m_Type = SkillResult::ResultType::Bullet;
+		return res;
+	}
+
+	/// Used after the projectile hit the enemy
+	virtual SkillResult OnHit() override;
+};
+
+///////////////////////////////////////
 // DoT Attack
 ///////////////////////////////////////
 
