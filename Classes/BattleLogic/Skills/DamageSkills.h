@@ -7,20 +7,20 @@
 // Normal Attack
 ///////////////////////////////////////
 
-class NormalAtack : public SkillInterface
+class NormalAttack : public SkillInterface
 {
 	float m_Dmg;
 	float m_BulletSpeeed;
 	std::string m_SpriteName;
 
 public:
-	NormalAtack(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName)
+	NormalAttack(const float dmg, const float cdn, const float bulletSpeed, const std::string& spriteName)
 		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName)
 	{
 		m_MaxCooldown = cdn;
 	}
-	virtual SkillInterface * Clone() override { return new NormalAtack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
-	virtual ~NormalAtack() override {}
+	virtual SkillInterface * Clone() override { return new NormalAttack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
+	virtual ~NormalAttack() override {}
 
 	/// Used when there is command to cast a skill
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
@@ -39,10 +39,10 @@ public:
 };
 
 ///////////////////////////////////////
-// Normal Attack
+// Spread Attack
 ///////////////////////////////////////
 
-class NormalSpreadAtack : public SkillInterface
+class NormalSpreadAttack : public SkillInterface
 {
 	float m_Dmg;
 	float m_BulletSpeeed;
@@ -51,14 +51,14 @@ class NormalSpreadAtack : public SkillInterface
 	std::string m_SpriteName;
 
 public:
-	NormalSpreadAtack(const float dmg, const float cdn, const float bulletSpeed, const float spreadAngle,
+	NormalSpreadAttack(const float dmg, const float cdn, const float bulletSpeed, const float spreadAngle,
 		const size_t bulletCnt, const std::string& spriteName)
 		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName), m_SpreadAngle(spreadAngle), m_BulletCnt(bulletCnt)
 	{
 		m_MaxCooldown = cdn;
 	}
-	virtual SkillInterface * Clone() override { return new NormalAtack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
-	virtual ~NormalSpreadAtack() override {}
+	virtual SkillInterface * Clone() override { return new NormalSpreadAttack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpreadAngle, m_BulletCnt, m_SpriteName); };
+	virtual ~NormalSpreadAttack() override {}
 
 	/// Used when there is command to cast a skill
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
@@ -117,10 +117,10 @@ public:
 };
 
 ///////////////////////////////////////
-// not Normal Attack
+// Granade Attack
 ///////////////////////////////////////
 
-class GranadeAtack : public SkillInterface
+class GranadeAttack : public SkillInterface
 {
 	float m_Dmg;
 	float m_BulletSpeeed;
@@ -129,15 +129,15 @@ class GranadeAtack : public SkillInterface
 	SkillInterface& m_PostSkill;
 
 public:
-	GranadeAtack(const float dmg, const float cdn, const float bulletSpeed, const float explosionDelay,
+	GranadeAttack(const float dmg, const float cdn, const float bulletSpeed, const float explosionDelay,
 		const std::string& spriteName, SkillInterface& postCast)
 		: m_Dmg(dmg), m_BulletSpeeed(bulletSpeed), m_SpriteName(spriteName),
 			m_PostSkill(postCast), m_ExplosionDelay(explosionDelay)
 	{
 		m_MaxCooldown = cdn;
 	}
-	virtual SkillInterface * Clone() override { return new NormalAtack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_SpriteName); };
-	virtual ~GranadeAtack() override {}
+	virtual SkillInterface * Clone() override { return new GranadeAttack(m_Dmg, m_MaxCooldown, m_BulletSpeeed, m_ExplosionDelay, m_SpriteName, /*TODO: not rly proper*/m_PostSkill); };
+	virtual ~GranadeAttack() override {}
 
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override
 	{

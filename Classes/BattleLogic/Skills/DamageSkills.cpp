@@ -1,7 +1,7 @@
 #include "BattleLogic\Skills\DamageSkills.h"
 #include "BattleLogic\LogicalShip.h"
 
-SkillResult NormalAtack::OnHit()
+SkillResult NormalAttack::OnHit()
 {
 	SkillResult res;
 	res.m_Effect = SkillEffect(SkillEffect::EffectType::OneTime, EffectFunc([this](LogicalShip* ship, const float dt, float& timeLeft) -> bool
@@ -12,7 +12,7 @@ SkillResult NormalAtack::OnHit()
 	return res;
 }
 
-SkillResult NormalSpreadAtack::OnHit()
+SkillResult NormalSpreadAttack::OnHit()
 {
 	SkillResult res;
 	res.m_Effect = SkillEffect(SkillEffect::EffectType::OneTime, EffectFunc([this](LogicalShip* ship, const float dt, float& timeLeft) -> bool
@@ -39,7 +39,7 @@ SkillResult DoTAttack::OnHit()
 	return res;
 }
 
-SkillResult GranadeAtack::OnHit()
+SkillResult GranadeAttack::OnHit()
 {
 	SkillResult res;
 	res.m_Effect = SkillEffect(SkillEffect::EffectType::OneTime, EffectFunc([this](LogicalShip* ship, const float dt, float& timeLeft) -> bool
@@ -50,7 +50,7 @@ SkillResult GranadeAtack::OnHit()
 	return res;
 }
 
-SkillResult GranadeAtack::OnExplosion(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir)
+SkillResult GranadeAttack::OnExplosion(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir)
 {
 	const int size = 10;
 	const float angleStep = 6.2831f / size;
