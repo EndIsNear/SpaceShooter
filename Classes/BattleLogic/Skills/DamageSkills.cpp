@@ -50,6 +50,7 @@ SkillResult GranadeAttack::OnExplosion(const cocos2d::Vec2 pos, const cocos2d::V
 		const float angle = angleStep * i;
 		res.m_Bullets.push_back(m_PostSkill.OnCast(pos, dir.getNormalized().rotateByAngle(cocos2d::Vec2::ZERO, angle)).m_Bullets[0]);
 	}
+	m_PostSkill.SetCrnCooldown(0.f);
 	res.m_Source = &m_PostSkill;
 	return res;
 
