@@ -111,7 +111,7 @@ public:
 		SkillResult res;
 		res.m_Source = this;
 		const cocos2d::Vec2 nDir = dir.getNormalized();
-		cocos2d::Vec2 offset = dir.getPerp();
+		cocos2d::Vec2 offset = nDir.getPerp();
 		offset.scale(m_OffsetFromCenter);
 		res.m_Bullets.push_back(new BulletBase(pos + offset, nDir, m_BulletSpeeed, m_SpriteName));
 		res.m_Bullets.push_back(new BulletBase(pos - offset, nDir, m_BulletSpeeed, m_SpriteName));
