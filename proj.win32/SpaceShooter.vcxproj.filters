@@ -200,6 +200,9 @@
     <ClInclude Include="..\Classes\BattleLogic\Skills\BuffSkills.h">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
+    <ClInclude Include="AIGroupCommander.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
