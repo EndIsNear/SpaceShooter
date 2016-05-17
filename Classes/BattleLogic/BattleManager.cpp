@@ -2,7 +2,7 @@
 
 #include "Shaders\Shaders.h"
 #include "BattleLogic\Spawner.h"
-
+#include "AI\AIGroupCommander.h"
 USING_NS_CC;
 
 BattleManager * BattleManager::m_instance = nullptr;
@@ -17,6 +17,7 @@ void BattleManager::initialize(Spawner * spawner)
 	m_Allies.lShips.push_back(new LogicalShip(1000, 500, 33, 0, new LogicalWeapon()));
 	m_Allies.ais.push_back(nullptr);
 	m_Allies.phShips[m_PlayerIndex]->Update(0.f);
+	TestCommanger::GetInstace().SetTarget(*m_Allies.phShips.back());
 	auto  p = GetOnHitShader();
 	m_state = GLProgramState::create(p);
 	//m_Allies.phShips[m_PlayerIndex]->GetSprite()->setGLProgram(p);
@@ -104,7 +105,7 @@ void BattleManager::Update(const float dt)
 	checkForHitEnemy();
 	checkForHitPlayer();
 	updatePlayer(dt);
-
+	TestCommanger::GetInstace().Update(dt);
 	m_ElapsedTime += dt;
 
 

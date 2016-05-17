@@ -1,6 +1,5 @@
 #include "Spawner.h"
 #include "GameLogic\GameManager.h"
-
 USING_NS_CC;
 
 void Spawner::Initialize(size_t levelID)

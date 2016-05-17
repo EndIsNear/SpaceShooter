@@ -15,18 +15,9 @@
 	    						"aiID" : 0,
 	    						"sprtNameID" : 1,
 	    						"shipSpeed" : 400,
-	    						"timeToSpawn" : [2, 3, 7, 15, 30 , 31, 32 ]
-	    					},
-
-	    					{
-	    						"spwnPntID": 0,
-	    						"lShipID" : 1,
-	    						"lWeaponID" : 1,
-	    						"aiID" : 0,
-	    						"sprtNameID" : 2,
-	    						"shipSpeed" : 500,
-	    						"timeToSpawn" : [2, 3, 10 ,  15 , 25 ,26, 27]
+	    						"timeToSpawn" : [2, 3, 7 ]
 	    					}
+
 	    			],
 
 	    			"SpawnPoints":	[

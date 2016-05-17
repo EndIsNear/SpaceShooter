@@ -114,6 +114,12 @@
     <ClCompile Include="..\Classes\BattleLogic\Skills\BuffSkills.cpp">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\AI\AIGroupMember.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AI\AIGroupCommander.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -200,7 +206,10 @@
     <ClInclude Include="..\Classes\BattleLogic\Skills\BuffSkills.h">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClInclude>
-    <ClInclude Include="AIGroupCommander.h">
+    <ClInclude Include="..\Classes\AI\AIGroupCommander.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AI\AIGroupMember.h">
       <Filter>src\AI</Filter>
     </ClInclude>
   </ItemGroup>

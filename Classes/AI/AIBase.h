@@ -44,6 +44,7 @@ public:
 		std::vector<BulletBase*>& enemyBullets,
 		std::vector<ShipBase*>& friends,
 		const float dt) = 0;
+	virtual ~AIBaseInterface() {};
 };
 
 AIBaseInterface * GetAIbyID(const BodyBase& rMe, const LogicalWeapon &mWeapon, unsigned type);

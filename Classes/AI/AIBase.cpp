@@ -1,4 +1,6 @@
 #include "AI\AIBase.h"
+#include "AI\AIGroupCommander.h"
+#include "AI\AIGroupMember.h"
 
 AIBaseInterface * GetAIbyID(const BodyBase& rMe, const LogicalWeapon &mWeapon, unsigned type)
 {
@@ -6,7 +8,7 @@ AIBaseInterface * GetAIbyID(const BodyBase& rMe, const LogicalWeapon &mWeapon, u
 	switch (type)
 	{
 		case 0:
-			return new MegaOpAI(ai);
+			return new AIGroupMember(ai, TestCommanger::GetInstace(), TestCommanger::GetInstace().GetFreePosition());
 		case 1:
 			return new JustShoot(ai);
 		default:
