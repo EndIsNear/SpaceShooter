@@ -20,13 +20,13 @@ public:
 	{
 		m_MaxCooldown = cdn;
 	}
-	virtual SkillInterface * Clone() override { return new IncAttackSpeedSkill(m_MaxCooldown, m_EffectRatio,  m_EffectTime, m_EffectedSkillIdx); };
+	virtual SkillInterface * Clone() override { return new IncAttackSpeedSkill(m_MaxCooldown, m_EffectRatio, m_EffectTime, m_EffectedSkillIdx); };
 	virtual ~IncAttackSpeedSkill() override {}
 
 	/// Used when there is command to cast a skill
 	virtual SkillResult OnCast(const cocos2d::Vec2 pos, const cocos2d::Vec2 dir) override;
 
-	/// Used after the projectile hit the enemy
+	/// Used after the projectile hits the enemy
 	virtual SkillResult OnHit() override { return SkillResult(); }
 };
 

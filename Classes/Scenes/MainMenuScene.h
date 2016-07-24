@@ -9,7 +9,6 @@ class MainMenuScene : public cocos2d::Layer
 {
 	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
 	cocos2d::ui::Button * m_PlayButton;
-	//cocos2d::ui::Button m_PlayButton;
 	cocos2d::ui::Button * m_ShipyardButton;
 	cocos2d::ui::Button * m_SettingsButton;
 	cocos2d::ui::Button * m_ExitButton;
@@ -20,6 +19,7 @@ public:
 	virtual bool init();
 
 	void menuBattleCallback();
+	void menuShipyardCallback();
 	void menuBackCallback();
 };
 

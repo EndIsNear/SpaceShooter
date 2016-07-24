@@ -114,6 +114,9 @@
     <ClCompile Include="..\Classes\BattleLogic\Skills\BuffSkills.cpp">
       <Filter>src\BattleLogic\Skills</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\TempSkillChoose.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BattleLogic\Skills\BuffSkills.h">
       <Filter>src\BattleLogic\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\TempSkillChoose.h">
+      <Filter>src\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

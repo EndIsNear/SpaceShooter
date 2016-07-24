@@ -167,6 +167,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\BattleScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\LevelSelectScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\TempSkillChoose.cpp" />
     <ClCompile Include="..\Classes\Shaders\Shaders.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -195,6 +196,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\BattleScene.h" />
     <ClInclude Include="..\Classes\Scenes\LevelSelectScene.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene.h" />
+    <ClInclude Include="..\Classes\Scenes\TempSkillChoose.h" />
     <ClInclude Include="..\Classes\Shaders\Shaders.h" />
     <ClInclude Include="..\Classes\Utils.h" />
     <ClInclude Include="..\Classes\Utils\FileReader.h" />

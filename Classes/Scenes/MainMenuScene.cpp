@@ -3,6 +3,9 @@
 #include "cocostudio\CocoStudio.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"
 
+//tmp remove it
+#include "Scenes/TempSkillChoose.h"
+
 USING_NS_CC;
 
 
@@ -32,7 +35,7 @@ bool MainMenuScene::init()
 	m_ShipyardButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Shipyard"));
 	m_ShipyardButton->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type) {
 		if (ui::Widget::TouchEventType::ENDED == type)
-			menuBackCallback();
+			menuShipyardCallback();
 	});
 
 	m_SettingsButton = static_cast<ui::Button*>(MainMenuLayer->getChildByName("Settings"));
@@ -53,6 +56,12 @@ bool MainMenuScene::init()
 void MainMenuScene::menuBattleCallback()
 {
 	auto newScene = LevelSelectScene::createScene();
+	Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
+}
+
+void MainMenuScene::menuShipyardCallback()
+{
+	auto newScene = SkillChooseScene::createScene();
 	Director::getInstance()->replaceScene(reinterpret_cast<Scene*>(newScene));
 }
 
