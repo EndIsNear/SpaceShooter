@@ -66,8 +66,13 @@ void GameManager::loadWeapons()
 	m_LogicalWeaponsDB.resize(wepCnt);
 	for (unsigned i = 0; i < wepCnt; i++)
 	{
-		m_LogicalWeaponsDB[i] = new LogicalWeapon;
 		//TODO: fix this!
+		std::unique_ptr<SkillInterface> skill1(new DualBarrelAttack(50.f, 0.5f, 800.f, 30.f, "bullet.png"));
+		std::unique_ptr<SkillInterface> skill2(new GranadeAttack(500.f, 5.f, 800.f, 0.5f, "EnemyBullet.png", *(skill1.get())));
+		std::unique_ptr<SkillInterface> skill3(new IncAttackSpeedSkill(10.f, 2.f, 5.f));
+		std::unique_ptr<SkillInterface> skill4(new DoTAttack(500.f, 2.f, 800.f, "bullet2.png", 10.f));
+		auto weapon = new LogicalWeapon(skill1, skill2, skill3, skill4);
+		m_LogicalWeaponsDB[i] = weapon;
 		//wepsFile.GetEntryByIndex(i, *m_LogicalWeaponsDB[i]);
 	}
 }

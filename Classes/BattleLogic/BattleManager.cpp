@@ -14,7 +14,15 @@ void BattleManager::initialize(Spawner * spawner)
 	///////////////////////////
 	//test
 	m_Allies.phShips.push_back(new ShipBase(Vec2(1920, 1080), Vec2(1, 0), 400.f, "fighter.png"));
-	m_Allies.lShips.push_back(new LogicalShip(1000, 500, 33, 0, new LogicalWeapon()));
+
+	std::unique_ptr<SkillInterface> skill1(new DualBarrelAttack(50.f, 0.5f, 800.f, 30.f, "bullet.png"));
+	std::unique_ptr<SkillInterface> skill2(new GranadeAttack(500.f, 5.f, 800.f, 0.5f, "EnemyBullet.png", *(skill1.get())));
+	std::unique_ptr<SkillInterface> skill3(new IncAttackSpeedSkill(10.f, 2.f, 5.f));
+	std::unique_ptr<SkillInterface> skill4(new DoTAttack(500.f, 2.f, 800.f, "bullet2.png", 10.f));
+	auto weapon = new LogicalWeapon(skill1, skill2, skill3, skill4);
+
+	m_Allies.lShips.push_back(new LogicalShip(1000, 500, 33, 0, weapon));
+
 	m_Allies.ais.push_back(nullptr);
 	m_Allies.phShips[m_PlayerIndex]->Update(0.f);
 	auto  p = GetOnHitShader();

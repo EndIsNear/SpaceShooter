@@ -1,19 +1,20 @@
 #include "LogicalWeapon.h"
 
-LogicalWeapon::LogicalWeapon()
-{
-	m_Skills[0] = new DualBarrelAttack(50.f, 0.5f, 800.f, 30.f, "bullet.png");
-	m_Skills[1] = new GranadeAttack(500.f, 5.f, 800.f, 0.5f, "EnemyBullet.png", *(m_Skills[0]));
-	m_Skills[2] = new IncAttackSpeedSkill(10.f, 2.f, 5.f);
-	m_Skills[3] = new DoTAttack(500.f, 2.f, 800.f, "bullet2.png", 10.f);
+LogicalWeapon::LogicalWeapon(std::unique_ptr<SkillInterface>& skill0, std::unique_ptr<SkillInterface>& skill1,
+	std::unique_ptr<SkillInterface>& skill2, std::unique_ptr<SkillInterface>& skill3) :
+	m_Skills{ std::move(skill0),
+		std::move(skill1),
+		std::move(skill2),
+		std::move(skill3)
 }
+{}
 
 
 LogicalWeapon::LogicalWeapon(const LogicalWeapon& wpn)
 {
 	for (size_t i = 0; i < skillSize; ++i)
 	{
-		m_Skills[i] = wpn.m_Skills[i]->Clone();
+		m_Skills[i].reset(wpn.m_Skills[i]->Clone());
 	}
 }
 
@@ -23,8 +24,7 @@ LogicalWeapon& LogicalWeapon::operator=(const LogicalWeapon& wpn)
 	{
 		for (size_t i = 0; i < skillSize; ++i)
 		{
-			delete m_Skills[i];
-			m_Skills[i] = wpn.m_Skills[i]->Clone();
+			m_Skills[i].reset(wpn.m_Skills[i]->Clone());
 		}
 	}
 	return *this;

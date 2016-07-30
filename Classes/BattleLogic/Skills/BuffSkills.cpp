@@ -9,8 +9,8 @@ SkillResult IncAttackSpeedSkill::OnCast(const cocos2d::Vec2 pos, const cocos2d::
 	{
 		if (!m_EffectApplied)
 		{
-			const float cdn = ship->GetWeapon()->GetSkillAt(m_EffectedSkillIdx)->GetMaxCooldown();
-			ship->GetWeapon()->GetSkillAt(m_EffectedSkillIdx)->SetMaxCooldown(cdn / m_EffectRatio);
+			const float cdn = ship->GetWeapon()->GetMaxCooldownAt(m_EffectedSkillIdx);
+			ship->GetWeapon()->SetMaxCooldownAt(m_EffectedSkillIdx, cdn / m_EffectRatio);
 			m_EffectApplied = true;
 		}
 
@@ -18,8 +18,8 @@ SkillResult IncAttackSpeedSkill::OnCast(const cocos2d::Vec2 pos, const cocos2d::
 
 		if (timeLeft < 0.f)
 		{
-			const float cdn = ship->GetWeapon()->GetSkillAt(m_EffectedSkillIdx)->GetMaxCooldown();
-			ship->GetWeapon()->GetSkillAt(m_EffectedSkillIdx)->SetMaxCooldown(cdn * m_EffectRatio);
+			const float cdn = ship->GetWeapon()->GetMaxCooldownAt(m_EffectedSkillIdx);
+			ship->GetWeapon()->SetMaxCooldownAt(m_EffectedSkillIdx, cdn * m_EffectRatio);
 			m_EffectApplied = false;
 			return false;
 		}

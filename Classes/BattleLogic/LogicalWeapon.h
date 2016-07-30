@@ -19,7 +19,8 @@ enum UsedSkill : unsigned char
 class LogicalWeapon
 {
 public:
-	LogicalWeapon();
+	LogicalWeapon(std::unique_ptr<SkillInterface>& skill0, std::unique_ptr<SkillInterface>& skill1,
+		std::unique_ptr<SkillInterface>& skill2, std::unique_ptr<SkillInterface>& skill3);
 	LogicalWeapon(const LogicalWeapon& wpn);
 	LogicalWeapon& operator=(const LogicalWeapon& wpn);
 
@@ -41,18 +42,39 @@ public:
 		return SkillResult();
 	}
 
-	SkillInterface * GetSkillAt(size_t idx)
-	{
-		assert(idx <= skillSize);
-		assert(m_Skills[idx] != nullptr);
-		return m_Skills[idx];
-	}
+	//SkillInterface * GetSkillAt(size_t idx)
+	//{
+	//	assert(idx <= skillSize);
+	//	assert(m_Skills[idx] != nullptr);
+	//	return m_Skills[idx];
+	//}
 
 	float GetCooldownAt(size_t idx)
 	{
 		assert(idx <= skillSize);
 		assert(m_Skills[idx] != nullptr);
 		return m_Skills[idx]->GetCrnCooldown();
+	}
+
+	void SetCooldownAt(size_t idx, float cdn)
+	{
+		assert(idx <= skillSize);
+		assert(m_Skills[idx] != nullptr);
+		m_Skills[idx]->SetCrnCooldown(cdn);
+	}
+
+	float GetMaxCooldownAt(size_t idx)
+	{
+		assert(idx <= skillSize);
+		assert(m_Skills[idx] != nullptr);
+		return m_Skills[idx]->GetMaxCooldown();
+	}
+
+	void SetMaxCooldownAt(size_t idx, float cdn)
+	{
+		assert(idx <= skillSize);
+		assert(m_Skills[idx] != nullptr);
+		m_Skills[idx]->SetMaxCooldown(cdn);
 	}
 
 	float GetPrcCooldownAt(size_t idx)
@@ -62,7 +84,7 @@ public:
 		return m_Skills[idx]->GetCooldownInPerc();
 	}
 private:
-	SkillInterface * m_Skills[skillSize];
+	std::unique_ptr<SkillInterface> m_Skills[skillSize];
 };
 
 #endif // __LOGICAL_WEAPON_H__
